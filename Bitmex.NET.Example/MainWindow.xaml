@@ -1,0 +1,52 @@
+﻿<Window x:Class="Bitmex.NET.Example.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bitmex.NET.Example"
+        mc:Ignorable="d"
+        Title="Bitmex.NET Example" Height="350" Width="525">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<GroupBox Grid.Row="0" Header="Authorization">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Label Grid.Row="0" Grid.Column="0" 
+					   Content="Key"></Label>
+				<Label Grid.Row="1" Grid.Column="0" Content="Secret"></Label>
+
+				<TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Key}"></TextBox>
+				<TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Secret}"></TextBox>
+			</Grid>
+		</GroupBox>
+		<GroupBox Header="Trade"  Grid.Row="1">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Label Grid.Row="0" Grid.Column="0" Content="Size"></Label>
+				<TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Size}"></TextBox>
+				<StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+					<Button Content="Buy" HorizontalAlignment="Stretch" MinWidth="200" Command="{Binding BuyCmd}"/>
+					<Button Content="Sell" HorizontalAlignment="Stretch" MinWidth="200" Command="{Binding SellCmd}"/>
+				</StackPanel>
+			</Grid>
+		</GroupBox>
+	</Grid>
+</Window>
