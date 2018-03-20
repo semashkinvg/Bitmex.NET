@@ -3,7 +3,7 @@ Wrapper for BitMEX.com REST API
 
 ## Quick Start
 
-Install NuGet package
+Install NuGet package `Install-Package Bitmex.NET`
 
 Create default API service:
 
@@ -18,7 +18,7 @@ var bitmexAuthorization = new BitmexAuthorization()
 var bitmexApiService = BitmexApiService.CreateDefaultApi(bitmexAuthorization);
 ```
 
-Another, registering in a DI container (e.g. Unity)
+Another, registering in a DI container (e.g. Unity). ![Example](/Bitmex.NET.IntegrationTests/BitmexNetUnityExtension.cs)
 ```
 Container.RegisterType<IBitmexApiProxy, BitmexApiProxy>();
 Container.RegisterType<IBitmexApiService, BitmexApiService>();
@@ -33,7 +33,8 @@ var authorization = new BitmexAuthorization
 Container.RegisterInstance<IBitmexAuthorization>(authorization);
 ```
 
-place an order:
+
+place an order ![Example](/Bitmex.NET.Example/MainWindowViewModel.cs):
 ```
 private async void Sell()
 {
@@ -76,7 +77,7 @@ var result = await bitmexApiService.Execute(new ApiActionAttributes<SomeJsonPara
 
 
 ## Progress
-The following methods were implemented and covered with integration tests
+The following methods were implemented and covered with the ![integration tests](/Bitmex.NET.IntegrationTests)
 
 
 Method|REST API Method
@@ -100,3 +101,16 @@ GET |quote
 GET |quote/bucketed
 GET |trade
 GET |trade/bucketed
+
+
+## Examples
+
+Please see example of simple Buy&Sell application ![here](/Bitmex.NET.Example)
+
+### Integration Tests
+
+You will find a live example for all the implemented APIs within integration tests project ![here](/Bitmex.NET.IntegrationTests)
+
+## Other
+
+API was taken from ![testnet.bitmex.com](https://testnet.bitmex.com/api/explorer/)
