@@ -28,8 +28,8 @@ namespace Bitmex.NET
 		}
 		public static partial class Execution
 		{
-			//public static ApiActionAttributes<ExecutionGETRequestParams, ExecutionDto> GetExecution = new ApiActionAttributes<ExecutionGETRequestParams, ExecutionDto>("execution", HttpMethods.GET);
-			//public static ApiActionAttributes<ExecutionTradeHistoryGETRequestParams, ExecutionDto> GetExecutionTradeHistory = new ApiActionAttributes<ExecutionTradeHistoryGETRequestParams, ExecutionDto>("execution/tradeHistory", HttpMethods.GET);
+			public static ApiActionAttributes<ExecutionGETRequestParams, List<ExecutionDto>> GetExecution = new ApiActionAttributes<ExecutionGETRequestParams, List<ExecutionDto>>("execution", HttpMethods.GET);
+			public static ApiActionAttributes<ExecutionTradeHistoryGETRequestParams, List<ExecutionDto>> GetExecutionTradeHistory = new ApiActionAttributes<ExecutionTradeHistoryGETRequestParams, List<ExecutionDto>>("execution/tradeHistory", HttpMethods.GET);
 		}
 		public static partial class Funding
 		{

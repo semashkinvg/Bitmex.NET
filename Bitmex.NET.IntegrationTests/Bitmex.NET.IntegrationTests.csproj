@@ -92,6 +92,7 @@
     <Compile Include="IntegrationTestsClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\BitmexApiServiceOrderApiTests.cs" />
+    <Compile Include="Tests\BitmexApiServiceExecutionApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceTradeApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceQuoteApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceOrderBookApiTests.cs" />

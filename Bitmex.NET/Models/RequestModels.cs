@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
-using Newtonsoft.Json;
 
 namespace Bitmex.NET.Models
 {
@@ -86,19 +86,19 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double Count { get; set; }
+		public double? Count { get; set; }
 
 		[DisplayName("start")]
-		public double Start { get; set; }
+		public double? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
 
 		[DisplayName("startTime")]
-		public DateTime StartTime { get; set; }
+		public DateTime? StartTime { get; set; }
 
 		[DisplayName("endTime")]
-		public DateTime EndTime { get; set; }
+		public DateTime? EndTime { get; set; }
 	}
 	public partial class ExecutionTradeHistoryGETRequestParams : QueryStringParamsWithFilter
 	{
@@ -110,19 +110,19 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double Count { get; set; }
+		public double? Count { get; set; }
 
 		[DisplayName("start")]
-		public double Start { get; set; }
+		public double? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
 
 		[DisplayName("startTime")]
-		public DateTime StartTime { get; set; }
+		public DateTime? StartTime { get; set; }
 
 		[DisplayName("endTime")]
-		public DateTime EndTime { get; set; }
+		public DateTime? EndTime { get; set; }
 	}
 	public partial class FundingGETRequestParams : QueryStringParamsWithFilter
 	{
@@ -468,7 +468,7 @@ namespace Bitmex.NET.Models
 
 		[JsonProperty("amount")]
 		public double Amount { get; set; }
-    }
+	}
 	public partial class QuoteGETRequestParams : QueryStringParamsWithFilter
 	{
 
