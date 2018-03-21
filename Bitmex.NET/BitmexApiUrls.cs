@@ -37,12 +37,12 @@ namespace Bitmex.NET
 		}
 		public static partial class Instrument
 		{
-			//public static ApiActionAttributes<InstrumentGETRequestParams, InstrumentDto> GetInstrument = new ApiActionAttributes<InstrumentGETRequestParams, InstrumentDto>("instrument", HttpMethods.GET);
-			//public static ApiActionAttributes<InstrumentActiveGETRequestParams, InstrumentDto> GetInstrumentActive = new ApiActionAttributes<InstrumentActiveGETRequestParams, InstrumentDto>("instrument/active", HttpMethods.GET);
-			//public static ApiActionAttributes<InstrumentActiveAndIndicesGETRequestParams, InstrumentDto> GetInstrumentActiveAndIndices = new ApiActionAttributes<InstrumentActiveAndIndicesGETRequestParams, InstrumentDto>("instrument/activeAndIndices", HttpMethods.GET);
-			//public static ApiActionAttributes<InstrumentActiveIntervalsGETRequestParams, InstrumentDto> GetInstrumentActiveIntervals = new ApiActionAttributes<InstrumentActiveIntervalsGETRequestParams, InstrumentDto>("instrument/activeIntervals", HttpMethods.GET);
-			//public static ApiActionAttributes<InstrumentCompositeIndexGETRequestParams, InstrumentDto> GetInstrumentCompositeIndex = new ApiActionAttributes<InstrumentCompositeIndexGETRequestParams, InstrumentDto>("instrument/compositeIndex", HttpMethods.GET);
-			//public static ApiActionAttributes<InstrumentIndicesGETRequestParams, InstrumentDto> GetInstrumentIndices = new ApiActionAttributes<InstrumentIndicesGETRequestParams, InstrumentDto>("instrument/indices", HttpMethods.GET);
+			public static ApiActionAttributes<InstrumentGETRequestParams, List<InstrumentDto>> GetInstrument = new ApiActionAttributes<InstrumentGETRequestParams, List<InstrumentDto>>("instrument", HttpMethods.GET);
+			public static ApiActionAttributes<EmptyParameters, List<InstrumentDto>> GetInstrumentActive = new ApiActionAttributes<EmptyParameters, List<InstrumentDto>>("instrument/active", HttpMethods.GET);
+			public static ApiActionAttributes<EmptyParameters, List<InstrumentDto>> GetInstrumentActiveAndIndices = new ApiActionAttributes<EmptyParameters, List<InstrumentDto>>("instrument/activeAndIndices", HttpMethods.GET);
+			public static ApiActionAttributes<EmptyParameters, InstrumentActiveIntervalsDto> GetInstrumentActiveIntervals = new ApiActionAttributes<EmptyParameters, InstrumentActiveIntervalsDto>("instrument/activeIntervals", HttpMethods.GET);
+			public static ApiActionAttributes<InstrumentCompositeIndexGETRequestParams, List<InstrumentCompositeIndexDto>> GetInstrumentCompositeIndex = new ApiActionAttributes<InstrumentCompositeIndexGETRequestParams, List<InstrumentCompositeIndexDto>>("instrument/compositeIndex", HttpMethods.GET);
+			public static ApiActionAttributes<EmptyParameters, List<InstrumentDto>> GetInstrumentIndices = new ApiActionAttributes<EmptyParameters, List<InstrumentDto>>("instrument/indices", HttpMethods.GET);
 		}
 		public static partial class Insurance
 		{

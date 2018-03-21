@@ -448,7 +448,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
 			};
 
 			var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrderClosePosition, @paramsClosePosition).Result;
-			Thread.Sleep(1000);
 			// assert
 			resultClosePostion.Should().NotBeNull();
 			resultClosePostion.OrderId.Should().NotBeNull();
@@ -472,7 +471,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
 			};
 
 			var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrderClosePosition, @paramsClosePosition).Result;
-			Thread.Sleep(1000);
 
 			// assert
 			resultClosePostion.Should().NotBeNull();
@@ -498,7 +496,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
 			};
 
 			var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrderClosePosition, @paramsClosePosition).Result;
-			Thread.Sleep(1000);
 			// assert
 			resultClosePostion.Should().NotBeNull();
 			resultClosePostion.OrderId.Should().NotBeNull();

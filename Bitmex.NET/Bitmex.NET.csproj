@@ -53,6 +53,9 @@
     <Compile Include="BitmexAuthorization.cs" />
     <Compile Include="Dtos\BitmexApiError.cs" />
     <Compile Include="Dtos\ExecutionDto.cs" />
+    <Compile Include="Dtos\InstrumentActiveIntervalsDto.cs" />
+    <Compile Include="Dtos\InstrumentCompositeIndexDto.cs" />
+    <Compile Include="Dtos\InstrumentDto.cs" />
     <Compile Include="Dtos\OrderBookDto.cs" />
     <Compile Include="Dtos\OrderDto.cs" />
     <Compile Include="Dtos\PositionDto.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="IBitmexApiService.cs" />
     <Compile Include="IBitmexAuthorization.cs" />
     <Compile Include="Models\BitmexEnvironment.cs" />
+    <Compile Include="Models\EmptyParameters.cs" />
     <Compile Include="Models\HttpMethods.cs" />
     <Compile Include="Models\IJsonQueryParams.cs" />
     <Compile Include="Models\IQueryStringParams.cs" />

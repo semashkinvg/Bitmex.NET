@@ -158,25 +158,25 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double Count { get; set; }
+		public double? Count { get; set; }
 
 		[DisplayName("start")]
-		public double Start { get; set; }
+		public double? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
 
 		[DisplayName("startTime")]
-		public DateTime StartTime { get; set; }
+		public DateTime? StartTime { get; set; }
 
 		[DisplayName("endTime")]
-		public DateTime EndTime { get; set; }
+		public DateTime? EndTime { get; set; }
 	}
 	public partial class InstrumentCompositeIndexGETRequestParams : QueryStringParamsWithFilter
 	{
 
 		[DisplayName("account")]
-		public double Account { get; set; }
+		public double? Account { get; set; }
 
 		[DisplayName("symbol")]
 		public string Symbol { get; set; }
@@ -185,19 +185,19 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double Count { get; set; }
+		public double? Count { get; set; }
 
 		[DisplayName("start")]
-		public double Start { get; set; }
+		public double? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
 
 		[DisplayName("startTime")]
-		public DateTime StartTime { get; set; }
+		public DateTime? StartTime { get; set; }
 
 		[DisplayName("endTime")]
-		public DateTime EndTime { get; set; }
+		public DateTime? EndTime { get; set; }
 	}
 	public partial class InsuranceGETRequestParams : QueryStringParamsWithFilter
 	{
