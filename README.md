@@ -82,6 +82,14 @@ The following methods were implemented and covered with the ![integration tests]
 
 Method|REST API Method
 ------------|------------
+GET|execution
+GET|execution/tradeHistory
+GET|instrument
+GET|instrument/active
+GET|instrument/activeAndIndices
+GET|instrument/activeIntervals
+GET|instrument/compositeIndex
+GET|instrument/indices
 GET |order
 PUT |order
 POST |order
