@@ -1,5 +1,8 @@
 # Release Notes
 
+## 1.0.2
+fixed bug #1
+
 ## 1.0.1
 Added the follow APIs
 
