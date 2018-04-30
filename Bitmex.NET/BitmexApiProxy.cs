@@ -18,7 +18,7 @@ namespace Bitmex.NET
 		private readonly IDictionary<BitmexEnvironment, string> _environments = new Dictionary<BitmexEnvironment, string>
 		{
 			{BitmexEnvironment.Test, "https://testnet.bitmex.com"},
-			{BitmexEnvironment.Prod, "https://testnet.bitmex.com"}
+			{BitmexEnvironment.Prod, "https://www.bitmex.com"}
 		};
 
 		private string CurrentUrl => _environments[_bitmexAuthorization.BitmexEnvironment];
