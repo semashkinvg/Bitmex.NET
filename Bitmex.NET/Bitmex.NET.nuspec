@@ -11,7 +11,7 @@
 		<iconUrl>https://github.com/semashkinvg/Bitmex.NET/blob/master/default.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Wrapper for BitMEX.com REST API</description>
-		<releaseNotes>Initial release with built-in the most important API to implement a bot</releaseNotes>
+		<releaseNotes>See release notes here https://github.com/semashkinvg/Bitmex.NET/blob/master/releasenotes.md</releaseNotes>
 		<copyright>Copyright 2018</copyright>
 		<tags>BitMEX REST API</tags>
 		<dependencies>
