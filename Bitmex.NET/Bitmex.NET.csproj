@@ -49,6 +49,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitmexApiSocketProxy.cs" />
+    <Compile Include="BitmexApiSocketService.cs" />
     <Compile Include="BitmexApiUrls.cs" />
     <Compile Include="BitmexApiException.cs" />
     <Compile Include="BitmexApiProxy.cs" />
@@ -63,6 +65,9 @@
     <Compile Include="Dtos\OrderDto.cs" />
     <Compile Include="Dtos\PositionDto.cs" />
     <Compile Include="Dtos\QuoteDto.cs" />
+    <Compile Include="Dtos\Socket\BitmexSocketDataDto.cs" />
+    <Compile Include="Dtos\Socket\BitmexSocketOperationResultDto.cs" />
+    <Compile Include="Dtos\Socket\InitialRequstInfoDto.cs" />
     <Compile Include="Dtos\TradeBucketedDto.cs" />
     <Compile Include="Dtos\TradeDto.cs" />
     <Compile Include="IBitmexApiProxy.cs" />
@@ -83,6 +88,16 @@
     <Compile Include="Models\RequestModels.cs" />
     <Compile Include="Authorization\SignatureProvider.cs" />
     <Compile Include="Authorization\NonceProvider.cs" />
+    <Compile Include="Models\Socket\BitmexApiSubscriptionInfo.cs" />
+    <Compile Include="Models\Socket\DataEventArgs.cs" />
+    <Compile Include="Models\Socket\OperationResultEventArgs.cs" />
+    <Compile Include="Models\Socket\OperationResultEventHandler.cs" />
+    <Compile Include="Models\Socket\OperationType.cs" />
+    <Compile Include="Models\Socket\SocketAuthorizationMessage.cs" />
+    <Compile Include="Models\Socket\SocketDataEventHandler.cs" />
+    <Compile Include="Models\Socket\SocketMessage.cs" />
+    <Compile Include="Models\Socket\SocketSubscriptionMessage.cs" />
+    <Compile Include="Models\Socket\SubscriptionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

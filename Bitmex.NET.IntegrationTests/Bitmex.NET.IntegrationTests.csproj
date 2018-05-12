@@ -101,6 +101,7 @@
     <Compile Include="Tests\BitmexApiServiceQuoteApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceOrderBookApiTests.cs" />
     <Compile Include="Tests\BitmexApiServicePositionApiTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

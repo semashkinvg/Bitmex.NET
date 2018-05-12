@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bitmex.NET.Example"
         mc:Ignorable="d"
-        Title="Bitmex.NET Example" Height="350" Width="525">
+        Title="Bitmex.NET Example" Height="600" Width="525">
 
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<GroupBox Grid.Row="0" Header="Authorization">
 			<Grid>
@@ -26,11 +27,11 @@
 					   Content="Key"></Label>
 				<Label Grid.Row="1" Grid.Column="0" Content="Secret"></Label>
 
-				<TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Key}"></TextBox>
-				<TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Secret}"></TextBox>
+				<TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Key}" VerticalAlignment="Center"></TextBox>
+				<TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Secret}" VerticalAlignment="Center"></TextBox>
 			</Grid>
 		</GroupBox>
-		<GroupBox Header="Trade"  Grid.Row="1">
+		<GroupBox Header="Trade (buy/sell example)"  Grid.Row="1">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>
@@ -41,10 +42,35 @@
 					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
 				<Label Grid.Row="0" Grid.Column="0" Content="Size"></Label>
-				<TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Size}"></TextBox>
+				<TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Size}" VerticalAlignment="Center"></TextBox>
 				<StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
 					<Button Content="Buy" HorizontalAlignment="Stretch" MinWidth="200" Command="{Binding BuyCmd}"/>
 					<Button Content="Sell" HorizontalAlignment="Stretch" MinWidth="200" Command="{Binding SellCmd}"/>
+				</StackPanel>
+			</Grid>
+		</GroupBox>
+		<GroupBox Header="Instruments (life updates using socket connection example)"  Grid.Row="2">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<ListView ItemsSource="{Binding Instruments}">
+					<ListView.View>
+						<GridView>
+							<GridViewColumn DisplayMemberBinding="{Binding Symbol}" Header="Symbol"/>
+							<GridViewColumn DisplayMemberBinding="{Binding RootSymbol}" Header="RootSymbol"/>
+							<GridViewColumn DisplayMemberBinding="{Binding State}" Header="State"/>
+							<GridViewColumn DisplayMemberBinding="{Binding Typ}" Header="Typ"/>
+							<GridViewColumn DisplayMemberBinding="{Binding LastPrice}" Header="LastPrice"/>
+							<GridViewColumn DisplayMemberBinding="{Binding LowPrice}" Header="LowPrice"/>
+							<GridViewColumn DisplayMemberBinding="{Binding HighPrice}" Header="HighPrice"/>
+							<GridViewColumn DisplayMemberBinding="{Binding LastChangePcnt}" Header="LastChangePcnt"/>
+						</GridView>
+					</ListView.View>
+				</ListView>
+				<StackPanel Grid.Row="1" Grid.Column="0"  Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+					<Button Content="Connect" HorizontalAlignment="Stretch" MinWidth="200" Command="{Binding StartLoadSymbolsCmd}"/>
 				</StackPanel>
 			</Grid>
 		</GroupBox>
