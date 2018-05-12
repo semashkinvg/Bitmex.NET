@@ -11,36 +11,36 @@ namespace Bitmex.NET.Dtos
 		public string Symbol { get; set; }
 
 		[JsonProperty("open")]
-		public long Open { get; set; }
+		public decimal Open { get; set; }
 
 		[JsonProperty("high")]
-		public long High { get; set; }
+		public decimal High { get; set; }
 
 		[JsonProperty("low")]
-		public long Low { get; set; }
+		public decimal Low { get; set; }
 
 		[JsonProperty("close")]
-		public long Close { get; set; }
+		public decimal Close { get; set; }
 
 		[JsonProperty("trades")]
-		public long Trades { get; set; }
+		public decimal Trades { get; set; }
 
 		[JsonProperty("volume")]
-		public long Volume { get; set; }
+		public decimal Volume { get; set; }
 
 		[JsonProperty("vwap")]
-		public long? Vwap { get; set; }
+		public decimal? Vwap { get; set; }
 
 		[JsonProperty("lastSize")]
-		public long? LastSize { get; set; }
+		public decimal? LastSize { get; set; }
 
 		[JsonProperty("turnover")]
-		public long Turnover { get; set; }
+		public decimal Turnover { get; set; }
 
 		[JsonProperty("homeNotional")]
-		public long HomeNotional { get; set; }
+		public decimal HomeNotional { get; set; }
 
 		[JsonProperty("foreignNotional")]
-		public long ForeignNotional { get; set; }
+		public decimal ForeignNotional { get; set; }
 	}
 }

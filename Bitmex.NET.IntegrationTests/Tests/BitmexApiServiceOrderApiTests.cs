@@ -9,7 +9,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 	[TestClass]
 	public class BitmexApiServiceOrderApiTests : IntegrationTestsClass<IBitmexApiService>
 	{
-		private double _xbtAvgPrice;
+		private decimal _xbtAvgPrice;
 
 		[ClassCleanup]
 		public static void ClassCleanup()

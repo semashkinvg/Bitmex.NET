@@ -17,10 +17,10 @@ namespace Bitmex.NET.Dtos
 		public string Reference { get; set; }
 
 		[JsonProperty("lastPrice")]
-		public long? LastPrice { get; set; }
+		public decimal? LastPrice { get; set; }
 
 		[JsonProperty("weight")]
-		public long? Weight { get; set; }
+		public decimal? Weight { get; set; }
 
 		[JsonProperty("logged")]
 		public System.DateTimeOffset? Logged { get; set; }

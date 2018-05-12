@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Bitmex.NET.Dtos
 {
-    [DebuggerDisplay("{Symbol} {ExecQty} Unr. P&L{UnrealisedPnl}")]
+	[DebuggerDisplay("{Symbol} {ExecQty} Unr. P&L{UnrealisedPnl}")]
 	public partial class PositionDto
 	{
 		[JsonProperty("account")]
@@ -22,261 +22,261 @@ namespace Bitmex.NET.Dtos
 		public string QuoteCurrency { get; set; }
 
 		[JsonProperty("commission")]
-		public long Commission { get; set; }
+		public decimal Commission { get; set; }
 
 		[JsonProperty("initMarginReq")]
-		public long InitMarginReq { get; set; }
+		public decimal InitMarginReq { get; set; }
 
 		[JsonProperty("maintMarginReq")]
-		public long MaintMarginReq { get; set; }
+		public decimal MaintMarginReq { get; set; }
 
 		[JsonProperty("riskLimit")]
-		public long RiskLimit { get; set; }
+		public decimal RiskLimit { get; set; }
 
 		[JsonProperty("leverage")]
-		public long Leverage { get; set; }
+		public decimal Leverage { get; set; }
 
 		[JsonProperty("crossMargin")]
 		public bool CrossMargin { get; set; }
 
 		[JsonProperty("deleveragePercentile")]
-		public long? DeleveragePercentile { get; set; }
+		public decimal? DeleveragePercentile { get; set; }
 
 		[JsonProperty("rebalancedPnl")]
-		public long RebalancedPnl { get; set; }
+		public decimal RebalancedPnl { get; set; }
 
 		[JsonProperty("prevRealisedPnl")]
-		public long PrevRealisedPnl { get; set; }
+		public decimal PrevRealisedPnl { get; set; }
 
 		[JsonProperty("prevUnrealisedPnl")]
-		public long PrevUnrealisedPnl { get; set; }
+		public decimal PrevUnrealisedPnl { get; set; }
 
 		[JsonProperty("prevClosePrice")]
-		public long PrevClosePrice { get; set; }
+		public decimal PrevClosePrice { get; set; }
 
 		[JsonProperty("openingTimestamp")]
 		public System.DateTimeOffset OpeningTimestamp { get; set; }
 
 		[JsonProperty("openingQty")]
-		public long OpeningQty { get; set; }
+		public decimal OpeningQty { get; set; }
 
 		[JsonProperty("openingCost")]
-		public long OpeningCost { get; set; }
+		public decimal OpeningCost { get; set; }
 
 		[JsonProperty("openingComm")]
-		public long OpeningComm { get; set; }
+		public decimal OpeningComm { get; set; }
 
 		[JsonProperty("openOrderBuyQty")]
-		public long OpenOrderBuyQty { get; set; }
+		public decimal OpenOrderBuyQty { get; set; }
 
 		[JsonProperty("openOrderBuyCost")]
-		public long OpenOrderBuyCost { get; set; }
+		public decimal OpenOrderBuyCost { get; set; }
 
 		[JsonProperty("openOrderBuyPremium")]
-		public long OpenOrderBuyPremium { get; set; }
+		public decimal OpenOrderBuyPremium { get; set; }
 
 		[JsonProperty("openOrderSellQty")]
-		public long OpenOrderSellQty { get; set; }
+		public decimal OpenOrderSellQty { get; set; }
 
 		[JsonProperty("openOrderSellCost")]
-		public long OpenOrderSellCost { get; set; }
+		public decimal OpenOrderSellCost { get; set; }
 
 		[JsonProperty("openOrderSellPremium")]
-		public long OpenOrderSellPremium { get; set; }
+		public decimal OpenOrderSellPremium { get; set; }
 
 		[JsonProperty("execBuyQty")]
-		public long ExecBuyQty { get; set; }
+		public decimal ExecBuyQty { get; set; }
 
 		[JsonProperty("execBuyCost")]
-		public long ExecBuyCost { get; set; }
+		public decimal ExecBuyCost { get; set; }
 
 		[JsonProperty("execSellQty")]
-		public long ExecSellQty { get; set; }
+		public decimal ExecSellQty { get; set; }
 
 		[JsonProperty("execSellCost")]
-		public long ExecSellCost { get; set; }
+		public decimal ExecSellCost { get; set; }
 
 		[JsonProperty("execQty")]
-		public long ExecQty { get; set; }
+		public decimal ExecQty { get; set; }
 
 		[JsonProperty("execCost")]
-		public long ExecCost { get; set; }
+		public decimal ExecCost { get; set; }
 
 		[JsonProperty("execComm")]
-		public long ExecComm { get; set; }
+		public decimal ExecComm { get; set; }
 
 		[JsonProperty("currentTimestamp")]
 		public System.DateTimeOffset CurrentTimestamp { get; set; }
 
 		[JsonProperty("currentQty")]
-		public long CurrentQty { get; set; }
+		public decimal CurrentQty { get; set; }
 
 		[JsonProperty("currentCost")]
-		public long CurrentCost { get; set; }
+		public decimal CurrentCost { get; set; }
 
 		[JsonProperty("currentComm")]
-		public long? CurrentComm { get; set; }
+		public decimal? CurrentComm { get; set; }
 
 		[JsonProperty("realisedCost")]
-		public long RealisedCost { get; set; }
+		public decimal RealisedCost { get; set; }
 
 		[JsonProperty("unrealisedCost")]
-		public long UnrealisedCost { get; set; }
+		public decimal UnrealisedCost { get; set; }
 
 		[JsonProperty("grossOpenCost")]
-		public long GrossOpenCost { get; set; }
+		public decimal GrossOpenCost { get; set; }
 
 		[JsonProperty("grossOpenPremium")]
-		public long GrossOpenPremium { get; set; }
+		public decimal GrossOpenPremium { get; set; }
 
 		[JsonProperty("grossExecCost")]
-		public long GrossExecCost { get; set; }
+		public decimal GrossExecCost { get; set; }
 
 		[JsonProperty("isOpen")]
 		public bool IsOpen { get; set; }
 
 		[JsonProperty("markPrice")]
-		public long? MarkPrice { get; set; }
+		public decimal? MarkPrice { get; set; }
 
 		[JsonProperty("markValue")]
-		public long MarkValue { get; set; }
+		public decimal MarkValue { get; set; }
 
 		[JsonProperty("riskValue")]
-		public long RiskValue { get; set; }
+		public decimal RiskValue { get; set; }
 
 		[JsonProperty("homeNotional")]
-		public long HomeNotional { get; set; }
+		public decimal HomeNotional { get; set; }
 
 		[JsonProperty("foreignNotional")]
-		public long ForeignNotional { get; set; }
+		public decimal ForeignNotional { get; set; }
 
 		[JsonProperty("posState")]
 		public string PosState { get; set; }
 
 		[JsonProperty("posCost")]
-		public long PosCost { get; set; }
+		public decimal PosCost { get; set; }
 
 		[JsonProperty("posCost2")]
-		public long PosCost2 { get; set; }
+		public decimal PosCost2 { get; set; }
 
 		[JsonProperty("posCross")]
-		public long PosCross { get; set; }
+		public decimal PosCross { get; set; }
 
 		[JsonProperty("posInit")]
-		public long PosInit { get; set; }
+		public decimal PosInit { get; set; }
 
 		[JsonProperty("posComm")]
-		public long PosComm { get; set; }
+		public decimal PosComm { get; set; }
 
 		[JsonProperty("posLoss")]
-		public long PosLoss { get; set; }
+		public decimal PosLoss { get; set; }
 
 		[JsonProperty("posMargin")]
-		public long PosMargin { get; set; }
+		public decimal PosMargin { get; set; }
 
 		[JsonProperty("posMaint")]
-		public long PosMaint { get; set; }
+		public decimal PosMaint { get; set; }
 
 		[JsonProperty("posAllowance")]
-		public long PosAllowance { get; set; }
+		public decimal PosAllowance { get; set; }
 
 		[JsonProperty("taxableMargin")]
-		public long TaxableMargin { get; set; }
+		public decimal TaxableMargin { get; set; }
 
 		[JsonProperty("initMargin")]
-		public long InitMargin { get; set; }
+		public decimal InitMargin { get; set; }
 
 		[JsonProperty("maintMargin")]
-		public long MaintMargin { get; set; }
+		public decimal MaintMargin { get; set; }
 
 		[JsonProperty("sessionMargin")]
-		public long SessionMargin { get; set; }
+		public decimal SessionMargin { get; set; }
 
 		[JsonProperty("targetExcessMargin")]
-		public long TargetExcessMargin { get; set; }
+		public decimal TargetExcessMargin { get; set; }
 
 		[JsonProperty("varMargin")]
-		public long VarMargin { get; set; }
+		public decimal VarMargin { get; set; }
 
 		[JsonProperty("realisedGrossPnl")]
-		public long RealisedGrossPnl { get; set; }
+		public decimal RealisedGrossPnl { get; set; }
 
 		[JsonProperty("realisedTax")]
-		public long RealisedTax { get; set; }
+		public decimal RealisedTax { get; set; }
 
 		[JsonProperty("realisedPnl")]
-		public long RealisedPnl { get; set; }
+		public decimal RealisedPnl { get; set; }
 
 		[JsonProperty("unrealisedGrossPnl")]
-		public long UnrealisedGrossPnl { get; set; }
+		public decimal UnrealisedGrossPnl { get; set; }
 
 		[JsonProperty("longBankrupt")]
-		public long LongBankrupt { get; set; }
+		public decimal LongBankrupt { get; set; }
 
 		[JsonProperty("shortBankrupt")]
-		public long ShortBankrupt { get; set; }
+		public decimal ShortBankrupt { get; set; }
 
 		[JsonProperty("taxBase")]
-		public long TaxBase { get; set; }
+		public decimal TaxBase { get; set; }
 
 		[JsonProperty("indicativeTaxRate")]
-		public long? IndicativeTaxRate { get; set; }
+		public decimal? IndicativeTaxRate { get; set; }
 
 		[JsonProperty("indicativeTax")]
-		public long IndicativeTax { get; set; }
+		public decimal IndicativeTax { get; set; }
 
 		[JsonProperty("unrealisedTax")]
-		public long UnrealisedTax { get; set; }
+		public decimal UnrealisedTax { get; set; }
 
 		[JsonProperty("unrealisedPnl")]
-		public long UnrealisedPnl { get; set; }
+		public decimal UnrealisedPnl { get; set; }
 
 		[JsonProperty("unrealisedPnlPcnt")]
-		public long UnrealisedPnlPcnt { get; set; }
+		public decimal UnrealisedPnlPcnt { get; set; }
 
 		[JsonProperty("unrealisedRoePcnt")]
-		public long UnrealisedRoePcnt { get; set; }
+		public decimal UnrealisedRoePcnt { get; set; }
 
 		[JsonProperty("simpleQty")]
-		public long SimpleQty { get; set; }
+		public decimal SimpleQty { get; set; }
 
 		[JsonProperty("simpleCost")]
-		public long SimpleCost { get; set; }
+		public decimal SimpleCost { get; set; }
 
 		[JsonProperty("simpleValue")]
-		public long SimpleValue { get; set; }
+		public decimal SimpleValue { get; set; }
 
 		[JsonProperty("simplePnl")]
-		public long SimplePnl { get; set; }
+		public decimal SimplePnl { get; set; }
 
 		[JsonProperty("simplePnlPcnt")]
-		public long SimplePnlPcnt { get; set; }
+		public decimal SimplePnlPcnt { get; set; }
 
 		[JsonProperty("avgCostPrice")]
-		public long? AvgCostPrice { get; set; }
+		public decimal? AvgCostPrice { get; set; }
 
 		[JsonProperty("avgEntryPrice")]
-		public long? AvgEntryPrice { get; set; }
+		public decimal? AvgEntryPrice { get; set; }
 
 		[JsonProperty("breakEvenPrice")]
-		public long? BreakEvenPrice { get; set; }
+		public decimal? BreakEvenPrice { get; set; }
 
 		[JsonProperty("marginCallPrice")]
-		public long? MarginCallPrice { get; set; }
+		public decimal? MarginCallPrice { get; set; }
 
 		[JsonProperty("liquidationPrice")]
-		public long? LiquidationPrice { get; set; }
+		public decimal? LiquidationPrice { get; set; }
 
 		[JsonProperty("bankruptPrice")]
-		public long? BankruptPrice { get; set; }
+		public decimal? BankruptPrice { get; set; }
 
 		[JsonProperty("timestamp")]
 		public System.DateTimeOffset Timestamp { get; set; }
 
 		[JsonProperty("lastPrice")]
-		public long? LastPrice { get; set; }
+		public decimal? LastPrice { get; set; }
 
 		[JsonProperty("lastValue")]
-		public long LastValue { get; set; }
+		public decimal LastValue { get; set; }
 	}
 }

@@ -56,16 +56,16 @@ namespace Bitmex.NET.Models
 	{
 
 		[DisplayName("count")]
-		public double Count { get; set; }
+		public decimal Count { get; set; }
 
 		[DisplayName("start")]
-		public double Start { get; set; }
+		public decimal Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
 
 		[DisplayName("channelID")]
-		public double ChannelID { get; set; }
+		public decimal ChannelID { get; set; }
 	}
 	public partial class ChatPOSTRequestParams : QueryJsonParams
 	{
@@ -74,7 +74,7 @@ namespace Bitmex.NET.Models
 		public string Message { get; set; }
 
 		[JsonProperty("channelID")]
-		public double ChannelID { get; set; }
+		public decimal ChannelID { get; set; }
 	}
 	public partial class ExecutionGETRequestParams : QueryStringParamsWithFilter
 	{
@@ -86,10 +86,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double? Count { get; set; }
+		public decimal? Count { get; set; }
 
 		[DisplayName("start")]
-		public double? Start { get; set; }
+		public decimal? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -110,10 +110,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double? Count { get; set; }
+		public decimal? Count { get; set; }
 
 		[DisplayName("start")]
-		public double? Start { get; set; }
+		public decimal? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -134,10 +134,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double Count { get; set; }
+		public decimal Count { get; set; }
 
 		[DisplayName("start")]
-		public double Start { get; set; }
+		public decimal Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -158,10 +158,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double? Count { get; set; }
+		public decimal? Count { get; set; }
 
 		[DisplayName("start")]
-		public double? Start { get; set; }
+		public decimal? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -176,7 +176,7 @@ namespace Bitmex.NET.Models
 	{
 
 		[DisplayName("account")]
-		public double? Account { get; set; }
+		public decimal? Account { get; set; }
 
 		[DisplayName("symbol")]
 		public string Symbol { get; set; }
@@ -185,10 +185,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double? Count { get; set; }
+		public decimal? Count { get; set; }
 
 		[DisplayName("start")]
-		public double? Start { get; set; }
+		public decimal? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -209,10 +209,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double Count { get; set; }
+		public decimal Count { get; set; }
 
 		[DisplayName("start")]
-		public double Start { get; set; }
+		public decimal Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -239,10 +239,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double Count { get; set; }
+		public decimal Count { get; set; }
 
 		[DisplayName("start")]
-		public double Start { get; set; }
+		public decimal Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -263,10 +263,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double? Count { get; set; }
+		public decimal? Count { get; set; }
 
 		[DisplayName("start")]
-		public double? Start { get; set; }
+		public decimal? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -290,25 +290,25 @@ namespace Bitmex.NET.Models
 		public string ClOrdID { get; set; }
 
 		[JsonProperty("simpleOrderQty")]
-		public double? SimpleOrderQty { get; set; }
+		public decimal? SimpleOrderQty { get; set; }
 
 		[JsonProperty("orderQty")]
-		public double? OrderQty { get; set; }
+		public decimal? OrderQty { get; set; }
 
 		[JsonProperty("simpleLeavesQty")]
-		public double? SimpleLeavesQty { get; set; }
+		public decimal? SimpleLeavesQty { get; set; }
 
 		[JsonProperty("leavesQty")]
-		public double? LeavesQty { get; set; }
+		public decimal? LeavesQty { get; set; }
 
 		[JsonProperty("price")]
-		public double? Price { get; set; }
+		public decimal? Price { get; set; }
 
 		[JsonProperty("stopPx")]
-		public double? StopPx { get; set; }
+		public decimal? StopPx { get; set; }
 
 		[JsonProperty("pegOffsetValue")]
-		public double? PegOffsetValue { get; set; }
+		public decimal? PegOffsetValue { get; set; }
 
 		[JsonProperty("text")]
 		public string Text { get; set; }
@@ -323,19 +323,19 @@ namespace Bitmex.NET.Models
 		public string Side { get; set; }
 
 		[JsonProperty("simpleOrderQty")]
-		public double? SimpleOrderQty { get; set; }
+		public decimal? SimpleOrderQty { get; set; }
 
 		[JsonProperty("orderQty")]
 		public int? OrderQty { get; set; }
 
 		[JsonProperty("price")]
-		public double? Price { get; set; }
+		public decimal? Price { get; set; }
 
 		[JsonProperty("displayQty")]
-		public double? DisplayQty { get; set; }
+		public decimal? DisplayQty { get; set; }
 
 		[JsonProperty("stopPx")]
-		public double? StopPx { get; set; }
+		public decimal? StopPx { get; set; }
 
 		[JsonProperty("clOrdID")]
 		public string ClOrdID { get; set; }
@@ -344,7 +344,7 @@ namespace Bitmex.NET.Models
 		public string ClOrdLinkID { get; set; }
 
 		[JsonProperty("pegOffsetValue")]
-		public double? PegOffsetValue { get; set; }
+		public decimal? PegOffsetValue { get; set; }
 
 		[JsonProperty("pegPriceType")]
 		public string PegPriceType { get; set; }
@@ -413,7 +413,7 @@ namespace Bitmex.NET.Models
 		public string Symbol { get; set; }
 
 		[JsonProperty("price")]
-		public double? Price { get; set; }
+		public decimal? Price { get; set; }
 	}
 	public partial class OrderBookL2GETRequestParams : QueryStringParams
 	{
@@ -422,7 +422,7 @@ namespace Bitmex.NET.Models
 		public string Symbol { get; set; }
 
 		[DisplayName("depth")]
-		public double? Depth { get; set; }
+		public decimal? Depth { get; set; }
 	}
 	public partial class PositionGETRequestParams : QueryStringParamsWithFilter
 	{
@@ -431,7 +431,7 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double? Count { get; set; }
+		public decimal? Count { get; set; }
 	}
 	public partial class PositionIsolatePOSTRequestParams : QueryJsonParams
 	{
@@ -449,7 +449,7 @@ namespace Bitmex.NET.Models
 		public string Symbol { get; set; }
 
 		[JsonProperty("leverage")]
-		public double Leverage { get; set; }
+		public decimal Leverage { get; set; }
 	}
 	public partial class PositionRiskLimitPOSTRequestParams : QueryJsonParams
 	{
@@ -458,7 +458,7 @@ namespace Bitmex.NET.Models
 		public string Symbol { get; set; }
 
 		[JsonProperty("riskLimit")]
-		public double RiskLimit { get; set; }
+		public decimal RiskLimit { get; set; }
 	}
 	public partial class PositionTransferMarginPOSTRequestParams : QueryJsonParams
 	{
@@ -467,7 +467,7 @@ namespace Bitmex.NET.Models
 		public string Symbol { get; set; }
 
 		[JsonProperty("amount")]
-		public double Amount { get; set; }
+		public decimal Amount { get; set; }
 	}
 	public partial class QuoteGETRequestParams : QueryStringParamsWithFilter
 	{
@@ -479,10 +479,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double? Count { get; set; }
+		public decimal? Count { get; set; }
 
 		[DisplayName("start")]
-		public double? Start { get; set; }
+		public decimal? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -509,10 +509,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double? Count { get; set; }
+		public decimal? Count { get; set; }
 
 		[DisplayName("start")]
-		public double? Start { get; set; }
+		public decimal? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -539,10 +539,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double Count { get; set; }
+		public decimal Count { get; set; }
 
 		[DisplayName("start")]
-		public double Start { get; set; }
+		public decimal Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -563,10 +563,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double? Count { get; set; }
+		public decimal? Count { get; set; }
 
 		[DisplayName("start")]
-		public double? Start { get; set; }
+		public decimal? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -593,10 +593,10 @@ namespace Bitmex.NET.Models
 		public string Columns { get; set; }
 
 		[DisplayName("count")]
-		public double? Count { get; set; }
+		public decimal? Count { get; set; }
 
 		[DisplayName("start")]
-		public double? Start { get; set; }
+		public decimal? Start { get; set; }
 
 		[DisplayName("reverse")]
 		public bool Reverse { get; set; }
@@ -719,13 +719,13 @@ namespace Bitmex.NET.Models
 		public string Currency { get; set; }
 
 		[JsonProperty("amount")]
-		public double Amount { get; set; }
+		public decimal Amount { get; set; }
 
 		[JsonProperty("address")]
 		public string Address { get; set; }
 
 		[JsonProperty("fee")]
-		public double Fee { get; set; }
+		public decimal Fee { get; set; }
 	}
 	public partial class UserWalletGETRequestParams : QueryStringParams
 	{

@@ -3,9 +3,9 @@ using System.Diagnostics;
 
 namespace Bitmex.NET.Dtos
 {
-    [DebuggerDisplay("{Symbol} {Side} {OrderQty}")]
+	[DebuggerDisplay("{Symbol} {Side} {OrderQty}")]
 	public class OrderDto
-    {
+	{
 		[JsonProperty("orderID")]
 		public string OrderId { get; set; }
 
@@ -25,22 +25,22 @@ namespace Bitmex.NET.Dtos
 		public string Side { get; set; }
 
 		[JsonProperty("simpleOrderQty")]
-		public long? SimpleOrderQty { get; set; }
+		public decimal? SimpleOrderQty { get; set; }
 
 		[JsonProperty("orderQty")]
-		public long? OrderQty { get; set; }
+		public decimal? OrderQty { get; set; }
 
 		[JsonProperty("price")]
-		public double? Price { get; set; }
+		public decimal? Price { get; set; }
 
 		[JsonProperty("displayQty")]
-		public long? DisplayQty { get; set; }
+		public decimal? DisplayQty { get; set; }
 
 		[JsonProperty("stopPx")]
-		public double? StopPx { get; set; }
+		public decimal? StopPx { get; set; }
 
 		[JsonProperty("pegOffsetValue")]
-		public double? PegOffsetValue { get; set; }
+		public decimal? PegOffsetValue { get; set; }
 
 		[JsonProperty("pegPriceType")]
 		public string PegPriceType { get; set; }
@@ -79,19 +79,19 @@ namespace Bitmex.NET.Dtos
 		public string OrdRejReason { get; set; }
 
 		[JsonProperty("simpleLeavesQty")]
-		public long SimpleLeavesQty { get; set; }
+		public decimal SimpleLeavesQty { get; set; }
 
 		[JsonProperty("leavesQty")]
-		public long LeavesQty { get; set; }
+		public decimal LeavesQty { get; set; }
 
 		[JsonProperty("simpleCumQty")]
-		public long SimpleCumQty { get; set; }
+		public decimal SimpleCumQty { get; set; }
 
 		[JsonProperty("cumQty")]
-		public long CumQty { get; set; }
+		public decimal CumQty { get; set; }
 
 		[JsonProperty("avgPx")]
-		public double? AvgPx { get; set; }
+		public decimal? AvgPx { get; set; }
 
 		[JsonProperty("multiLegReportingType")]
 		public string MultiLegReportingType { get; set; }

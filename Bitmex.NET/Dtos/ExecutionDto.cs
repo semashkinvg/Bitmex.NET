@@ -27,13 +27,13 @@ namespace Bitmex.NET.Dtos
 		public string Side { get; set; }
 
 		[JsonProperty("lastQty")]
-		public long? LastQty { get; set; }
+		public decimal? LastQty { get; set; }
 
 		[JsonProperty("lastPx")]
-		public long? LastPx { get; set; }
+		public decimal? LastPx { get; set; }
 
 		[JsonProperty("underlyingLastPx")]
-		public long? UnderlyingLastPx { get; set; }
+		public decimal? UnderlyingLastPx { get; set; }
 
 		[JsonProperty("lastMkt")]
 		public string LastMkt { get; set; }
@@ -42,22 +42,22 @@ namespace Bitmex.NET.Dtos
 		public string LastLiquidityInd { get; set; }
 
 		[JsonProperty("simpleOrderQty")]
-		public long? SimpleOrderQty { get; set; }
+		public decimal? SimpleOrderQty { get; set; }
 
 		[JsonProperty("orderQty")]
-		public long? OrderQty { get; set; }
+		public decimal? OrderQty { get; set; }
 
 		[JsonProperty("price")]
-		public long? Price { get; set; }
+		public decimal? Price { get; set; }
 
 		[JsonProperty("displayQty")]
-		public long? DisplayQty { get; set; }
+		public decimal? DisplayQty { get; set; }
 
 		[JsonProperty("stopPx")]
-		public long? StopPx { get; set; }
+		public decimal? StopPx { get; set; }
 
 		[JsonProperty("pegOffsetValue")]
-		public long? PegOffsetValue { get; set; }
+		public decimal? PegOffsetValue { get; set; }
 
 		[JsonProperty("pegPriceType")]
 		public string PegPriceType { get; set; }
@@ -99,22 +99,22 @@ namespace Bitmex.NET.Dtos
 		public string OrdRejReason { get; set; }
 
 		[JsonProperty("simpleLeavesQty")]
-		public long SimpleLeavesQty { get; set; }
+		public decimal SimpleLeavesQty { get; set; }
 
 		[JsonProperty("leavesQty")]
-		public long LeavesQty { get; set; }
+		public decimal LeavesQty { get; set; }
 
 		[JsonProperty("simpleCumQty")]
-		public long SimpleCumQty { get; set; }
+		public decimal SimpleCumQty { get; set; }
 
 		[JsonProperty("cumQty")]
-		public long CumQty { get; set; }
+		public decimal CumQty { get; set; }
 
 		[JsonProperty("avgPx")]
-		public long? AvgPx { get; set; }
+		public decimal? AvgPx { get; set; }
 
 		[JsonProperty("commission")]
-		public long? Commission { get; set; }
+		public decimal? Commission { get; set; }
 
 		[JsonProperty("tradePublishIndicator")]
 		public string TradePublishIndicator { get; set; }
@@ -129,16 +129,16 @@ namespace Bitmex.NET.Dtos
 		public string TrdMatchId { get; set; }
 
 		[JsonProperty("execCost")]
-		public long? ExecCost { get; set; }
+		public decimal? ExecCost { get; set; }
 
 		[JsonProperty("execComm")]
-		public long? ExecComm { get; set; }
+		public decimal? ExecComm { get; set; }
 
 		[JsonProperty("homeNotional")]
-		public long? HomeNotional { get; set; }
+		public decimal? HomeNotional { get; set; }
 
 		[JsonProperty("foreignNotional")]
-		public long? ForeignNotional { get; set; }
+		public decimal? ForeignNotional { get; set; }
 
 		[JsonProperty("transactTime")]
 		public System.DateTimeOffset TransactTime { get; set; }
