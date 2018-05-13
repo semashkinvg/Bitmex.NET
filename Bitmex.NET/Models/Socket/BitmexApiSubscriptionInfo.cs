@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 
 namespace Bitmex.NET.Models.Socket
 {
@@ -8,6 +9,8 @@ namespace Bitmex.NET.Models.Socket
 		public string SubscriptionName { get; }
 
 		public object[] Args { get; protected set; }
+
+		public string SubscriptionWithArgs => (Args?.Any() ?? false) ? $"{SubscriptionName}:{string.Join(",", Args)}" : SubscriptionName;
 
 		protected BitmexApiSubscriptionInfo(string subscriptionName)
 		{

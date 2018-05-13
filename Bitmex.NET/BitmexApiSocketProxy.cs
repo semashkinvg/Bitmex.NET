@@ -52,8 +52,9 @@ namespace Bitmex.NET
 			_socketConnection = new WebSocket($"wss://{Environments.Values[_bitmexAuthorization.BitmexEnvironment]}/realtime");
 			_socketConnection.OnMessage += WellcomeMessageReceived;
 			_socketConnection.Connect();
+			var waitResult = _welcomeReceived.WaitOne(SocketMessageResponseTimeout);
 			_socketConnection.OnMessage -= WellcomeMessageReceived;
-			if (!_welcomeReceived.WaitOne(SocketMessageResponseTimeout))
+			if (!waitResult)
 			{
 				return false;
 			}

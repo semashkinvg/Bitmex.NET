@@ -102,7 +102,7 @@ namespace Bitmex.NET
 		public void Subscribe<T>(BitmexApiSubscriptionInfo<T> subscription)
 			where T : class
 		{
-			var message = new SocketSubscriptionMessage(subscription.SubscriptionName);
+			var message = new SocketSubscriptionMessage(subscription.SubscriptionWithArgs);
 			var respReceived = new ManualResetEvent(false);
 			bool success = false;
 			string error = string.Empty;

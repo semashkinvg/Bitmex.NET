@@ -10,7 +10,7 @@ using System.Threading;
 namespace Bitmex.NET.IntegrationTests.Tests
 {
 	[TestClass]
-	public class BitmexApiSocketServiceTests : IntegrationTestsClass<IBitmexApiSocketService>
+	public class BitmexApiSocketServiceInstrumentsTests : IntegrationTestsClass<IBitmexApiSocketService>
 	{
 		[TestMethod]
 		public void should_connect_and_be_authorized()
@@ -34,7 +34,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 		}
 
 		[TestMethod]
-		public void should_connect_on_instruments()
+		public void should_subscribe_on_all_instruments()
 		{
 			// arrange
 			var connected = Sut.Connect();
@@ -55,6 +55,31 @@ namespace Bitmex.NET.IntegrationTests.Tests
 			received.Should().BeTrue();
 			dto.Should().NotBeNull();
 			dto.Count().Should().BeGreaterThan(0);
+		}
+
+		[TestMethod]
+		public void should_subscribe_on_all_instruments_with_args()
+		{
+			// arrange
+			var connected = Sut.Connect();
+
+			// act
+			IEnumerable<InstrumentDto> dtos = null;
+			var dataReceived = new ManualResetEvent(false);
+			Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<InstrumentDto>>.Create(SubscriptionType.instrument, a =>
+			{
+				dtos = a;
+				dataReceived.Set();
+			}).WithArgs("XBTJPY"));
+			var received = dataReceived.WaitOne(TimeSpan.FromSeconds(30));
+
+			// assert
+			// no exception raised
+			connected.Should().BeTrue();
+			received.Should().BeTrue();
+			dtos.Should().NotBeNull();
+			dtos.Count().Should().BeGreaterThan(0);
+			dtos.All(a => a.Symbol == "XBTJPY").Should().BeTrue();
 		}
 	}
 }
