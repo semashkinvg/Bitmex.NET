@@ -42,7 +42,7 @@ namespace Bitmex.NET
 		}
 
 		/// <summary>
-		/// Sends provider API key and a message encrypted using provided Secret to the server and waits for a response.
+		/// Sends provided API key and a message encrypted using provided Secret to the server and waits for a response.
 		/// </summary>
 		/// <exception cref="BitmexSocketAuthorizationException">Throws when either timeout is reached or server retured an error.</exception>
 		/// <returns>Returns value of IsAuthorized property.</returns>
