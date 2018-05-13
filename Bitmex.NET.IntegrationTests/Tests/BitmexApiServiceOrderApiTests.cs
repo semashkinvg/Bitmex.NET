@@ -11,8 +11,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
 	{
 		private decimal _xbtAvgPrice;
 
-		[ClassCleanup]
-		public static void ClassCleanup()
+		[TestCleanup]
+		public void TestCleanup()
 		{
 			DeleteAllOrders();
 		}
@@ -47,7 +47,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 			result.Count.Should().BeGreaterThan(0);
 		}
 
-		private static void DeleteAllOrders()
+		private void DeleteAllOrders()
 		{
 			var @params = new OrderAllDELETERequestParams()
 			{

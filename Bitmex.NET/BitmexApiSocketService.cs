@@ -1,6 +1,6 @@
 ﻿using Bitmex.NET.Authorization;
 using Bitmex.NET.Models.Socket;
-using System;
+using Bitmex.NET.Models.Socket.Events;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,14 +16,13 @@ namespace Bitmex.NET
 
 	public class BitmexApiSocketService : IBitmexApiSocketService
 	{
-		private const int SocketMessageResponseTimeout = 2000;
+		private const int SocketMessageResponseTimeout = 5000;
 
 		private readonly IBitmexAuthorization _bitmexAuthorization;
 		private readonly INonceProvider _nonceProvider;
 		private readonly ISignatureProvider _signatureProvider;
 		private readonly IBitmexApiSocketProxy _bitmexApiSocketProxy;
 		private readonly IDictionary<string, IList<BitmexApiSubscriptionInfo>> _actions;
-
 
 		private bool _isAuthorized;
 		public bool IsAuthorized => _bitmexApiSocketProxy.IsAlive && _isAuthorized;
@@ -42,6 +41,11 @@ namespace Bitmex.NET
 		{
 		}
 
+		/// <summary>
+		/// Sends provider API key and a message encrypted using provided Secret to the server and waits for a response.
+		/// </summary>
+		/// <exception cref="BitmexSocketAuthorizationException">Throws when either timeout is reached or server retured an error.</exception>
+		/// <returns>Returns value of IsAuthorized property.</returns>
 		public bool Connect()
 		{
 			_isAuthorized = false;
@@ -59,11 +63,15 @@ namespace Bitmex.NET
 		{
 			var nonce = _nonceProvider.GetNonce();
 			var respReceived = new ManualResetEvent(false);
+			var data = new string[0];
+			var error = string.Empty;
 			OperationResultEventHandler resultReceived = args =>
 			{
 				if (args.OperationType == OperationType.authKey)
 				{
 					_isAuthorized = args.Result;
+					error = args.Error;
+					data = args.Args;
 					respReceived.Set();
 				}
 			};
@@ -72,12 +80,25 @@ namespace Bitmex.NET
 			var message = new SocketAuthorizationMessage(_bitmexAuthorization.Key, nonce, signatureString);
 			_bitmexApiSocketProxy.OperationResultReceived += resultReceived;
 			_bitmexApiSocketProxy.Send(message);
-			respReceived.WaitOne(SocketMessageResponseTimeout);
+			var waitResult = respReceived.WaitOne(SocketMessageResponseTimeout);
 			_bitmexApiSocketProxy.OperationResultReceived -= resultReceived;
+			if (!waitResult)
+			{
+				throw new BitmexSocketAuthorizationException("Authorization Failed: timeout waiting authorization response");
+			}
 
-			return _isAuthorized;
+			if (!IsAuthorized)
+			{
+				throw new BitmexSocketAuthorizationException(error, data);
+			}
+
+			return IsAuthorized;
 		}
 
+		/// <summary>
+		/// Sends to the server a request for subscription on specified topic with specified arguments and waits for response from it.
+		/// </summary>
+		/// <exception cref="BitmexSocketSubscriptionException">Throws when either timeout is reached or server retured an error.</exception>
 		public void Subscribe<T>(BitmexApiSubscriptionInfo<T> subscription)
 			where T : class
 		{
@@ -86,6 +107,7 @@ namespace Bitmex.NET
 			bool success = false;
 			string error = string.Empty;
 			string status = string.Empty;
+			var errorArgs = new string[0];
 			OperationResultEventHandler resultReceived = args =>
 			{
 				if (args.OperationType == OperationType.subscribe)
@@ -93,13 +115,19 @@ namespace Bitmex.NET
 					error = args.Error;
 					status = args.Status;
 					success = args.Result;
+					errorArgs = args.Args;
 					respReceived.Set();
 				}
 			};
 			_bitmexApiSocketProxy.OperationResultReceived += resultReceived;
 			_bitmexApiSocketProxy.Send(message);
-			respReceived.WaitOne(SocketMessageResponseTimeout);
+			var waitReuslt = respReceived.WaitOne(SocketMessageResponseTimeout);
 			_bitmexApiSocketProxy.OperationResultReceived -= resultReceived;
+			if (!waitReuslt)
+			{
+				throw new BitmexSocketSubscriptionException("Subscription failed: timeout waiting subscription response");
+			}
+
 			if (success)
 			{
 
@@ -114,7 +142,7 @@ namespace Bitmex.NET
 			}
 			else
 			{
-				throw new Exception("жопа");
+				throw new BitmexSocketSubscriptionException(error, errorArgs);
 			}
 		}
 
@@ -124,7 +152,8 @@ namespace Bitmex.NET
 			{
 				foreach (var subscription in _actions[args.TableName])
 				{
-					Task.Factory.StartNew(() => subscription.Execute(args.Data));
+					var data = args.Data;
+					Task.Factory.StartNew(() => subscription.Execute(data));
 				}
 			}
 		}

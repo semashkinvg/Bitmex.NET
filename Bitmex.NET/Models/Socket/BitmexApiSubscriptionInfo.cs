@@ -22,7 +22,8 @@ namespace Bitmex.NET.Models.Socket
 	{
 		public Action<TResult> Act { get; }
 
-		protected BitmexApiSubscriptionInfo(string subscriptionName, Action<TResult> act) : base(subscriptionName)
+		[Obsolete("it's public for tests only, use static Create method instead")]
+		public BitmexApiSubscriptionInfo(string subscriptionName, Action<TResult> act) : base(subscriptionName)
 		{
 			Act = act;
 		}

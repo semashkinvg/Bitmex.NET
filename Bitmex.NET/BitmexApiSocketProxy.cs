@@ -1,6 +1,7 @@
 ﻿using Bitmex.NET.Dtos.Socket;
 using Bitmex.NET.Models;
 using Bitmex.NET.Models.Socket;
+using Bitmex.NET.Models.Socket.Events;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Threading;
@@ -25,6 +26,8 @@ namespace Bitmex.NET
 		private readonly IBitmexAuthorization _bitmexAuthorization;
 		public event SocketDataEventHandler DataReceived;
 		public event OperationResultEventHandler OperationResultReceived;
+		public event BitmextErrorEventHandler ErrorReceived;
+		public event BitmexCloseEventHandler Closed;
 		private WebSocket _socketConnection;
 
 		public bool IsAlive => _socketConnection?.IsAlive ?? false;
@@ -39,6 +42,8 @@ namespace Bitmex.NET
 			if (_socketConnection?.IsAlive ?? false)
 			{
 				_socketConnection.OnMessage -= SocketConnectionOnMessage;
+				_socketConnection.OnClose -= SocketConnectionOnClose;
+				_socketConnection.OnError -= SocketConnectionOnError;
 				_welcomeReceived.Reset();
 				_socketConnection.Close(CloseStatusCode.Normal);
 				_socketConnection = null;
@@ -55,15 +60,26 @@ namespace Bitmex.NET
 			if (IsAlive)
 			{
 				_socketConnection.OnMessage += SocketConnectionOnMessage;
+				_socketConnection.OnClose += SocketConnectionOnClose;
+				_socketConnection.OnError += SocketConnectionOnError;
 			}
 
 			return IsAlive;
 		}
 
+		private void SocketConnectionOnError(object sender, ErrorEventArgs e)
+		{
+			OnErrorReceived(e);
+		}
+
+		private void SocketConnectionOnClose(object sender, CloseEventArgs e)
+		{
+			OnClosed(e);
+		}
+
 		public void Send<TMessage>(TMessage message)
 			where TMessage : SocketMessage
 		{
-			// todo: check if it's connected
 			_socketConnection.Send(JsonConvert.SerializeObject(message));
 		}
 
@@ -97,6 +113,16 @@ namespace Bitmex.NET
 		protected virtual void OnOperationResultReceived(OperationResultEventArgs args)
 		{
 			OperationResultReceived?.Invoke(args);
+		}
+
+		protected virtual void OnErrorReceived(ErrorEventArgs args)
+		{
+			ErrorReceived?.Invoke(new BitmextErrorEventArgs(args.Message, args.Exception));
+		}
+
+		protected virtual void OnClosed(CloseEventArgs args)
+		{
+			Closed?.Invoke(new BitmexCloseEventArgs(args.Code, args.Reason, args.WasClean));
 		}
 	}
 }

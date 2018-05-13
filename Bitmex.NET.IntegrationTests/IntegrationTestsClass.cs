@@ -5,7 +5,7 @@ namespace Bitmex.NET.IntegrationTests
 {
 	public class IntegrationTestsClass<T>
 	{
-		protected static T Sut;
+		protected T Sut;
 
 		[TestInitialize]
 		public virtual void TestInitialize()
