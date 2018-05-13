@@ -1,5 +1,9 @@
 # Release Notes
 
+## 1.0.3
+fixed bug #2 (the types of sums and quantities are chaned to decimal)
+added WebSocket nuget packge dependency for future changes
+
 ## 1.0.2
 fixed bug #1
 
