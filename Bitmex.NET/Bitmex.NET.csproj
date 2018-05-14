@@ -68,6 +68,7 @@
     <Compile Include="Dtos\Socket\BitmexSocketDataDto.cs" />
     <Compile Include="Dtos\Socket\BitmexSocketOperationResultDto.cs" />
     <Compile Include="Dtos\Socket\InitialRequstInfoDto.cs" />
+    <Compile Include="Dtos\Socket\OrderBookSocketDto.cs" />
     <Compile Include="Dtos\TradeBucketedDto.cs" />
     <Compile Include="Dtos\TradeDto.cs" />
     <Compile Include="IBitmexApiProxy.cs" />

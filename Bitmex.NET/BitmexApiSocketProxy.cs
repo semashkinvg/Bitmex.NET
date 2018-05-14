@@ -21,7 +21,7 @@ namespace Bitmex.NET
 
 	public class BitmexApiSocketProxy : IBitmexApiSocketProxy
 	{
-		private const int SocketMessageResponseTimeout = 2000;
+		private const int SocketMessageResponseTimeout = 30000;
 		private readonly ManualResetEvent _welcomeReceived = new ManualResetEvent(false);
 		private readonly IBitmexAuthorization _bitmexAuthorization;
 		public event SocketDataEventHandler DataReceived;
