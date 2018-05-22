@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitmex.NET.UnitTests", "Bit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitmex.NET.Example", "Bitmex.NET.Example\Bitmex.NET.Example.csproj", "{E9AD8CA6-A483-40AB-822A-D6B5D8404BF5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{980FB17A-8880-43A3-AF8D-83B697161309}"
+	ProjectSection(SolutionItems) = preProject
+		.trevis.yml = .trevis.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
