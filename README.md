@@ -1,4 +1,4 @@
-# Bitmex.NET
+# Bitmex.NET [![Build Status](https://travis-ci.com/semashkinvg/Bitmex.NET.svg?branch=master)](https://travis-ci.com/semashkinvg/Bitmex.NET)
 Wrapper for BitMEX.com REST API
 
 ## Quick Start
