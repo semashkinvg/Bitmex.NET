@@ -1,4 +1,4 @@
-# Bitmex.NET [![Build Status](https://travis-ci.com/semashkinvg/Bitmex.NET.svg?branch=master)](https://travis-ci.com/semashkinvg/Bitmex.NET)
+# Bitmex.NET [![Build Status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/project/semashkinvg/bitmex-net)
 Wrapper for BitMEX.com REST API
 
 ## Quick Start
