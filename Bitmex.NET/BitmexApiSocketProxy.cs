@@ -1,11 +1,14 @@
-﻿using Bitmex.NET.Dtos.Socket;
+﻿using System;
+using Bitmex.NET.Dtos.Socket;
 using Bitmex.NET.Models;
 using Bitmex.NET.Models.Socket;
 using Bitmex.NET.Models.Socket.Events;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Threading;
-using WebSocketSharp;
+using SuperSocket.ClientEngine;
+using WebSocket4Net;
+using DataEventArgs = Bitmex.NET.Models.Socket.Events.DataEventArgs;
 
 namespace Bitmex.NET
 {
@@ -30,7 +33,7 @@ namespace Bitmex.NET
 		public event BitmexCloseEventHandler Closed;
 		private WebSocket _socketConnection;
 
-		public bool IsAlive => _socketConnection?.IsAlive ?? false;
+	    public bool IsAlive => _socketConnection?.State == WebSocketState.Open;
 
 		public BitmexApiSocketProxy(IBitmexAuthorization bitmexAuthorization)
 		{
@@ -39,73 +42,74 @@ namespace Bitmex.NET
 
 		public bool Connect()
 		{
-			if (_socketConnection?.IsAlive ?? false)
+			if (_socketConnection != null)
 			{
-				_socketConnection.OnMessage -= SocketConnectionOnMessage;
-				_socketConnection.OnClose -= SocketConnectionOnClose;
-				_socketConnection.OnError -= SocketConnectionOnError;
-				_welcomeReceived.Reset();
-				_socketConnection.Close(CloseStatusCode.Normal);
+				_socketConnection.MessageReceived -= SocketConnectionOnMessageReceived;
+			    _socketConnection.Closed -= SocketConnectionOnClosed;
+			    _socketConnection.Error -= SocketConnectionOnError;
+                _welcomeReceived.Reset();
+				_socketConnection.Close();
 				_socketConnection = null;
 			}
 
 			_socketConnection = new WebSocket($"wss://{Environments.Values[_bitmexAuthorization.BitmexEnvironment]}/realtime");
-			_socketConnection.OnMessage += WellcomeMessageReceived;
-			_socketConnection.Connect();
+			_socketConnection.MessageReceived += WellcomeMessageReceived;
+            _socketConnection.Open();
 			var waitResult = _welcomeReceived.WaitOne(SocketMessageResponseTimeout);
-			_socketConnection.OnMessage -= WellcomeMessageReceived;
 			if (!waitResult)
-			{
+            {
 				return false;
 			}
 
 			if (IsAlive)
 			{
-				_socketConnection.OnMessage += SocketConnectionOnMessage;
-				_socketConnection.OnClose += SocketConnectionOnClose;
-				_socketConnection.OnError += SocketConnectionOnError;
-			}
+				_socketConnection.MessageReceived += SocketConnectionOnMessageReceived;
+                _socketConnection.Closed += SocketConnectionOnClosed;
+                _socketConnection.Error += SocketConnectionOnError;
+            }
 
 			return IsAlive;
 		}
 
-		private void SocketConnectionOnError(object sender, ErrorEventArgs e)
-		{
-			OnErrorReceived(e);
-		}
+	    private void SocketConnectionOnMessageReceived(object sender, MessageReceivedEventArgs e)
+	    {
+	        var operationResult = JsonConvert.DeserializeObject<BitmexSocketOperationResultDto>(e.Message);
+	        if (operationResult.Request?.Operation != null && (operationResult?.Request?.Arguments?.Any() ?? false))
+	        {
+	            OnOperationResultReceived(new OperationResultEventArgs(operationResult.Request.Operation.Value, operationResult.Success, operationResult.Error, operationResult.Status, operationResult.Request.Arguments));
+	            return;
+	        }
 
-		private void SocketConnectionOnClose(object sender, CloseEventArgs e)
-		{
-			OnClosed(e);
-		}
+	        var data = JsonConvert.DeserializeObject<BitmexSocketDataDto>(e.Message);
+	        if (!string.IsNullOrWhiteSpace(data.TableName) && (data.AdditionalData?.ContainsKey("data") ?? false))
+	        {
+	            OnDataReceived(new DataEventArgs(data.TableName, data.AdditionalData["data"]));
+	        }
+        }
 
-		public void Send<TMessage>(TMessage message)
+	    private void SocketConnectionOnError(object sender, ErrorEventArgs e)
+	    {
+	        OnErrorReceived(e);
+        }
+
+
+	    private void SocketConnectionOnClosed(object sender, EventArgs e)
+	    {
+	        OnClosed();
+        }
+
+        public void Send<TMessage>(TMessage message)
 			where TMessage : SocketMessage
 		{
 			_socketConnection.Send(JsonConvert.SerializeObject(message));
 		}
 
-		private void SocketConnectionOnMessage(object sender, MessageEventArgs e)
-		{
-			var operationResult = JsonConvert.DeserializeObject<BitmexSocketOperationResultDto>(e.Data);
-			if (operationResult.Request?.Operation != null && (operationResult?.Request?.Arguments?.Any() ?? false))
-			{
-				OnOperationResultReceived(new OperationResultEventArgs(operationResult.Request.Operation.Value, operationResult.Success, operationResult.Error, operationResult.Status, operationResult.Request.Arguments));
-				return;
-			}
 
-			var data = JsonConvert.DeserializeObject<BitmexSocketDataDto>(e.Data);
-			if (!string.IsNullOrWhiteSpace(data.TableName) && (data.AdditionalData?.ContainsKey("data") ?? false))
-			{
-				OnDataReceived(new DataEventArgs(data.TableName, data.AdditionalData["data"]));
-			}
-		}
-
-		private void WellcomeMessageReceived(object sender, MessageEventArgs args)
-		{
+		private void WellcomeMessageReceived(object sender, MessageReceivedEventArgs e)
+        {
 			_welcomeReceived.Set();
-			_socketConnection.OnMessage -= WellcomeMessageReceived;
-		}
+			_socketConnection.MessageReceived -= WellcomeMessageReceived;
+        }
 
 		protected virtual void OnDataReceived(DataEventArgs args)
 		{
@@ -117,14 +121,14 @@ namespace Bitmex.NET
 			OperationResultReceived?.Invoke(args);
 		}
 
-		protected virtual void OnErrorReceived(ErrorEventArgs args)
-		{
-			ErrorReceived?.Invoke(new BitmextErrorEventArgs(args.Message, args.Exception));
-		}
+        protected virtual void OnErrorReceived(ErrorEventArgs args)
+        {
+            ErrorReceived?.Invoke(new BitmextErrorEventArgs(args.Exception));
+        }
 
-		protected virtual void OnClosed(CloseEventArgs args)
-		{
-			Closed?.Invoke(new BitmexCloseEventArgs(args.Code, args.Reason, args.WasClean));
-		}
-	}
+        protected virtual void OnClosed()
+        {
+            Closed?.Invoke(new BitmexCloseEventArgs());
+        }
+    }
 }
