@@ -1,5 +1,6 @@
 language: csharp
 solution: Bitmex.NET.sln
 install:
-  - sudo apt-get install -y gtk-sharp2
   - nuget restore Bitmex.NET.sln
+script:
+  - xbuild /p:Configuration=Release Bitmex.NET.sln
