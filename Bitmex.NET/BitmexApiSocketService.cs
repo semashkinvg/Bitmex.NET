@@ -1,4 +1,5 @@
-﻿using Bitmex.NET.Authorization;
+﻿using System;
+using Bitmex.NET.Authorization;
 using Bitmex.NET.Models.Socket;
 using Bitmex.NET.Models.Socket.Events;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Bitmex.NET
 			where T : class;
 	}
 
-	public class BitmexApiSocketService : IBitmexApiSocketService
+	public class BitmexApiSocketService : IBitmexApiSocketService, IDisposable
 	{
 		private const int SocketMessageResponseTimeout = 5000;
 
@@ -162,5 +163,10 @@ namespace Bitmex.NET
 		{
 			return new BitmexApiSocketService(bitmexAuthorization, new BitmexApiSocketProxy(bitmexAuthorization));
 		}
+
+	    public void Dispose()
+	    {
+	        _bitmexApiSocketProxy?.Dispose();
+	    }
 	}
 }

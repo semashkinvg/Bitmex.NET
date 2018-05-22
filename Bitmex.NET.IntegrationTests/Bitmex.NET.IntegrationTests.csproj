@@ -100,6 +100,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseBitmexIntegrationTests.cs" />
     <Compile Include="BitmexNetUnityExtension.cs" />
     <Compile Include="IntegrationTestsClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Tests\BitmexApiServiceOrderBookApiTests.cs" />
     <Compile Include="Tests\BitmexApiServicePositionApiTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceOrdersBookTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceOrdersTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceTradesTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceNegativeCasesTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceInstrumentsTests.cs" />

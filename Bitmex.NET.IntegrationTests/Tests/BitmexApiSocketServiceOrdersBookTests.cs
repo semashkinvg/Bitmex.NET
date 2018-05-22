@@ -11,7 +11,7 @@ using System.Threading;
 namespace Bitmex.NET.IntegrationTests.Tests
 {
 	[TestClass]
-	public class BitmexApiSocketServiceOrdersBookTests : IntegrationTestsClass<IBitmexApiSocketService>
+	public class BitmexApiSocketServiceOrdersBookTests : BaseBitmexIntegrationTests<IBitmexApiSocketService>
 	{
 
 		[TestMethod]

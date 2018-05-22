@@ -12,7 +12,7 @@ using DataEventArgs = Bitmex.NET.Models.Socket.Events.DataEventArgs;
 
 namespace Bitmex.NET
 {
-	public interface IBitmexApiSocketProxy
+	public interface IBitmexApiSocketProxy : IDisposable
 	{
 		event SocketDataEventHandler DataReceived;
 		event OperationResultEventHandler OperationResultReceived;
@@ -42,16 +42,7 @@ namespace Bitmex.NET
 
 		public bool Connect()
 		{
-			if (_socketConnection != null)
-			{
-				_socketConnection.MessageReceived -= SocketConnectionOnMessageReceived;
-			    _socketConnection.Closed -= SocketConnectionOnClosed;
-			    _socketConnection.Error -= SocketConnectionOnError;
-                _welcomeReceived.Reset();
-				_socketConnection.Close();
-				_socketConnection = null;
-			}
-
+			CloseConnectionIfItsNotNull();
 			_socketConnection = new WebSocket($"wss://{Environments.Values[_bitmexAuthorization.BitmexEnvironment]}/realtime");
 			_socketConnection.MessageReceived += WellcomeMessageReceived;
             _socketConnection.Open();
@@ -70,6 +61,22 @@ namespace Bitmex.NET
 
 			return IsAlive;
 		}
+
+	    private void CloseConnectionIfItsNotNull()
+	    {
+	        if (_socketConnection != null)
+	        {
+	            using (_socketConnection)
+	            {
+	                _socketConnection.MessageReceived -= SocketConnectionOnMessageReceived;
+	                _socketConnection.Closed -= SocketConnectionOnClosed;
+	                _socketConnection.Error -= SocketConnectionOnError;
+	                _welcomeReceived.Reset();
+	                _socketConnection.Close();
+	                _socketConnection = null;
+                }
+	        }
+	    }
 
 	    private void SocketConnectionOnMessageReceived(object sender, MessageReceivedEventArgs e)
 	    {
@@ -130,5 +137,12 @@ namespace Bitmex.NET
         {
             Closed?.Invoke(new BitmexCloseEventArgs());
         }
-    }
+
+	    public void Dispose()
+	    {
+	        CloseConnectionIfItsNotNull();
+	        _welcomeReceived?.Dispose();
+	        _socketConnection?.Dispose();
+        }
+	}
 }

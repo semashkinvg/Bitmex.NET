@@ -10,7 +10,7 @@ using System.Threading;
 namespace Bitmex.NET.IntegrationTests.Tests
 {
 	[TestClass]
-	public class BitmexApiSocketServiceInstrumentsTests : IntegrationTestsClass<IBitmexApiSocketService>
+	public class BitmexApiSocketServiceInstrumentsTests : BaseBitmexIntegrationTests<IBitmexApiSocketService>
 	{
 		[TestMethod]
 		public void should_connect_and_be_authorized()
