@@ -1,2 +1,6 @@
 before_build:
   - nuget restore
+test:
+  assemblies:
+    only:
+      - Bitmex.NET.UnitTests.dll
