@@ -1,4 +1,5 @@
-﻿using Bitmex.NET.Models;
+﻿using System;
+using Bitmex.NET.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
@@ -38,9 +39,22 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
 			result.Should().NotBeNull();
 			result.Count.Should().BeGreaterThan(0);
-		}
+	    }
 
-		[TestMethod]
+	    [TestMethod]
+	    public void should_throw_bitmex_exception_with_deserialized_data_when_post()
+	    {
+	        // arrange
+	        var @params = OrderPOSTRequestParams.CreateSimpleMarket("SymbolWhichDoesNotExist", 3, OrderSide.Buy);
+
+	        // act
+	        Action action = () => { var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result; };
+
+            // assert
+	        action.Should().Throw<BitmexApiException>().Which.Error?.Error.Should().NotBeNull();
+	    }
+
+        [TestMethod]
 		public void should_place_buy_market_order()
 		{
 			// arrange
@@ -190,9 +204,27 @@ namespace Bitmex.NET.IntegrationTests.Tests
 			resultPut.OrdStatus.Should().Be("New");
 			resultPut.OrderQty.Should().Be(2);
 			resultPut.OrderId.Should().NotBeNull();
-		}
+	    }
 
-		[TestMethod]
+	    [TestMethod]
+	    public void should_throw_bitmex_exception_with_deserialized_data_when_put()
+	    {
+            // arrange
+	        var @paramsPut = new OrderPUTRequestParams()
+	        {
+                // this order doesn't exist
+	            OrderID = Guid.NewGuid().ToString("N"),
+	            OrderQty = 2
+	        };
+
+            // act
+            Action action = () => { var resultPut = Sut.Execute(BitmexApiUrls.Order.PutOrder, paramsPut).Result; };
+
+	        // assert
+	        action.Should().Throw<BitmexApiException>().Which.Error?.Error.Should().NotBeNull();
+	    }
+
+        [TestMethod]
 		public void should_delete_buy_limit_order()
 		{
 			// arrange
@@ -243,9 +275,27 @@ namespace Bitmex.NET.IntegrationTests.Tests
 			resultDelete.OrdType.Should().Be("Stop");
 			resultDelete.OrdStatus.Should().Be("Canceled");
 			resultDelete.OrderId.Should().NotBeNull();
-		}
+	    }
 
-		[TestMethod]
+	    [TestMethod]
+	    public void should_throw_bitmex_exception_with_deserialized_data_when_delete()
+	    {
+	        // arrange
+	        var @paramsDelete = new OrderDELETERequestParams()
+	        {
+	            // this order doesn't exist
+	            OrderID = Guid.NewGuid().ToString("N"),
+                Text = "testing api"
+	        };
+
+            // act
+            Action action = () => { var resultPut = Sut.Execute(BitmexApiUrls.Order.DeleteOrder, @paramsDelete).Result; };
+
+	        // assert
+	        action.Should().Throw<BitmexApiException>().Which.Error?.Error.Should().NotBeNull();
+	    }
+
+        [TestMethod]
 		public void should_place_buy_market_orders_bulk()
 		{
 			// arrange
@@ -418,7 +468,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
 		public void should_close_long_market_position_by_market()
 		{
 			// arrange
-			DeleteAllOrders();
 			var @params = OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 3, OrderSide.Buy);
 			var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
 			result.Should().NotBeNull();
@@ -441,7 +490,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
 		public void should_close_short_martket_position_by_market()
 		{
 			// arrange
-			DeleteAllOrders();
 			var @params = OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 3, OrderSide.Sell);
 			var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
 			result.Should().NotBeNull();
@@ -465,7 +513,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
 		public void should_close_long_market_position_by_limit()
 		{
 			// arrange
-			DeleteAllOrders();
 			var @params = OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 3, OrderSide.Buy);
 			var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
 			result.Should().NotBeNull();
@@ -489,7 +536,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
 		public void should_close_short_martket_position_by_limit()
 		{
 			// arrange
-			DeleteAllOrders();
 			var @params = OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 3, OrderSide.Sell);
 			var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
 			result.Should().NotBeNull();

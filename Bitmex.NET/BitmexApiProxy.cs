@@ -57,9 +57,9 @@ namespace Bitmex.NET
 				var resp = await httpClient.PostAsync(CurrentUrl + url, new StringContent(postData, Encoding.UTF8, "application/json"));
 				if (!resp.IsSuccessStatusCode)
 				{
-					var error = await resp.Content.ReadAsStringAsync();
-					throw new Exception(error);
-				}
+				    var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
+				    throw new BitmexApiException(error);
+                }
 
 				return await resp.Content.ReadAsStringAsync();
 			}
@@ -74,9 +74,9 @@ namespace Bitmex.NET
 				var resp = await httpClient.PutAsync(CurrentUrl + url, new StringContent(postData, Encoding.UTF8, "application/json"));
 				if (!resp.IsSuccessStatusCode)
 				{
-					var error = await resp.Content.ReadAsStringAsync();
-					throw new Exception(error);
-				}
+				    var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
+				    throw new BitmexApiException(error);
+                }
 
 				return await resp.Content.ReadAsStringAsync();
 			}
@@ -97,9 +97,9 @@ namespace Bitmex.NET
 				var resp = await httpClient.SendAsync(request);
 				if (!resp.IsSuccessStatusCode)
 				{
-					var error = await resp.Content.ReadAsStringAsync();
-					throw new Exception(error);
-				}
+				    var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
+				    throw new BitmexApiException(error);
+                }
 
 				return await resp.Content.ReadAsStringAsync();
 			}
