@@ -112,6 +112,7 @@
     <Compile Include="Tests\BitmexApiServiceOrderBookApiTests.cs" />
     <Compile Include="Tests\BitmexApiServicePositionApiTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceOrdersBookTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServicePositionTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceOrdersTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceTradesTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceNegativeCasesTests.cs" />
