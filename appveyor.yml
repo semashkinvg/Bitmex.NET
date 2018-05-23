@@ -4,3 +4,12 @@ test:
   assemblies:
     only:
       - Bitmex.NET.UnitTests.dll
+after_build:
+  - nuget pack %APPVEYOR_BUILD_FOLDER%\Bitmex.NET\Bitmex.NET.csproj -Properties Configuration=Release -Build -OutputDirectory %APPVEYOR_BUILD_FOLDER%\Bitmex.NET\bin
+
+artifacts:
+  - path: Bitmex.NET\bin\$(configuration)
+    name: Bitmex.NET_bin
+    
+  - path: Bitmex.NET\bin\*.nupkg
+    name: Bitmex.NET_%APPVEYOR_BUILD_VERSION%.nupkg
