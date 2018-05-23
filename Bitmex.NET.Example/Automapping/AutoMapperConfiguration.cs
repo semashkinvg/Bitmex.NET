@@ -9,7 +9,8 @@ namespace Bitmex.NET.Example.Automapping
 			Mapper.Initialize(cfg =>
 			{
 				cfg.AddProfile<InstrumentProfile>();
-			});
+				cfg.AddProfile<OrderProfile>();
+            });
 		}
 	}
 }

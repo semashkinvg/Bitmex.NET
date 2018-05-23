@@ -82,7 +82,7 @@ namespace Bitmex.NET.Dtos
 		public decimal SimpleLeavesQty { get; set; }
 
 		[JsonProperty("leavesQty")]
-		public decimal LeavesQty { get; set; }
+		public decimal? LeavesQty { get; set; }
 
 		[JsonProperty("simpleCumQty")]
 		public decimal SimpleCumQty { get; set; }

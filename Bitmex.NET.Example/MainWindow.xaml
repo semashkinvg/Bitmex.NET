@@ -6,14 +6,16 @@
         xmlns:local="clr-namespace:Bitmex.NET.Example"
         mc:Ignorable="d"
         Title="Bitmex.NET Example" Height="600" Width="525">
-
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
+    </Window.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<GroupBox Grid.Row="0" Header="Authorization">
+        <GroupBox Grid.Row="0" Header="Authorization" Visibility="{Binding IsNotConnected,Converter={StaticResource BooleanToVisibilityConverter}}">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>
@@ -21,17 +23,22 @@
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+				    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 				<Label Grid.Row="0" Grid.Column="0" 
 					   Content="Key"></Label>
 				<Label Grid.Row="1" Grid.Column="0" Content="Secret"></Label>
 
-				<TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Key}" VerticalAlignment="Center"></TextBox>
-				<TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Secret}" VerticalAlignment="Center"></TextBox>
-			</Grid>
+				<TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Key, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Secret, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"></TextBox>
+
+			    <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+			        <Button Content="Connect" HorizontalAlignment="Stretch" MinWidth="200" Command="{Binding StartLoadSymbolsCmd}"/>
+			    </StackPanel>
+            </Grid>
 		</GroupBox>
-		<GroupBox Header="Trade (buy/sell example)"  Grid.Row="1">
+        <GroupBox Header="Trade (buy/sell example)"  Grid.Row="1" Visibility="{Binding IsConnected,Converter={StaticResource BooleanToVisibilityConverter}}">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>
@@ -49,13 +56,13 @@
 				</StackPanel>
 			</Grid>
 		</GroupBox>
-		<GroupBox Header="Instruments (life updates using socket connection example)"  Grid.Row="2">
+        <GroupBox Header="Instruments (life updates using socket connection example)"  Grid.Row="2" Visibility="{Binding IsConnected,Converter={StaticResource BooleanToVisibilityConverter}}">
 			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-				<ListView ItemsSource="{Binding Instruments}">
+			    <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+			        <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ListView ItemsSource="{Binding Instruments}">
 					<ListView.View>
 						<GridView>
 							<GridViewColumn DisplayMemberBinding="{Binding Symbol}" Header="Symbol"/>
@@ -68,10 +75,21 @@
 							<GridViewColumn DisplayMemberBinding="{Binding LastChangePcnt}" Header="LastChangePcnt"/>
 						</GridView>
 					</ListView.View>
-				</ListView>
-				<StackPanel Grid.Row="1" Grid.Column="0"  Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-					<Button Content="Connect" HorizontalAlignment="Stretch" MinWidth="200" Command="{Binding StartLoadSymbolsCmd}"/>
-				</StackPanel>
+			    </ListView>
+			    <ListView Grid.Row="0" Grid.Column="1" ItemsSource="{Binding OrderUpdates}">
+			        <ListView.View>
+			            <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderId}" Header="OrderId"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Account}" Header="Account"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Symbol}" Header="Symbol"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Side}" Header="Side"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding SimpleOrderQty}" Header="SimpleOrderQty"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding OrderQty}" Header="OrderQty"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Price}" Header="Price"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding LeavesQty}" Header="LeavesQty"/>
+			            </GridView>
+			        </ListView.View>
+			    </ListView>
 			</Grid>
 		</GroupBox>
 	</Grid>
