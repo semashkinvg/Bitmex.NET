@@ -12,7 +12,7 @@ using Unity;
 
 namespace Bitmex.NET.IntegrationTests.Tests
 {
-    // This test can be fail sometime, it's because info through the socket comes a bit later or connection limit has been eached
+    // These tests can be failed sometime, it's because info through the socket comes a bit later or connection limit has been reached
 	[TestClass]
     public class BitmexApiSocketServicePositionTests : BaseBitmexIntegrationTests<IBitmexApiSocketService>
 	{

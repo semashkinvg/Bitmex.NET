@@ -11,12 +11,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
 	{
 		private decimal _xbtAvgPrice;
 
-		[TestCleanup]
-		public void TestCleanup()
-		{
-			DeleteAllOrders();
-		}
-
 		[TestInitialize]
 		public override void TestInitialize()
 		{
@@ -29,7 +23,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
 			Sut.Execute(BitmexApiUrls.Order.PostOrderCancelAllAfter, paramCloseAfter).Wait();
 			_xbtAvgPrice = Sut.Execute(BitmexApiUrls.OrderBook.GetOrderBookL2, new OrderBookL2GETRequestParams() { Symbol = "XBTUSD", Depth = 1 }).Result.First()
 				.Price;
-
 		}
 
 		[TestMethod]
@@ -45,15 +38,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
 			result.Should().NotBeNull();
 			result.Count.Should().BeGreaterThan(0);
-		}
-
-		private void DeleteAllOrders()
-		{
-			var @params = new OrderAllDELETERequestParams()
-			{
-				Symbol = "XBTUSD"
-			};
-			Sut.Execute(BitmexApiUrls.Order.DeleteOrderAll, @params).Wait();
 		}
 
 		[TestMethod]
