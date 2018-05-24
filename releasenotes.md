@@ -1,8 +1,9 @@
 # Release Notes
 
-## 2.0.2.30423
+## 2.0.2.*
 
 WEBSOCKET subscription available!! (See [Example](https://github.com/semashkinvg/Bitmex.NET/tree/master/Bitmex.NET.Example) project or [BitmexApiSocketService*Tests.cs](https://github.com/semashkinvg/Bitmex.NET/blob/master/Bitmex.NET.IntegrationTests/Tests/))
+
 Fixed issues #3 #4
 
 ## 1.0.3
