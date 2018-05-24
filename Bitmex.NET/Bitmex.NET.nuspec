@@ -16,7 +16,8 @@
 		<tags>BitMEX REST API</tags>
 		<dependencies>
 			<dependency id="Newtonsoft.Json" version="11.0.1" />
-			<dependency id="WebSocketSharp" version="1.0.3-rc11" />
+			<dependency id="SuperSocket.ClientEngine.Core" version="0.10.0" />
+			<dependency id="WebSocket4Net" version="0.15.2" />
 		</dependencies>
   </metadata>
 </package>
