@@ -1,5 +1,13 @@
 before_build:
   - nuget restore
+  
+assembly_info:
+  patch: true
+  file: '**\Bitmex.NET.csproj'
+  assembly_version: $(appveyor_build_version)
+  assembly_file_version: $(appveyor_build_version)
+  assembly_informational_version: $(appveyor_build_version)
+  
 test:
   assemblies:
     only:
