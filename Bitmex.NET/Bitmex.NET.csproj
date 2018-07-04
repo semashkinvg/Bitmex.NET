@@ -12,6 +12,8 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Copyright>Copyright 2018</Copyright>
     <PackageTags>BitMEX REST API WebSocket Cryptocurrency ExchangeApi CSharp StockApi Trades Quotes Wrapper Position Instrument CurrencyPair</PackageTags>
+    <Version>2.0.1.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
