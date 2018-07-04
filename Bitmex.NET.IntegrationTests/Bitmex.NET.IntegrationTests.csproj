@@ -123,13 +123,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bitmex.NET\Bitmex.NET.csproj">
-      <Project>{820a2906-661a-4290-b80c-5c8168626b4b}</Project>
-      <Name>Bitmex.NET</Name>
-    </ProjectReference>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <ProjectReference Include="..\Bitmex.NET\Bitmex.NET.csproj">
+      <Project>{8b0e3f5b-15ab-4bef-8130-08c503d0c91e}</Project>
+      <Name>Bitmex.NET</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -150,7 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bitmex.NET\Bitmex.NET.csproj">
-      <Project>{820a2906-661a-4290-b80c-5c8168626b4b}</Project>
+      <Project>{8b0e3f5b-15ab-4bef-8130-08c503d0c91e}</Project>
       <Name>Bitmex.NET</Name>
     </ProjectReference>
   </ItemGroup>
