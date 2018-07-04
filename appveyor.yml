@@ -14,7 +14,7 @@ dotnet_csproj:
 
 build_script:
   - dotnet build .\Bitmex.NET.build.sln --configuration Release
-  - dotnet pack Bitmex.NET
+  - dotnet pack Bitmex.NET --configuration Release
 
 test:
   assemblies:

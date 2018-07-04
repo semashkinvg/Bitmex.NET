@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Vladimir Semashkin</Authors>
+    <PackageLicenseUrl>https://github.com/semashkinvg/Bitmex.NET/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/semashkinvg/Bitmex.NET</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/semashkinvg/Bitmex.NET/blob/master/default.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/semashkinvg/Bitmex.NET/</RepositoryUrl>
+    <Description>Wrapper for BitMEX.com API (REST &amp; WebSocket)</Description>
+    <PackageReleaseNotes>See release notes here https://github.com/semashkinvg/Bitmex.NET/blob/master/releasenotes.md</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>Copyright 2018</Copyright>
+    <PackageTags>BitMEX REST API WebSocket Cryptocurrency ExchangeApi CSharp StockApi Trades Quotes Wrapper Position Instrument CurrencyPair</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
