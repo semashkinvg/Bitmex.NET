@@ -15,12 +15,6 @@ dotnet_csproj:
 build_script:
   - dotnet build .\Bitmex.NET.sln
   - dotnet pack Bitmex.NET
-  
-artifacts:
-  - path: Bitmex.NET\bin\Release
-    name: Bitmex.NET_bin
-    
-  - path: Bitmex.NET\bin\*.nupkg
 
 test:
   assemblies:
