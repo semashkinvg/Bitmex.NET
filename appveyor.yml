@@ -13,7 +13,7 @@ dotnet_csproj:
   
 
 build_script:
-  - dotnet build .\Bitmex.NET.sln
+  - dotnet build .\Bitmex.NET.build.sln
   - dotnet pack Bitmex.NET
 
 test:
