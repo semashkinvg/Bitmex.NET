@@ -1,6 +1,6 @@
 before_build:
-  - dotnet restore
-  - nuget restore
+  - dotnet restore .\Bitmex.NET.build.sln
+  - nuget restore .\Bitmex.NET.build.sln
   
 dotnet_csproj:
   patch: true
@@ -13,7 +13,7 @@ dotnet_csproj:
   
 
 build_script:
-  - dotnet build .\Bitmex.NET.build.sln
+  - dotnet build .\Bitmex.NET.build.sln --configuration Release
   - dotnet pack Bitmex.NET
 
 test:
