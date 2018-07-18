@@ -1,6 +1,6 @@
 # Release Notes
 
-## 2.0.26.0
+## 2.0.30.0
 Fixed authentication issues. Currently, nonce became in seconds rather than in milliseconds, according to the official reference
 
 ## 2.0.2.*
