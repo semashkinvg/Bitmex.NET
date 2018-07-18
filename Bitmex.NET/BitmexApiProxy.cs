@@ -15,16 +15,16 @@ namespace Bitmex.NET
         private string CurrentUrl => $"https://{Environments.Values[_bitmexAuthorization.BitmexEnvironment]}";
 
         private readonly IBitmexAuthorization _bitmexAuthorization;
-        private readonly INonceProvider _nonceProvider;
+        private readonly IExpiresTimeProvider _expiresTimeProvider;
         private readonly ISignatureProvider _signatureProvider;
 
-        public BitmexApiProxy(IBitmexAuthorization bitmexAuthorization, INonceProvider nonceProvider, ISignatureProvider signatureProvider)
+        public BitmexApiProxy(IBitmexAuthorization bitmexAuthorization, IExpiresTimeProvider expiresTimeProvider, ISignatureProvider signatureProvider)
         {
             _bitmexAuthorization = bitmexAuthorization;
-            _nonceProvider = nonceProvider;
+            _expiresTimeProvider = expiresTimeProvider;
             _signatureProvider = signatureProvider;
         }
-        public BitmexApiProxy(IBitmexAuthorization bitmexAuthorization) : this(bitmexAuthorization, new NonceProvider(), new SignatureProvider())
+        public BitmexApiProxy(IBitmexAuthorization bitmexAuthorization) : this(bitmexAuthorization, new ExpiresTimeProvider(), new SignatureProvider())
         {
         }
 
@@ -109,9 +109,9 @@ namespace Bitmex.NET
         {
             var key = _bitmexAuthorization.Key ?? string.Empty;
             var secret = _bitmexAuthorization.Secret ?? string.Empty;
-            var nonce = _nonceProvider.GetNonce().ToString();
-            var signatureString = _signatureProvider.CreateSignature(secret, $"{httpMethod}{url}{nonce}{@params}");
-            httpClient.DefaultRequestHeaders.Add("api-expires", nonce);
+            var expiresTime = _expiresTimeProvider.Get().ToString();
+            var signatureString = _signatureProvider.CreateSignature(secret, $"{httpMethod}{url}{expiresTime}{@params}");
+            httpClient.DefaultRequestHeaders.Add("api-expires", expiresTime);
             httpClient.DefaultRequestHeaders.Add("api-key", key);
             httpClient.DefaultRequestHeaders.Add("api-signature", signatureString);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
