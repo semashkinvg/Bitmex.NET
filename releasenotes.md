@@ -1,5 +1,8 @@
 # Release Notes
 
+## 2.0.26.0
+Fixed authentication issues. Currently, nonce became in seconds rather than in milliseconds, according to the official reference
+
 ## 2.0.2.*
 
 WEBSOCKET subscription available!! (See [Example](https://github.com/semashkinvg/Bitmex.NET/tree/master/Bitmex.NET.Example) project or [BitmexApiSocketService*Tests.cs](https://github.com/semashkinvg/Bitmex.NET/blob/master/Bitmex.NET.IntegrationTests/Tests/))
