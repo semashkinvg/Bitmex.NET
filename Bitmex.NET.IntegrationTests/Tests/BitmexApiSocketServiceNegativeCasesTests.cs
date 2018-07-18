@@ -10,62 +10,92 @@ using Unity;
 
 namespace Bitmex.NET.IntegrationTests.Tests
 {
-	[TestClass]
-	public class BitmexApiSocketServiceNegativeCasesTests : IntegrationTestsClass<IBitmexApiSocketService>
-	{
-		private IBitmexAuthorization _bitmexAuthorization;
+    [TestClass]
+    [TestCategory("WebSocket")]
+    public class BitmexApiSocketServiceNegativeCasesTests : IntegrationTestsClass<IBitmexApiSocketService>
+    {
+        private IBitmexAuthorization _bitmexAuthorization;
 
-		[TestInitialize]
-		public override void TestInitialize()
-		{
-			_bitmexAuthorization = Substitute.For<IBitmexAuthorization>();
-			var container = new UnityContainer();
-			container.AddNewExtension<BitmexNetUnityExtension>();
-			container.RegisterInstance<IBitmexAuthorization>(_bitmexAuthorization);
+        [TestInitialize]
+        public override void TestInitialize()
+        {
+            _bitmexAuthorization = Substitute.For<IBitmexAuthorization>();
+            var container = new UnityContainer();
+            container.AddNewExtension<BitmexNetUnityExtension>();
+            container.RegisterInstance<IBitmexAuthorization>(_bitmexAuthorization);
 
-			Sut = container.Resolve<IBitmexApiSocketService>();
-			_bitmexAuthorization.BitmexEnvironment.Returns(BitmexEnvironment.Test);
-			_bitmexAuthorization.Key.Returns(ConfigurationManager.AppSettings["Key"]);
-			_bitmexAuthorization.Secret.Returns(ConfigurationManager.AppSettings["Secret"]);
-		}
+            Sut = container.Resolve<IBitmexApiSocketService>();
+            _bitmexAuthorization.BitmexEnvironment.Returns(BitmexEnvironment.Test);
+            _bitmexAuthorization.Key.Returns(ConfigurationManager.AppSettings["Key1"]);
+            _bitmexAuthorization.Secret.Returns(ConfigurationManager.AppSettings["Secret1"]);
+        }
 
-		[TestMethod]
-		public void should_raise_an_exception_if_authorization_failed_due_to_key()
-		{
-			var wrongKey = Guid.NewGuid().ToString("N");
-			_bitmexAuthorization.Key.Returns(wrongKey);
+        [TestMethod]
+        public void should_raise_an_exception_if_authorization_failed_due_to_key()
+        {
+            try
+            {
+                var wrongKey = Guid.NewGuid().ToString("N");
+                _bitmexAuthorization.Key.Returns(wrongKey);
 
-			// act
-			Action act = () => Sut.Connect();
+                // act
+                Sut.Connect();
 
-			// assert
-			// can be either timeout or API key invalid.
-			act.Should().Throw<BitmexSocketAuthorizationException>();
-		}
+            }
+            catch (BitmexWebSocketLimitReachedException)
+            {
+                Assert.Inconclusive("connection limit reached");
+            }
+            // assert
+            catch (BitmexSocketAuthorizationException)
+            {
+                return;
+            }
 
-		[TestMethod]
-		public void should_raise_an_exception_if_authorization_failed_due_to_secret()
-		{
-			var wrongSign = Guid.NewGuid().ToString("N");
-			_bitmexAuthorization.Secret.Returns(wrongSign);
+            Assert.Fail("BitmexSocketAuthorizationException should be thrown");
+        }
 
-			// act
-			Action act = () => Sut.Connect();
+        [TestMethod]
+        public void should_raise_an_exception_if_authorization_failed_due_to_secret()
+        {
+            try
+            {
+                var wrongSign = Guid.NewGuid().ToString("N");
+                _bitmexAuthorization.Secret.Returns(wrongSign);
 
-			// assert
-			act.Should().Throw<BitmexSocketAuthorizationException>();
-		}
+                // act
+                Sut.Connect();
+            }
+            catch (BitmexWebSocketLimitReachedException)
+            {
+                Assert.Inconclusive("connection limit reached");
+            }
+            // assert
+            catch (BitmexSocketAuthorizationException)
+            {
+                return;
+            }
 
-		[TestMethod]
-		public void should_raise_an_exception_if_subscription_is_incorrect()
-		{
-			// act
-			Sut.Connect();
-			Action act = () => Sut.Subscribe(new BitmexApiSubscriptionInfo<InstrumentDto>("somethingThatDoesNotExist", dto => { }));
+            Assert.Fail("BitmexSocketAuthorizationException should be thrown");
+        }
 
-			// assert
-			// can be either timeout or API key invalid.
-			act.Should().Throw<BitmexSocketSubscriptionException>().Which.Message.Should().Contain("somethingThatDoesNotExist");
-		}
-	}
+        [TestMethod]
+        public void should_raise_an_exception_if_subscription_is_incorrect()
+        {
+            try
+            {
+                // act
+                Sut.Connect();
+                Action act = () => Sut.Subscribe(new BitmexApiSubscriptionInfo<InstrumentDto>("somethingThatDoesNotExist", dto => { }));
+
+                // assert
+                // can be either timeout or API key invalid.
+                act.Should().Throw<BitmexSocketSubscriptionException>().Which.Message.Should().Contain("somethingThatDoesNotExist");
+            }
+            catch (BitmexWebSocketLimitReachedException)
+            {
+                Assert.Inconclusive("connection limit reached");
+            }
+        }
+    }
 }

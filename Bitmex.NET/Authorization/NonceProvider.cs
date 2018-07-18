@@ -12,7 +12,7 @@ namespace Bitmex.NET.Authorization
         private static long _lastNonce = 0;
         public long GetNonce()
         {
-            var yearBegin = new DateTime(1970, 1, 1);
+            var yearBegin = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var newNonce = Convert.ToInt64(Math.Floor((DateTime.UtcNow - yearBegin).TotalSeconds));
             if (_lastNonce < newNonce)
             {
