@@ -1,6 +1,6 @@
 version: 2.0.{build}
 configuration: Release
-image: Visual Studio 2017 Preview
+image: Visual Studio 2017
 before_build:
   - dotnet restore .\Bitmex.NET.build.sln
   - nuget restore .\Bitmex.NET.build.sln
