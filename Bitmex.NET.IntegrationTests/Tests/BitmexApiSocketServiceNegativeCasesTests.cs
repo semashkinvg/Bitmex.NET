@@ -26,8 +26,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
             Sut = container.Resolve<IBitmexApiSocketService>();
             _bitmexAuthorization.BitmexEnvironment.Returns(BitmexEnvironment.Test);
-            _bitmexAuthorization.Key.Returns(ConfigurationManager.AppSettings["Key1"]);
-            _bitmexAuthorization.Secret.Returns(ConfigurationManager.AppSettings["Secret1"]);
+            _bitmexAuthorization.Key.Returns(ConfigurationManager.AppSettings["Key"]);
+            _bitmexAuthorization.Secret.Returns(ConfigurationManager.AppSettings["Secret"]);
         }
 
         [TestMethod]
@@ -86,16 +86,19 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 // act
                 Sut.Connect();
-                Action act = () => Sut.Subscribe(new BitmexApiSubscriptionInfo<InstrumentDto>("somethingThatDoesNotExist", dto => { }));
-
-                // assert
-                // can be either timeout or API key invalid.
-                act.Should().Throw<BitmexSocketSubscriptionException>().Which.Message.Should().Contain("somethingThatDoesNotExist");
+                Sut.Subscribe(new BitmexApiSubscriptionInfo<InstrumentDto>("somethingThatDoesNotExist", dto => { }));
             }
             catch (BitmexWebSocketLimitReachedException)
             {
                 Assert.Inconclusive("connection limit reached");
             }
+            catch (BitmexSocketSubscriptionException exc)
+            {
+                exc.Message.Should().Contain("somethingThatDoesNotExist");
+                return;
+
+            }
+            Assert.Fail("should throw exception BitmexSocketSubscriptionException");
         }
     }
 }

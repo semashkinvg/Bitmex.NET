@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Threading;
 using Unity;
 
 namespace Bitmex.NET.IntegrationTests
@@ -25,9 +24,6 @@ namespace Bitmex.NET.IntegrationTests
             Container?.Dispose();
             var disposable = Sut as IDisposable;
             disposable?.Dispose();
-
-            // to make avoid issues with nonce becuase nonce provided reregistered all the time
-            Thread.Sleep(5000);
         }
     }
 }
