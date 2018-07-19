@@ -2,7 +2,7 @@
 {
     public sealed class SocketAuthorizationMessage : SocketMessage
     {
-        public SocketAuthorizationMessage(string apiKey, long nonce, string sign) : base(OperationType.authKeyExpires, apiKey, nonce, sign)
+        public SocketAuthorizationMessage(string apiKey, long expiresTime, string sign) : base(OperationType.authKeyExpires, apiKey, expiresTime, sign)
         {
 
         }

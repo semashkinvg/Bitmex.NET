@@ -20,7 +20,7 @@ namespace Bitmex.NET
         private const int SocketMessageResponseTimeout = 5000;
 
         private readonly IBitmexAuthorization _bitmexAuthorization;
-        private readonly INonceProvider _nonceProvider;
+        private readonly IExpiresTimeProvider _expiresTimeProvider;
         private readonly ISignatureProvider _signatureProvider;
         private readonly IBitmexApiSocketProxy _bitmexApiSocketProxy;
         private readonly IDictionary<string, IList<BitmexApiSubscriptionInfo>> _actions;
@@ -28,17 +28,17 @@ namespace Bitmex.NET
         private bool _isAuthorized;
         public bool IsAuthorized => _bitmexApiSocketProxy.IsAlive && _isAuthorized;
 
-        public BitmexApiSocketService(IBitmexAuthorization bitmexAuthorization, INonceProvider nonceProvider, ISignatureProvider signatureProvider, IBitmexApiSocketProxy bitmexApiSocketProxy)
+        public BitmexApiSocketService(IBitmexAuthorization bitmexAuthorization, IExpiresTimeProvider expiresTimeProvider, ISignatureProvider signatureProvider, IBitmexApiSocketProxy bitmexApiSocketProxy)
         {
             _bitmexAuthorization = bitmexAuthorization;
-            _nonceProvider = nonceProvider;
+            _expiresTimeProvider = expiresTimeProvider;
             _signatureProvider = signatureProvider;
             _bitmexApiSocketProxy = bitmexApiSocketProxy;
             _actions = new Dictionary<string, IList<BitmexApiSubscriptionInfo>>();
             _bitmexApiSocketProxy.DataReceived += BitmexApiSocketProxyDataReceived;
         }
 
-        public BitmexApiSocketService(IBitmexAuthorization bitmexAuthorization, IBitmexApiSocketProxy bitmexApiSocketProxy) : this(bitmexAuthorization, new NonceProvider(), new SignatureProvider(), bitmexApiSocketProxy)
+        public BitmexApiSocketService(IBitmexAuthorization bitmexAuthorization, IBitmexApiSocketProxy bitmexApiSocketProxy) : this(bitmexAuthorization, new ExpiresTimeProvider(), new SignatureProvider(), bitmexApiSocketProxy)
         {
         }
 
@@ -113,7 +113,7 @@ namespace Bitmex.NET
 
         private bool Authorize()
         {
-            var nonce = _nonceProvider.GetNonce();
+            var expiresTime = _expiresTimeProvider.Get();
             var respReceived = new ManualResetEvent(false);
             var data = new string[0];
             var error = string.Empty;
@@ -128,8 +128,8 @@ namespace Bitmex.NET
                 }
             };
 
-            var signatureString = _signatureProvider.CreateSignature(_bitmexAuthorization.Secret, $"GET/realtime{nonce}");
-            var message = new SocketAuthorizationMessage(_bitmexAuthorization.Key, nonce, signatureString);
+            var signatureString = _signatureProvider.CreateSignature(_bitmexAuthorization.Secret, $"GET/realtime{expiresTime}");
+            var message = new SocketAuthorizationMessage(_bitmexAuthorization.Key, expiresTime, signatureString);
             _bitmexApiSocketProxy.OperationResultReceived += resultReceived;
             _bitmexApiSocketProxy.Send(message);
             var waitResult = respReceived.WaitOne(SocketMessageResponseTimeout);

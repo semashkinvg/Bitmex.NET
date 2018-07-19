@@ -16,7 +16,7 @@ namespace Bitmex.NET.IntegrationTests
 			Container.RegisterType<IBitmexApiService, BitmexApiService>();
 			Container.RegisterType<IBitmexApiSocketService, BitmexApiSocketService>();
 			Container.RegisterType<IBitmexApiSocketProxy, BitmexApiSocketProxy>();
-			Container.RegisterType<INonceProvider, NonceProvider>(new ContainerControlledLifetimeManager());
+			Container.RegisterType<IExpiresTimeProvider, ExpiresTimeProvider>(new ContainerControlledLifetimeManager());
 			Container.RegisterType<ISignatureProvider, SignatureProvider>(new ContainerControlledLifetimeManager());
 
 			var authorization = new BitmexAuthorization
