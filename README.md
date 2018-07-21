@@ -1,4 +1,4 @@
-# Bitmex.NET [![Build Status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/project/semashkinvg/bitmex-net) [![NuGet Badge](https://buildstats.info/nuget/Bitmext.Net)](https://www.nuget.org/packages/Bitmex.NET/) [![Join the chat at https://gitter.im/Bitmex-Net](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Bitmex-Net?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Bitmex.NET [![Build Status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/project/semashkinvg/bitmex-net) [![NuGet](https://img.shields.io/nuget/v/Bitmex.NET.svg)](https://www.nuget.org/packages/Bitmex.NET/) [![Join the chat at https://gitter.im/Bitmex-Net](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Bitmex-Net?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Wrapper for BitMEX.com REST API
 
