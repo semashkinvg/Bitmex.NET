@@ -23,7 +23,8 @@ test:
   assemblies:
     only:
       - Bitmex.NET.UnitTests.dll
-  
+      - Bitmex.NET.IntegrationTests.dll
+      
 artifacts:
   - path: Bitmex.NET\bin\Release
     name: Bitmex.NET_bin

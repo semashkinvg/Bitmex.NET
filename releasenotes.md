@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.0.39.0
+fixed bug #7
+added Bitmex WebSocket Limit Reached Exception. For the time being the limit provided by Bitmex is 20. It's not hardcoded value, the current framework takes it from WebSocket welcome message.
+
 ## 2.0.30.0
 Fixed authentication issues. Currently, nonce became in seconds rather than in milliseconds, according to the official reference
 

@@ -4,61 +4,62 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bitmex.NET.IntegrationTests.Tests
 {
-	[TestClass]
-	public class BitmexApiServiceQuoteApiTests : IntegrationTestsClass<IBitmexApiService>
-	{
+    [TestClass]
+    [TestCategory("REST")]
+    public class BitmexApiServiceQuoteApiTests : IntegrationTestsClass<IBitmexApiService>
+    {
 
-		[TestMethod]
-		public void should_return_quotes()
-		{
-			// arrange
-			var @params = new QuoteGETRequestParams
-			{
-				Symbol = "XBTUSD"
-			};
+        [TestMethod]
+        public void should_return_quotes()
+        {
+            // arrange
+            var @params = new QuoteGETRequestParams
+            {
+                Symbol = "XBTUSD"
+            };
 
-			// act
-			var result = Sut.Execute(BitmexApiUrls.Quote.GetQuote, @params).Result;
+            // act
+            var result = Sut.Execute(BitmexApiUrls.Quote.GetQuote, @params).Result;
 
-			// assert
-			result.Should().NotBeNull();
-			result.Count.Should().BeGreaterThan(0);
-		}
+            // assert
+            result.Should().NotBeNull();
+            result.Count.Should().BeGreaterThan(0);
+        }
 
-		[TestMethod]
-		public void should_return_quotes_with_specific_count()
-		{
-			// arrange
-			var @params = new QuoteGETRequestParams
-			{
-				Symbol = "XBTUSD",
-				Count = 50
-			};
+        [TestMethod]
+        public void should_return_quotes_with_specific_count()
+        {
+            // arrange
+            var @params = new QuoteGETRequestParams
+            {
+                Symbol = "XBTUSD",
+                Count = 50
+            };
 
-			// act
-			var result = Sut.Execute(BitmexApiUrls.Quote.GetQuote, @params).Result;
+            // act
+            var result = Sut.Execute(BitmexApiUrls.Quote.GetQuote, @params).Result;
 
-			// assert
-			result.Should().NotBeNull();
-			result.Count.Should().Be(50);
-		}
+            // assert
+            result.Should().NotBeNull();
+            result.Count.Should().Be(50);
+        }
 
-		[TestMethod]
-		public void should_return_quotes_bucketed()
-		{
-			// arrange
-			var @params = new QuoteBucketedGETRequestParams
-			{
-				BinSize = "1m",
-				Symbol = "XBTUSD"
-			};
+        [TestMethod]
+        public void should_return_quotes_bucketed()
+        {
+            // arrange
+            var @params = new QuoteBucketedGETRequestParams
+            {
+                BinSize = "1m",
+                Symbol = "XBTUSD"
+            };
 
-			// act
-			var result = Sut.Execute(BitmexApiUrls.Quote.GetQuoteBucketed, @params).Result;
+            // act
+            var result = Sut.Execute(BitmexApiUrls.Quote.GetQuoteBucketed, @params).Result;
 
-			// assert
-			result.Should().NotBeNull();
-			result.Count.Should().BeGreaterThan(0);
-		}
-	}
+            // assert
+            result.Should().NotBeNull();
+            result.Count.Should().BeGreaterThan(0);
+        }
+    }
 }
