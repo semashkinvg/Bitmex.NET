@@ -1,5 +1,6 @@
 ﻿using Bitmex.NET.Authorization;
 using Bitmex.NET.Dtos;
+using Bitmex.NET.Logging;
 using Bitmex.NET.Models;
 using Newtonsoft.Json;
 using System;
@@ -12,7 +13,8 @@ namespace Bitmex.NET
 {
     public class BitmexApiProxy : IBitmexApiProxy
     {
-        private string CurrentUrl => $"https://{Environments.Values[_bitmexAuthorization.BitmexEnvironment]}";
+        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        private string CurrentHost => $"https://{Environments.Values[_bitmexAuthorization.BitmexEnvironment]}";
 
         private readonly IBitmexAuthorization _bitmexAuthorization;
         private readonly IExpiresTimeProvider _expiresTimeProvider;
@@ -32,18 +34,22 @@ namespace Bitmex.NET
         {
             using (var httpClient = new HttpClient())
             {
+                var currentHost = CurrentHost;
                 var query = parameters?.ToQueryString() ?? string.Empty;
                 query = string.IsNullOrWhiteSpace(query) ? query : "?" + query;
                 var url = $"/api/v1/{action}{query}";
                 Auth(httpClient, url, HttpMethods.GET);
-                var resp = await httpClient.GetAsync(CurrentUrl + url);
+                Log.Debug($"GET {url}");
+                var resp = await httpClient.GetAsync(currentHost + url);
                 if (!resp.IsSuccessStatusCode)
                 {
                     var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
                     throw new BitmexApiException(error);
                 }
 
-                return await resp.Content.ReadAsStringAsync();
+                var respAsString = await resp.Content.ReadAsStringAsync();
+                Log.Debug($"GET {url} resp:{respAsString}");
+                return respAsString;
             }
         }
 
@@ -54,14 +60,17 @@ namespace Bitmex.NET
                 var url = "/api/v1/" + action;
                 var postData = parameters?.ToJson() ?? string.Empty;
                 Auth(httpClient, url, HttpMethods.POST, postData);
-                var resp = await httpClient.PostAsync(CurrentUrl + url, new StringContent(postData, Encoding.UTF8, "application/json"));
+                Log.Debug($"POST {url}");
+                var resp = await httpClient.PostAsync(CurrentHost + url, new StringContent(postData, Encoding.UTF8, "application/json"));
                 if (!resp.IsSuccessStatusCode)
                 {
                     var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
                     throw new BitmexApiException(error);
                 }
 
-                return await resp.Content.ReadAsStringAsync();
+                var respAsString = await resp.Content.ReadAsStringAsync();
+                Log.Debug($"POST {url} resp:{respAsString}");
+                return respAsString;
             }
         }
         public async Task<string> Put(string action, IJsonQueryParams parameters)
@@ -71,14 +80,17 @@ namespace Bitmex.NET
                 var url = "/api/v1/" + action;
                 var postData = parameters?.ToJson() ?? string.Empty;
                 Auth(httpClient, url, HttpMethods.PUT, postData);
-                var resp = await httpClient.PutAsync(CurrentUrl + url, new StringContent(postData, Encoding.UTF8, "application/json"));
+                Log.Debug($"PUT {url}");
+                var resp = await httpClient.PutAsync(CurrentHost + url, new StringContent(postData, Encoding.UTF8, "application/json"));
                 if (!resp.IsSuccessStatusCode)
                 {
                     var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
                     throw new BitmexApiException(error);
                 }
 
-                return await resp.Content.ReadAsStringAsync();
+                var respAsString = await resp.Content.ReadAsStringAsync();
+                Log.Debug($"PUT {url} resp:{respAsString}");
+                return respAsString;
             }
         }
         public async Task<string> Delete(string action, IJsonQueryParams parameters)
@@ -92,7 +104,7 @@ namespace Bitmex.NET
                 {
                     Content = new StringContent(postData, Encoding.UTF8, "application/json"),
                     Method = HttpMethod.Delete,
-                    RequestUri = new Uri(CurrentUrl + url)
+                    RequestUri = new Uri(CurrentHost + url)
                 };
                 var resp = await httpClient.SendAsync(request);
                 if (!resp.IsSuccessStatusCode)
@@ -101,7 +113,9 @@ namespace Bitmex.NET
                     throw new BitmexApiException(error);
                 }
 
-                return await resp.Content.ReadAsStringAsync();
+                var respAsString = await resp.Content.ReadAsStringAsync();
+                Log.Debug($"PUT {url} resp:{respAsString}");
+                return respAsString;
             }
         }
 
