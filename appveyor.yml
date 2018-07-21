@@ -30,3 +30,14 @@ artifacts:
     name: Bitmex.NET_bin
     
   - path: '**\Bitmex.NET\bin\Release\*.nupkg'
+  
+notifications:
+- provider: Email
+  to:
+  - semashkin.vg@gmail.com
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: false
+  
+skip_commits:
+  message: /\[skip ci\]/
