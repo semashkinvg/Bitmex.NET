@@ -177,6 +177,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Automapping\AutoMapperConfiguration.cs" />
+    <Compile Include="Automapping\OrderBookProfile.cs" />
     <Compile Include="Automapping\OrderProfile.cs" />
     <Compile Include="Automapping\InstrumentProfile.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -187,6 +188,7 @@
   <ItemGroup>
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Models\InstrumentModel.cs" />
+    <Compile Include="Models\OrderBookModel.cs" />
     <Compile Include="Models\OrderUpdateModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -230,5 +232,6 @@
       <Name>Bitmex.NET</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,7 +11,20 @@ namespace Bitmex.NET
 {
     public interface IBitmexApiSocketService
     {
+        /// <summary>
+        /// Sends provided API key and a message encrypted using provided Secret to the server and waits for a response.
+        /// </summary>
+        /// <exception cref="BitmexSocketAuthorizationException">Throws when either timeout is reached or server retured an error.</exception>
+        /// <returns>Returns value of IsAuthorized property.</returns>
         bool Connect();
+
+        /// <summary>
+        /// Sends to the server a request for subscription on specified topic with specified arguments and waits for response from it.
+        /// If you ok to use provided DTO mdoels for socket communication please use <see cref="BitmetSocketSubscriptions"/> static methods to avoid Subscription->Model mapping mistakes.
+        /// </summary>
+        /// <exception cref="BitmexSocketSubscriptionException">Throws when either timeout is reached or server retured an error.</exception>
+        /// <typeparam name="T">Expected type</typeparam>
+        /// <param name="subscription">Specific subscription details. Check out <see cref="BitmetSocketSubscriptions"/>.</param>
         void Subscribe<T>(BitmexApiSubscriptionInfo<T> subscription)
             where T : class;
     }
@@ -65,8 +78,11 @@ namespace Bitmex.NET
 
         /// <summary>
         /// Sends to the server a request for subscription on specified topic with specified arguments and waits for response from it.
+        /// If you ok to use provided DTO mdoels for socket communication please use <see cref="BitmetSocketSubscriptions"/> static methods to avoid Subscription->Model mapping mistakes.
         /// </summary>
         /// <exception cref="BitmexSocketSubscriptionException">Throws when either timeout is reached or server retured an error.</exception>
+        /// <typeparam name="T">Expected type</typeparam>
+        /// <param name="subscription">Specific subscription details. Check out <see cref="BitmetSocketSubscriptions"/>.</param>
         public void Subscribe<T>(BitmexApiSubscriptionInfo<T> subscription)
             where T : class
         {
@@ -165,7 +181,7 @@ namespace Bitmex.NET
                 foreach (var subscription in _actions[args.TableName])
                 {
                     var data = args.Data;
-                    Task.Factory.StartNew(() => subscription.Execute(data));
+                    Task.Factory.StartNew(() => subscription.Execute(data, args.Action));
                 }
             }
         }

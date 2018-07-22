@@ -1,5 +1,6 @@
 ﻿
 using Bitmex.NET.Dtos;
+using Bitmex.NET.Dtos.Socket;
 using Bitmex.NET.Models;
 using Bitmex.NET.Models.Socket;
 using FluentAssertions;
@@ -50,8 +51,11 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 var dataReceived = new ManualResetEvent(false);
                 Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<OrderDto>>.Create(SubscriptionType.order, a =>
                 {
-                    dtos = a.ToList();
-                    dataReceived.Set();
+                    if (a.Data.Any(b => b.Symbol == "XBTUSD") && a.Action == BitmexActions.Insert)
+                    {
+                        dtos = a.Data.ToList();
+                        dataReceived.Set();
+                    }
                 }));
                 var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
                 result.Should().NotBeNull();
@@ -92,8 +96,11 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 var dataReceived = new ManualResetEvent(false);
                 Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<OrderDto>>.Create(SubscriptionType.order, a =>
                 {
-                    dtos = a.ToList();
-                    dataReceived.Set();
+                    if (a.Data.Any(b => b.Symbol == "XBTUSD") && a.Action == BitmexActions.Insert)
+                    {
+                        dtos = a.Data.ToList();
+                        dataReceived.Set();
+                    }
                 }));
                 var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
                 result.Should().NotBeNull();
@@ -131,8 +138,11 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 var dataReceived = new ManualResetEvent(false);
                 Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<OrderDto>>.Create(SubscriptionType.order, a =>
                 {
-                    dtos = a.ToList();
-                    dataReceived.Set();
+                    if (a.Data.Any(b => b.Symbol == "XBTUSD") && a.Action == BitmexActions.Insert)
+                    {
+                        dtos = a.Data.ToList();
+                        dataReceived.Set();
+                    }
                 }));
                 var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
                 result.Should().NotBeNull();

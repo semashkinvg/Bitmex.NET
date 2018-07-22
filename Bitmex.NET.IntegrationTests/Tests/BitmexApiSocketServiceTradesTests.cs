@@ -1,5 +1,4 @@
 ﻿using Bitmex.NET.Dtos;
-using Bitmex.NET.Models.Socket;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -24,9 +23,9 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<TradeDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<TradeDto>>.Create(SubscriptionType.trade, a =>
+                Sut.Subscribe(BitmetSocketSubscriptions.CreateTradeSubsription(a =>
                 {
-                    dtos = a;
+                    dtos = a.Data;
                     dataReceived.Set();
                 }));
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(20));
@@ -55,9 +54,9 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<TradeDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<TradeDto>>.Create(SubscriptionType.trade, a =>
+                Sut.Subscribe(BitmetSocketSubscriptions.CreateTradeSubsription(a =>
                 {
-                    dtos = a;
+                    dtos = a.Data;
                     dataReceived.Set();
                 }).WithArgs("XBTUSD"));
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(20));
@@ -87,9 +86,9 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<TradeBucketedDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<TradeBucketedDto>>.Create(SubscriptionType.tradeBin1m, a =>
+                Sut.Subscribe(BitmetSocketSubscriptions.CreateTradeBucket1MSubsription(a =>
                 {
-                    dtos = a;
+                    dtos = a.Data;
                     dataReceived.Set();
                 }).WithArgs("XBTUSD"));
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(60));

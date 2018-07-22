@@ -1,5 +1,4 @@
 ﻿using Bitmex.NET.Dtos;
-using Bitmex.NET.Models.Socket;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -59,9 +58,9 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<InstrumentDto> dto = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<InstrumentDto>>.Create(SubscriptionType.instrument, a =>
+                Sut.Subscribe(BitmetSocketSubscriptions.CreateInstrumentSubsription(a =>
                 {
-                    dto = a;
+                    dto = a.Data;
                     dataReceived.Set();
                 }));
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(2));
@@ -90,9 +89,9 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<InstrumentDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<InstrumentDto>>.Create(SubscriptionType.instrument, a =>
+                Sut.Subscribe(BitmetSocketSubscriptions.CreateInstrumentSubsription(a =>
                 {
-                    dtos = a;
+                    dtos = a.Data;
                     dataReceived.Set();
                 }).WithArgs("XBTJPY"));
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(30));

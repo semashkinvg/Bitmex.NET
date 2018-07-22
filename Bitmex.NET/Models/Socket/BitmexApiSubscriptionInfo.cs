@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Bitmex.NET.Dtos.Socket;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 
@@ -17,16 +18,15 @@ namespace Bitmex.NET.Models.Socket
             SubscriptionName = subscriptionName;
         }
 
-        public abstract void Execute(JToken data);
+        public abstract void Execute(JToken data, BitmexActions action);
     }
 
     public class BitmexApiSubscriptionInfo<TResult> : BitmexApiSubscriptionInfo
         where TResult : class
     {
-        public Action<TResult> Act { get; }
+        public Action<BitmexSocketDataMessage<TResult>> Act { get; }
 
-        [Obsolete("it's public for tests only, use static Create method instead")]
-        public BitmexApiSubscriptionInfo(string subscriptionName, Action<TResult> act) : base(subscriptionName)
+        public BitmexApiSubscriptionInfo(SubscriptionType subscriptionType, Action<BitmexSocketDataMessage<TResult>> act) : base(Enum.GetName(typeof(SubscriptionType), subscriptionType))
         {
             Act = act;
         }
@@ -37,14 +37,14 @@ namespace Bitmex.NET.Models.Socket
             return this;
         }
 
-        public static BitmexApiSubscriptionInfo<TResult> Create(SubscriptionType subscriptionType, Action<TResult> act)
+        public static BitmexApiSubscriptionInfo<TResult> Create(SubscriptionType subscriptionType, Action<BitmexSocketDataMessage<TResult>> act)
         {
-            return new BitmexApiSubscriptionInfo<TResult>(Enum.GetName(typeof(SubscriptionType), subscriptionType), act);
+            return new BitmexApiSubscriptionInfo<TResult>(subscriptionType, act);
         }
 
-        public override void Execute(JToken data)
+        public override void Execute(JToken data, BitmexActions action)
         {
-            Act?.Invoke(data.ToObject<TResult>());
+            Act?.Invoke(new BitmexSocketDataMessage<TResult>(action, data.ToObject<TResult>()));
         }
 
     }

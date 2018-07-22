@@ -110,7 +110,7 @@ namespace Bitmex.NET
             var data = JsonConvert.DeserializeObject<BitmexSocketDataDto>(e.Message);
             if (!string.IsNullOrWhiteSpace(data.TableName) && (data.AdditionalData?.ContainsKey("data") ?? false))
             {
-                OnDataReceived(new DataEventArgs(data.TableName, data.AdditionalData["data"]));
+                OnDataReceived(new DataEventArgs(data.TableName, data.AdditionalData["data"], data.Action));
                 return;
             }
         }

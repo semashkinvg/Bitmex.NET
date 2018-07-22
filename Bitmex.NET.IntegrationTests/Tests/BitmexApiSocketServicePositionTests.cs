@@ -1,7 +1,6 @@
 ﻿
 using Bitmex.NET.Dtos;
 using Bitmex.NET.Models;
-using Bitmex.NET.Models.Socket;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -48,9 +47,9 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IList<PositionDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<PositionDto>>.Create(SubscriptionType.position, a =>
+                Sut.Subscribe(BitmetSocketSubscriptions.CreatePositionSubsription(a =>
                 {
-                    dtos = a.ToList();
+                    dtos = a.Data.ToList();
                     dataReceived.Set();
                 }));
 

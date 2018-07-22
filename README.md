@@ -132,6 +132,9 @@ GET |trade
 GET |trade/bucketed
 
 
+## Docs
+Please checkout ![the following documents](/docs). During the time I will be adding solutions, best practices, life examples and some other information with peculiarities about Bitmex
+
 ## Examples
 
 Please see example of simple Buy&Sell application ![here](/Bitmex.NET.Example)
