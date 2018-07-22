@@ -1,5 +1,10 @@
 # Release Notes
 
+## 2.0.43.0
+added handling actions
+added order book L2 handling docs
+OrderBookSocketDto renamed to OrderBook10Dto (for orderBook10 web socket subscription)
+
 ## 2.0.41.0
 fixed issue ![#5](https://github.com/semashkinvg/Bitmex.NET/issues/5)
 added logging. Please check out ![readme](https://github.com/semashkinvg/Bitmex.NET#Logging)
