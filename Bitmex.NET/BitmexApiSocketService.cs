@@ -23,10 +23,12 @@ namespace Bitmex.NET
         /// If you ok to use provided DTO mdoels for socket communication please use <see cref="BitmetSocketSubscriptions"/> static methods to avoid Subscription->Model mapping mistakes.
         /// </summary>
         /// <exception cref="BitmexSocketSubscriptionException">Throws when either timeout is reached or server retured an error.</exception>
-        /// <typeparam name="T">Expected type</typeparam>
         /// <param name="subscription">Specific subscription details. Check out <see cref="BitmetSocketSubscriptions"/>.</param>
-        void Subscribe<T>(BitmexApiSubscriptionInfo<T> subscription)
-            where T : class;
+        void Subscribe(BitmexApiSubscriptionInfo subscription);
+
+        void Unsubscribe(BitmexApiSubscriptionInfo subscription);
+
+        Task UnsubscribeAsync(BitmexApiSubscriptionInfo subscription);
     }
 
     public class BitmexApiSocketService : IBitmexApiSocketService, IDisposable
@@ -83,8 +85,7 @@ namespace Bitmex.NET
         /// <exception cref="BitmexSocketSubscriptionException">Throws when either timeout is reached or server retured an error.</exception>
         /// <typeparam name="T">Expected type</typeparam>
         /// <param name="subscription">Specific subscription details. Check out <see cref="BitmetSocketSubscriptions"/>.</param>
-        public void Subscribe<T>(BitmexApiSubscriptionInfo<T> subscription)
-            where T : class
+        public void Subscribe(BitmexApiSubscriptionInfo subscription)
         {
             var subscriptionName = subscription.SubscriptionName;
             var message = new SocketSubscriptionMessage(subscription.SubscriptionWithArgs);
@@ -132,6 +133,64 @@ namespace Bitmex.NET
                 Log.Error($"Failed to subscribe on {subscriptionName} {error} ");
                 throw new BitmexSocketSubscriptionException(error, errorArgs);
             }
+        }
+
+        public async Task UnsubscribeAsync(BitmexApiSubscriptionInfo subscription)
+        {
+            var subscriptionName = subscription.SubscriptionName;
+            var message = new SocketUnsubscriptionMessage(subscription.SubscriptionWithArgs);
+            using (var semafore = new SemaphoreSlim(0, 1))
+            {
+                bool success = false;
+                string error = string.Empty;
+                string status = string.Empty;
+                var errorArgs = new string[0];
+                OperationResultEventHandler resultReceived = args =>
+                {
+                    if (args.OperationType == OperationType.unsubscribe)
+                    {
+                        error = args.Error;
+                        status = args.Status;
+                        success = args.Result;
+                        errorArgs = args.Args;
+                        semafore.Release(1);
+                    }
+                };
+                _bitmexApiSocketProxy.OperationResultReceived += resultReceived;
+                Log.Info($"Unsubscribing on {subscriptionName}...");
+                _bitmexApiSocketProxy.Send(message);
+                var waitReuslt = await semafore.WaitAsync(SocketMessageResponseTimeout);
+                _bitmexApiSocketProxy.OperationResultReceived -= resultReceived;
+                if (!waitReuslt)
+                {
+                    throw new BitmexSocketSubscriptionException("Unsubscription failed: timeout waiting unsubscription response");
+                }
+
+                if (success)
+                {
+
+                    Log.Info($"Successfully unsubscribed on {subscriptionName} ");
+                    if (_actions.ContainsKey(subscription.SubscriptionName))
+                    {
+                        if (_actions[subscription.SubscriptionName].Contains(subscription))
+                        {
+                            _actions[subscription.SubscriptionName].Remove(subscription);
+                        }
+                    }
+                }
+                else
+                {
+                    Log.Error($"Failed to unsubscribe on {subscriptionName} {error} ");
+                    throw new BitmexSocketSubscriptionException(error, errorArgs);
+                }
+            }
+        }
+
+        public void Unsubscribe(BitmexApiSubscriptionInfo subscription)
+        {
+            var task = UnsubscribeAsync(subscription);
+            task.ConfigureAwait(false);
+            task.Wait();
         }
 
         private bool Authorize()

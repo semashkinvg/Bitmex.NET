@@ -163,6 +163,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBitmexIntegrationTests.cs" />
+    <Compile Include="BaseBitmexSocketIntegrationTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceUnsubscribeTests.cs" />
     <Compile Include="BitmexNetUnityExtension.cs" />
     <Compile Include="IntegrationTestsClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

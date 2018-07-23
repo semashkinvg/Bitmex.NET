@@ -11,7 +11,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 {
     [TestClass]
     [TestCategory("WebSocket")]
-    public class BitmexApiSocketServiceOrdersBookTests : BaseBitmexIntegrationTests<IBitmexApiSocketService>
+    public class BitmexApiSocketServiceOrdersBookTests : BaseBitmexSocketIntegrationTests
     {
         [TestMethod]
         public void should_subscribe_on_orders_book_10()
@@ -24,11 +24,15 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<OrderBook10Dto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmetSocketSubscriptions.CreateOrderBook10Subsription(a =>
+                var subscription = BitmetSocketSubscriptions.CreateOrderBook10Subsription(a =>
                 {
                     dtos = a.Data;
                     dataReceived.Set();
-                }));
+                });
+
+                Subscription = subscription;
+
+                Sut.Subscribe(subscription);
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(20));
 
                 // assert
@@ -55,11 +59,15 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<OrderBook10Dto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmetSocketSubscriptions.CreateOrderBook10Subsription(a =>
+                var subscription = BitmetSocketSubscriptions.CreateOrderBook10Subsription(a =>
                 {
                     dtos = a.Data;
                     dataReceived.Set();
-                }).WithArgs("XBTUSD"));
+                }).WithArgs("XBTUSD");
+
+                Subscription = subscription;
+
+                Sut.Subscribe(subscription);
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(20));
 
                 // assert
@@ -87,11 +95,15 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<OrderBookDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmetSocketSubscriptions.CreateOrderBookL2Subsription(a =>
+                var subscription = BitmetSocketSubscriptions.CreateOrderBookL2Subsription(a =>
                 {
                     dtos = a.Data;
                     dataReceived.Set();
-                }));
+                });
+
+                Subscription = subscription;
+
+                Sut.Subscribe(subscription);
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(20));
 
                 // assert
@@ -118,11 +130,14 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<OrderBookDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmetSocketSubscriptions.CreateOrderBookL2Subsription(a =>
+                var subscription = BitmetSocketSubscriptions.CreateOrderBookL2Subsription(a =>
                 {
                     dtos = a.Data;
                     dataReceived.Set();
-                }).WithArgs("XBTUSD"));
+                }).WithArgs("XBTUSD");
+                Subscription = subscription;
+
+                Sut.Subscribe(subscription);
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(20));
 
                 // assert

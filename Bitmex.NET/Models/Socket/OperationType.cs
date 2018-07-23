@@ -3,6 +3,7 @@
     public enum OperationType
     {
         subscribe,
+        unsubscribe,
         authKeyExpires
     }
 }
