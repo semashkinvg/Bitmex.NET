@@ -101,9 +101,9 @@ namespace Bitmex.NET
         }
         public static partial class Stats
         {
-            //public static ApiActionAttributes<StatsGETRequestParams, StatsDto> GetStats = new ApiActionAttributes<StatsGETRequestParams, StatsDto>("stats", HttpMethods.GET);
-            //public static ApiActionAttributes<StatsHistoryGETRequestParams, StatsDto> GetStatsHistory = new ApiActionAttributes<StatsHistoryGETRequestParams, StatsDto>("stats/history", HttpMethods.GET);
-            //public static ApiActionAttributes<StatsHistoryUSDGETRequestParams, StatsDto> GetStatsHistoryUSD = new ApiActionAttributes<StatsHistoryUSDGETRequestParams, StatsDto>("stats/historyUSD", HttpMethods.GET);
+            public static ApiActionAttributes<EmptyParameters, List<StatsDto>> GetStats = new ApiActionAttributes<EmptyParameters, List<StatsDto>>("stats", HttpMethods.GET);
+            public static ApiActionAttributes<EmptyParameters, List<StatsHistoryDto>> GetStatsHistory = new ApiActionAttributes<EmptyParameters, List<StatsHistoryDto>>("stats/history", HttpMethods.GET);
+            public static ApiActionAttributes<EmptyParameters, List<StatsHistoryDto>> GetStatsHistoryUsd = new ApiActionAttributes<EmptyParameters, List<StatsHistoryDto>>("stats/historyUSD", HttpMethods.GET);            
         }
         public static partial class Trade
         {

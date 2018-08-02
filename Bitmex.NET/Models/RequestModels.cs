@@ -468,7 +468,8 @@ namespace Bitmex.NET.Models
 
         [JsonProperty("amount")]
         public decimal Amount { get; set; }
-    }
+    }   
+
     public partial class QuoteGETRequestParams : QueryStringParamsWithFilter
     {
 
