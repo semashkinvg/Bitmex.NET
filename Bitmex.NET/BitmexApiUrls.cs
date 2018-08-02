@@ -76,7 +76,10 @@ namespace Bitmex.NET
         /// </summary>
         public static partial class Funding
         {
-            //public static ApiActionAttributes<FundingGETRequestParams, FundingDto> GetFunding = new ApiActionAttributes<FundingGETRequestParams, FundingDto>("funding", HttpMethods.GET);
+            /// <summary>
+            /// Get funding history
+            /// </summary>
+            public static ApiActionAttributes<FundingGETRequestParams, List<FundingDto>> GetFunding = new ApiActionAttributes<FundingGETRequestParams, List<FundingDto>>("funding", HttpMethods.GET);
         }
         /// <summary>
         /// Tradeable Contracts, Indices, and History

@@ -132,19 +132,31 @@ namespace Bitmex.NET.Models
     }
     public partial class FundingGETRequestParams : QueryStringParamsWithFilter
     {
-
+        /// <summary>
+        ///Generic table filter. Send JSON key/value pairs, such as {"key": "value"}. 
+        ///You can key on individual fields, and do more advanced querying on timestamps. See the Timestamp Docs for more details.
+        /// </summary>
         [DisplayName("symbol")]
         public string Symbol { get; set; }
-
+        /// <summary>
+        /// Array of column names to fetch. If omitted, will return all columns.
+        /// Note that this method will always return item keys, even when not specified, so you may receive more columns that you expect.
+        /// </summary>
         [DisplayName("columns")]
         public string Columns { get; set; }
-
+        /// <summary>
+        /// Number of results to fetch.
+        /// </summary>
         [DisplayName("count")]
         public decimal Count { get; set; }
-
+        /// <summary>
+        /// Starting point for results.
+        /// </summary>
         [DisplayName("start")]
         public decimal Start { get; set; }
-
+        /// <summary>
+        /// If true, will sort results newest first.
+        /// </summary>
         [DisplayName("reverse")]
         public bool Reverse { get; set; }
 
@@ -159,7 +171,7 @@ namespace Bitmex.NET.Models
 
         [DisplayName("symbol")]
         public string Symbol { get; set; }
-
+       
         [DisplayName("columns")]
         public string Columns { get; set; }
 
@@ -170,7 +182,7 @@ namespace Bitmex.NET.Models
         public decimal? Start { get; set; }
 
         [DisplayName("reverse")]
-        public bool Reverse { get; set; }
+        public bool Reverse { get; set; } = false;
 
         [DisplayName("startTime")]
         public DateTime? StartTime { get; set; }
