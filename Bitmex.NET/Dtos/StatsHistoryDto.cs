@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
-
+using System;
 
 namespace Bitmex.NET.Dtos
 {
     public class StatsHistoryDto
     {
         [JsonProperty("date")]
-        public string Date { get; set; }
+        public DateTime? Date { get; set; }
 
         [JsonProperty("rootSymbol")]
         public string RootSymbol { get; set; }
@@ -18,6 +18,6 @@ namespace Bitmex.NET.Dtos
         public decimal? Volume { get; set; }
 
         [JsonProperty("turnover")]
-        public decimal Turnover { get; set; }
+        public decimal? Turnover { get; set; }
     }
 }

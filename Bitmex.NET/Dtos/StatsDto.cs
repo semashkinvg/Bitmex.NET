@@ -18,12 +18,12 @@ namespace Bitmex.NET.Dtos
         public decimal? Volume24H { get; set; }
 
         [JsonProperty("turnover24h")]
-        public decimal Turnover24H { get; set; }
+        public decimal? Turnover24H { get; set; }
 
         [JsonProperty("openInterest")]
         public decimal? OpenInterest { get; set; }
 
         [JsonProperty("openValue")]
-        public decimal OpenValue { get; set; }
+        public decimal? OpenValue { get; set; }
     }
 }
