@@ -26,11 +26,26 @@ namespace Bitmex.NET
         /// </summary>
         public static partial class APIKey
         {
-            //public static ApiActionAttributes<ApiKeyGETRequestParams, APIKeyDto> GetApiKey = new ApiActionAttributes<ApiKeyGETRequestParams, APIKeyDto>("apiKey", HttpMethods.GET);
-            //public static ApiActionAttributes<ApiKeyPOSTRequestParams, APIKeyDto> PostApiKey = new ApiActionAttributes<ApiKeyPOSTRequestParams, APIKeyDto>("apiKey", HttpMethods.POST);
-            //public static ApiActionAttributes<ApiKeyDELETERequestParams, APIKeyDto> DeleteApiKey = new ApiActionAttributes<ApiKeyDELETERequestParams, APIKeyDto>("apiKey", HttpMethods.DELETE);
-            //public static ApiActionAttributes<ApiKeyDisablePOSTRequestParams, APIKeyDto> PostApiKeyDisable = new ApiActionAttributes<ApiKeyDisablePOSTRequestParams, APIKeyDto>("apiKey/disable", HttpMethods.POST);
-            //public static ApiActionAttributes<ApiKeyEnablePOSTRequestParams, APIKeyDto> PostApiKeyEnable = new ApiActionAttributes<ApiKeyEnablePOSTRequestParams, APIKeyDto>("apiKey/enable", HttpMethods.POST);
+            /// <summary>
+            /// Get your API Keys
+            /// </summary>
+            public static ApiActionAttributes<ApiKeyGETRequestParams, List<APIKeyDto>> GetApiKey = new ApiActionAttributes<ApiKeyGETRequestParams, List<APIKeyDto>>("apiKey", HttpMethods.GET);
+            /// <summary>
+            /// Create an API key. Note: API Keys can only be created via the frontend.
+            /// </summary>
+            public static ApiActionAttributes<ApiKeyPOSTRequestParams, APIKeyDto> PostApiKey = new ApiActionAttributes<ApiKeyPOSTRequestParams, APIKeyDto>("apiKey", HttpMethods.POST);
+            /// <summary>
+            /// Delete an API key
+            /// </summary>
+            public static ApiActionAttributes<ApiKeyDELETERequestParams, APIKeyDeleteDto> DeleteApiKey = new ApiActionAttributes<ApiKeyDELETERequestParams, APIKeyDeleteDto>("apiKey", HttpMethods.DELETE);
+            /// <summary>
+            /// Disable an API key
+            /// </summary>
+            public static ApiActionAttributes<ApiKeyDisablePOSTRequestParams, APIKeyDto> PostApiKeyDisable = new ApiActionAttributes<ApiKeyDisablePOSTRequestParams, APIKeyDto>("apiKey/disable", HttpMethods.POST);
+            /// <summary>
+            /// Enable an API key
+            /// </summary>
+            public static ApiActionAttributes<ApiKeyEnablePOSTRequestParams, APIKeyDto> PostApiKeyEnable = new ApiActionAttributes<ApiKeyEnablePOSTRequestParams, APIKeyDto>("apiKey/enable", HttpMethods.POST);
         }
         /// <summary>
         /// Trollbox Data
