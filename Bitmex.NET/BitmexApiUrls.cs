@@ -12,8 +12,14 @@ namespace Bitmex.NET
         /// </summary>
         public static partial class Announcement
         {
-            //public static ApiActionAttributes<AnnouncementGETRequestParams, AnnouncementDto> GetAnnouncement = new ApiActionAttributes<AnnouncementGETRequestParams, AnnouncementDto>("announcement", HttpMethods.GET);
-            //public static ApiActionAttributes<AnnouncementUrgentGETRequestParams, AnnouncementDto> GetAnnouncementUrgent = new ApiActionAttributes<AnnouncementUrgentGETRequestParams, AnnouncementDto>("announcement/urgent", HttpMethods.GET);
+            /// <summary>
+            /// Get site announcements
+            /// </summary>
+            public static ApiActionAttributes<AnnouncementGETRequestParams, List<AnnouncementDto>> GetAnnouncement = new ApiActionAttributes<AnnouncementGETRequestParams, List<AnnouncementDto>>("announcement", HttpMethods.GET);
+            /// <summary>
+            /// Get urgent (banner) announcements
+            /// </summary>
+            public static ApiActionAttributes<EmptyParameters, List<AnnouncementDto>> GetAnnouncementUrgent = new ApiActionAttributes<EmptyParameters, List<AnnouncementDto>>("announcement/urgent", HttpMethods.GET);
         }
         /// <summary>
         /// Persistent API Keys for Developers
