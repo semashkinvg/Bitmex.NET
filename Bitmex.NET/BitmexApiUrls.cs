@@ -147,7 +147,10 @@ namespace Bitmex.NET
         /// </summary>
         public static partial class Notification
         {
-            //public static ApiActionAttributes<NotificationGETRequestParams, NotificationDto> GetNotification = new ApiActionAttributes<NotificationGETRequestParams, NotificationDto>("notification", HttpMethods.GET);
+            /// <summary>
+            /// This is an upcoming feature and currently does not return data.
+            /// </summary>
+            public static ApiActionAttributes<EmptyParameters, List<NotificationDto>> GetNotification = new ApiActionAttributes<EmptyParameters, List<NotificationDto>>("notification", HttpMethods.GET);
         }
         /// <summary>
         /// Placement, Cancellation, Amending, and History
