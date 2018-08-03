@@ -46,7 +46,6 @@ namespace Bitmex.NET
                     var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
                     throw new BitmexApiException(error);
                 }
-
                 var respAsString = await resp.Content.ReadAsStringAsync();
                 Log.Debug($"GET {url} resp:{respAsString}");
                 return respAsString;
