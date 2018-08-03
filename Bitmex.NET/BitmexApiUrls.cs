@@ -116,6 +116,9 @@ namespace Bitmex.NET
         /// </summary>
         public static partial class Insurance
         {
+            /// <summary>
+            /// Get insurance fund history
+            /// </summary>
             public static ApiActionAttributes<InsuranceGETRequestParams, List<InsuranceDto>> GetInsurance = new ApiActionAttributes<InsuranceGETRequestParams, List<InsuranceDto>>("insurance", HttpMethods.GET);
         }
         /// <summary>

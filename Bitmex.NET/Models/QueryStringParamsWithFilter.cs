@@ -7,6 +7,9 @@ namespace Bitmex.NET.Models
 {
 	public abstract class QueryStringParamsWithFilter : QueryStringParams
 	{
+        /// <summary>
+        /// Generic table filter. Send JSON key/value pairs, such as {"key": "value"}. You can key on individual fields, and do more advanced querying on timestamps. See the Timestamp Docs for more details.
+        /// </summary>
         [JsonProperty("filter")]
         public IDictionary<string, string> Filter { get; set; }
 
