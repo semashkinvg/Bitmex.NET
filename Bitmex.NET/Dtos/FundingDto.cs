@@ -8,11 +8,11 @@ namespace Bitmex.NET.Dtos
     public class FundingDto
     {
         [JsonProperty("timestamp")]
-        public DateTime? Timestamp { get; set; }       
+        public DateTime? Timestamp { get; set; } = null;      
         [JsonProperty("symbol")]
-        public string Symbol { get; set; }      
+        public string Symbol { get; set; }
         [JsonProperty("fundingInterval")]
-        public DateTime? FundingInterval { get; set; }      
+        public DateTime? FundingInterval { get; set; } = null;    
         [JsonProperty("fundingRate")]
         public double? FundingRate { get; set; }
         [JsonProperty("fundingRateDaily")]

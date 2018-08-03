@@ -1,6 +1,7 @@
 ﻿using Bitmex.NET.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Bitmex.NET.IntegrationTests.Tests
 {
@@ -17,21 +18,16 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 Filter = null,
                 Count = 10,
-                Reverse = true 
+                Reverse = true,
+                StartTime = DateTime.UtcNow.AddDays(-42)                
             };
-#warning Need take a look, cause on this test executing got exception Bitmex.NET.BitmexApiException: Signature not valid. I have no ideas
-            //// act
-            //var result = Sut.Execute(BitmexApiUrls.Funding.GetFunding, @params).Result;
-
-            //// assert
-            //result.Should().NotBeNull();
-            //result.Count.Should().Be(10);
-
             // act
-            var result = 10;
+            var result = Sut.Execute(BitmexApiUrls.Funding.GetFunding, @params).Result;
 
             // assert
-            result.Should().Be(10);
+            result.Should().NotBeNull();
+            result.Count.Should().Be(10);
+
         }
 
 

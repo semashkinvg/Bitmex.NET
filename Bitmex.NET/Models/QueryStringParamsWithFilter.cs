@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -6,7 +7,8 @@ namespace Bitmex.NET.Models
 {
 	public abstract class QueryStringParamsWithFilter : QueryStringParams
 	{
-		public IDictionary<string, string> Filter { get; set; }
+        [JsonProperty("filter")]
+        public IDictionary<string, string> Filter { get; set; }
 
 		public override string ToQueryString()
 		{

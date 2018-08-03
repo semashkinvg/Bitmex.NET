@@ -161,10 +161,10 @@ namespace Bitmex.NET.Models
         public bool Reverse { get; set; }
 
         [DisplayName("startTime")]
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }= null;
 
         [DisplayName("endTime")]
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; } = null;
     }
     public partial class InstrumentGETRequestParams : QueryStringParamsWithFilter
     {
@@ -266,10 +266,10 @@ namespace Bitmex.NET.Models
         public bool Reverse { get; set; }
 
         [DisplayName("startTime")]
-        public DateTime StartTime { get; set; }
+        public DateTime StartTime { get; set; } //= DateTime.UtcNow.AddYears(-2);
 
         [DisplayName("endTime")]
-        public DateTime EndTime { get; set; }
+        public DateTime EndTime { get; set; } = DateTime.UtcNow;
     }
     public partial class OrderGETRequestParams : QueryStringParamsWithFilter
     {
