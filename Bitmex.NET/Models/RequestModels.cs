@@ -236,10 +236,10 @@ namespace Bitmex.NET.Models
         public bool Reverse { get; set; }
 
         [DisplayName("startTime")]
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
 
         [DisplayName("endTime")]
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
     }
     public partial class LeaderboardGETRequestParams : QueryStringParams
     {
