@@ -382,6 +382,9 @@ namespace Bitmex.NET.Models
         [DisplayName("method")]
         public string Method { get; set; }
     }
+    /// <summary>
+    /// Get liquidation orders
+    /// </summary>
     public partial class LiquidationGETRequestParams : QueryStringParamsWithFilter
     {
         /// <summary>
@@ -414,12 +417,12 @@ namespace Bitmex.NET.Models
         /// Starting date filter for results
         /// </summary>
         [DisplayName("startTime")]
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
         /// <summary>
         /// Ending date filter for results.
         /// </summary>
         [DisplayName("endTime")]
-        public DateTime EndTime { get; set; } = DateTime.UtcNow;
+        public DateTime? EndTime { get; set; } 
     }
     /// <summary>
     /// To get open orders only, send {"open": true} in the filter param. e.g. new Dictionary _string,string_(){{"open","true"}}

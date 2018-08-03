@@ -140,7 +140,7 @@ namespace Bitmex.NET
         /// </summary>
         public static partial class Liquidation
         {
-            //public static ApiActionAttributes<LiquidationGETRequestParams, LiquidationDto> GetLiquidation = new ApiActionAttributes<LiquidationGETRequestParams, LiquidationDto>("liquidation", HttpMethods.GET);
+            public static ApiActionAttributes<LiquidationGETRequestParams, List<LiquidationDto>> GetLiquidation = new ApiActionAttributes<LiquidationGETRequestParams, List<LiquidationDto>>("liquidation", HttpMethods.GET);
         }
         /// <summary>
         /// Account Notifications
