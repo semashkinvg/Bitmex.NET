@@ -1,5 +1,10 @@
 # Release Notes
 
+## 2.0.58.0
+ignored quote test (Because /Quote endpoint doesn't work know issue #16)
+add resp API for stats, user, leaderboard
+enhanced error handling (handling of HTML response)
+
 ## 2.0.43.0
 added handling actions
 added order book L2 handling docs
