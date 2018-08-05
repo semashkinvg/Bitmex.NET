@@ -41,11 +41,7 @@ namespace Bitmex.NET
                 Auth(httpClient, url, HttpMethods.GET);
                 Log.Debug($"GET {url}");
                 var resp = await httpClient.GetAsync(currentHost + url);
-                if (!resp.IsSuccessStatusCode)
-                {
-                    var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
-                    throw new BitmexApiException(error);
-                }
+                await HandleErrorResp(resp, url, "GET");
                 var respAsString = await resp.Content.ReadAsStringAsync();
                 Log.Debug($"GET {url} resp:{respAsString}");
                 return respAsString;
@@ -61,12 +57,7 @@ namespace Bitmex.NET
                 Auth(httpClient, url, HttpMethods.POST, postData);
                 Log.Debug($"POST {url}");
                 var resp = await httpClient.PostAsync(CurrentHost + url, new StringContent(postData, Encoding.UTF8, "application/json"));
-                if (!resp.IsSuccessStatusCode)
-                {
-                    var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
-                    throw new BitmexApiException(error);
-                }
-
+                await HandleErrorResp(resp, url, "POST");
                 var respAsString = await resp.Content.ReadAsStringAsync();
                 Log.Debug($"POST {url} resp:{respAsString}");
                 return respAsString;
@@ -81,12 +72,7 @@ namespace Bitmex.NET
                 Auth(httpClient, url, HttpMethods.PUT, postData);
                 Log.Debug($"PUT {url}");
                 var resp = await httpClient.PutAsync(CurrentHost + url, new StringContent(postData, Encoding.UTF8, "application/json"));
-                if (!resp.IsSuccessStatusCode)
-                {
-                    var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
-                    throw new BitmexApiException(error);
-                }
-
+                await HandleErrorResp(resp, url, "PUT");
                 var respAsString = await resp.Content.ReadAsStringAsync();
                 Log.Debug($"PUT {url} resp:{respAsString}");
                 return respAsString;
@@ -106,12 +92,7 @@ namespace Bitmex.NET
                     RequestUri = new Uri(CurrentHost + url)
                 };
                 var resp = await httpClient.SendAsync(request);
-                if (!resp.IsSuccessStatusCode)
-                {
-                    var error = JsonConvert.DeserializeObject<BitmexApiError>(await resp.Content.ReadAsStringAsync());
-                    throw new BitmexApiException(error);
-                }
-
+                await HandleErrorResp(resp, url, "DELETE");
                 var respAsString = await resp.Content.ReadAsStringAsync();
                 Log.Debug($"PUT {url} resp:{respAsString}");
                 return respAsString;
@@ -128,6 +109,28 @@ namespace Bitmex.NET
             httpClient.DefaultRequestHeaders.Add("api-key", key);
             httpClient.DefaultRequestHeaders.Add("api-signature", signatureString);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/javascript"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/javascript"));
+        }
+
+        private async Task HandleErrorResp(HttpResponseMessage resp, string url, string method)
+        {
+            if (!resp.IsSuccessStatusCode)
+            {
+                var errorResp = await resp.Content.ReadAsStringAsync();
+                Log.Debug($"{method} {url} errorResp:{errorResp}");
+                try
+                {
+                    var error = JsonConvert.DeserializeObject<BitmexApiError>(errorResp);
+                    throw new BitmexApiException(error);
+                }
+                catch (JsonReaderException)
+                {
+                    throw new BitmexApiException(errorResp);
+                }
+            }
         }
     }
 }
