@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Threading;
 using Unity;
 
 namespace Bitmex.NET.IntegrationTests
@@ -12,6 +13,7 @@ namespace Bitmex.NET.IntegrationTests
         [TestInitialize]
         public virtual void TestInitialize()
         {
+            Thread.Sleep(2000);
             Container = new UnityContainer();
             Container.AddNewExtension<BitmexNetUnityExtension>();
 

@@ -1,7 +1,6 @@
 ﻿
 using Bitmex.NET.Dtos;
 using Bitmex.NET.Models;
-using Bitmex.NET.Models.Socket;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -15,9 +14,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
     // These tests can be failed sometime, it's because info through the socket comes a bit later or connection limit has been reached
     [TestClass]
     [TestCategory("WebSocket")]
-    public class BitmexApiSocketServicePositionTests : BaseBitmexIntegrationTests<IBitmexApiSocketService>
+    public class BitmexApiSocketServicePositionTests : BaseBitmexSocketIntegrationTests
     {
-        private decimal _xbtAvgPrice;
         private IBitmexApiService _bitmexApiService;
 
         [TestInitialize]
@@ -31,8 +29,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrderCancelAllAfter, paramCloseAfter).Wait();
-            _xbtAvgPrice = _bitmexApiService.Execute(BitmexApiUrls.OrderBook.GetOrderBookL2, new OrderBookL2GETRequestParams() { Symbol = "XBTUSD", Depth = 1 }).Result.First()
-                .Price;
 
         }
 
@@ -44,15 +40,19 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // arrange
                 var connected = Sut.Connect();
                 var @params = OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 3, OrderSide.Buy);
-
-                // act
                 IList<PositionDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<PositionDto>>.Create(SubscriptionType.position, a =>
+                var subscription = BitmetSocketSubscriptions.CreatePositionSubsription(a =>
                 {
-                    dtos = a.ToList();
+                    dtos = a.Data.ToList();
                     dataReceived.Set();
-                }));
+                });
+
+                Subscription = subscription;
+
+                // act
+
+                Sut.Subscribe(subscription);
 
                 var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
                 result.Should().NotBeNull();

@@ -1,4 +1,5 @@
-# Bitmex.NET [![Build Status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/project/semashkinvg/bitmex-net)
+# Bitmex.NET [![Build Status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/project/semashkinvg/bitmex-net) [![NuGet](https://img.shields.io/nuget/v/Bitmex.NET.svg)](https://www.nuget.org/packages/Bitmex.NET/) [![Join the chat at https://gitter.im/Bitmex-Net](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Bitmex-Net?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Wrapper for BitMEX.com REST API
 
 ## Issue reporting
@@ -37,8 +38,6 @@ var authorization = new BitmexAuthorization
 
 Container.RegisterInstance<IBitmexAuthorization>(authorization);
 ```
-
-
 place an order ![Example](/Bitmex.NET.Example/MainWindowViewModel.cs):
 ```
 private async void Sell()
@@ -46,6 +45,23 @@ private async void Sell()
   var posOrderParams = OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", Size, OrderSide.Sell);
   await _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, posOrderParams).ContinueWith(ProcessPostOrderResult);
 }
+```
+
+## Logging
+The current lib uses ![LibLog](https://github.com/damianh/LibLog) to provide comprehensive logging for the most popular logging frameworks. Setting Debug logging level in your solution will bring about huge logging output because all the HTTP responses and WebSocket messages will be logged. I would recommend you yo forward the debug level logging from the lib into a separate file, but it's always up to you
+
+```
+  <targets>
+    <target xsi:type="File" name="f" fileName="${basedir}/logs/${shortdate}.log"
+            layout="${longdate} ${uppercase:${level}} ${message}" />
+    <target xsi:type="File" name="bitmexDebug" fileName="${basedir}/logs/${shortdate}bitmexDebug.log"
+            layout="${longdate} ${uppercase:${level}} ${message}" />
+  </targets>
+
+  <rules>
+    <logger name="*" minlevel="Info" writeTo="f" />
+    <logger name="Bitmex.NET.*" minlevel="Debug" writeTo="bitmexDebug" />
+  </rules>
 ```
 
 ## Extensibility
@@ -115,6 +131,9 @@ GET |quote/bucketed
 GET |trade
 GET |trade/bucketed
 
+
+## Docs
+Please checkout ![the following documents](/docs). During the time I will be adding solutions, best practices, life examples and some other information with peculiarities about Bitmex
 
 ## Examples
 

@@ -1,5 +1,4 @@
 ﻿using Bitmex.NET.Dtos;
-using Bitmex.NET.Models.Socket;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -11,7 +10,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 {
     [TestClass]
     [TestCategory("WebSocket")]
-    public class BitmexApiSocketServiceInstrumentsTests : BaseBitmexIntegrationTests<IBitmexApiSocketService>
+    public class BitmexApiSocketServiceInstrumentsTests : BaseBitmexSocketIntegrationTests
     {
         [TestMethod]
         public void should_connect_and_be_authorized()
@@ -59,11 +58,15 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<InstrumentDto> dto = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<InstrumentDto>>.Create(SubscriptionType.instrument, a =>
+                var subscription = BitmetSocketSubscriptions.CreateInstrumentSubsription(a =>
                 {
-                    dto = a;
+                    dto = a.Data;
                     dataReceived.Set();
-                }));
+                });
+
+                Subscription = subscription;
+
+                Sut.Subscribe(subscription);
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(2));
 
                 // assert
@@ -90,11 +93,14 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IEnumerable<InstrumentDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<InstrumentDto>>.Create(SubscriptionType.instrument, a =>
+                var subscription = BitmetSocketSubscriptions.CreateInstrumentSubsription(a =>
                 {
-                    dtos = a;
+                    dtos = a.Data;
                     dataReceived.Set();
-                }).WithArgs("XBTJPY"));
+                }).WithArgs("XBTJPY");
+
+                Subscription = subscription;
+                Sut.Subscribe(subscription);
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(30));
 
                 // assert

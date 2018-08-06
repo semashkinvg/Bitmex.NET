@@ -1,5 +1,19 @@
 # Release Notes
 
+## 2.0.58.0
+ignored quote test (Because /Quote endpoint doesn't work know issue #16)
+add resp API for stats, user, leaderboard
+enhanced error handling (handling of HTML response)
+
+## 2.0.43.0
+added handling actions
+added order book L2 handling docs
+OrderBookSocketDto renamed to OrderBook10Dto (for orderBook10 web socket subscription)
+
+## 2.0.41.0
+fixed issue ![#5](https://github.com/semashkinvg/Bitmex.NET/issues/5)
+added logging. Please check out ![readme](https://github.com/semashkinvg/Bitmex.NET#Logging)
+
 ## 2.0.39.0
 fixed bug #7
 added Bitmex WebSocket Limit Reached Exception. For the time being the limit provided by Bitmex is 20. It's not hardcoded value, the current framework takes it from WebSocket welcome message.

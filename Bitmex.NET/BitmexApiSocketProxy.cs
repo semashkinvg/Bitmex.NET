@@ -1,4 +1,5 @@
 ﻿using Bitmex.NET.Dtos.Socket;
+using Bitmex.NET.Logging;
 using Bitmex.NET.Models;
 using Bitmex.NET.Models.Socket;
 using Bitmex.NET.Models.Socket.Events;
@@ -24,6 +25,7 @@ namespace Bitmex.NET
 
     public class BitmexApiSocketProxy : IBitmexApiSocketProxy
     {
+        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
         private const int SocketMessageResponseTimeout = 10000;
         private readonly ManualResetEvent _welcomeReceived = new ManualResetEvent(false);
         private readonly IBitmexAuthorization _bitmexAuthorization;
@@ -45,8 +47,9 @@ namespace Bitmex.NET
             CloseConnectionIfItsNotNull();
             _socketConnection = new WebSocket($"wss://{Environments.Values[_bitmexAuthorization.BitmexEnvironment]}/realtime");
             BitmexWelcomeMessage welcomeData = null;
-            EventHandler<MessageReceivedEventArgs> welcomeMessageReceived = (object sender, MessageReceivedEventArgs e) =>
+            EventHandler<MessageReceivedEventArgs> welcomeMessageReceived = (sender, e) =>
             {
+                Log.Debug($"Welcome Data Received {e.Message}");
                 welcomeData = JsonConvert.DeserializeObject<BitmexWelcomeMessage>(e.Message);
                 _welcomeReceived.Set();
             };
@@ -54,18 +57,21 @@ namespace Bitmex.NET
             _socketConnection.Open();
             var waitResult = _welcomeReceived.WaitOne(SocketMessageResponseTimeout);
             _socketConnection.MessageReceived -= welcomeMessageReceived;
-            if (!waitResult && (welcomeData?.Limit?.Remaining ?? 0) == 0)
+            if (waitResult && (welcomeData?.Limit?.Remaining ?? 0) == 0)
             {
+                Log.Error("Bitmext connection limit reached");
                 throw new BitmexWebSocketLimitReachedException();
             }
 
             if (!waitResult)
             {
+                Log.Error("Open connection timeout. Welcome message is not received");
                 return false;
             }
 
             if (IsAlive)
             {
+                Log.Info("Bitmex web socket connection opened");
                 _socketConnection.MessageReceived += SocketConnectionOnMessageReceived;
                 _socketConnection.Closed += SocketConnectionOnClosed;
                 _socketConnection.Error += SocketConnectionOnError;
@@ -78,6 +84,7 @@ namespace Bitmex.NET
         {
             if (_socketConnection != null)
             {
+                Log.Debug("Closing existing connection");
                 using (_socketConnection)
                 {
                     _socketConnection.MessageReceived -= SocketConnectionOnMessageReceived;
@@ -92,8 +99,9 @@ namespace Bitmex.NET
 
         private void SocketConnectionOnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
+            Log.Debug($"Message received {e.Message}");
             var operationResult = JsonConvert.DeserializeObject<BitmexSocketOperationResultDto>(e.Message);
-            if (operationResult.Request?.Operation != null && (operationResult?.Request?.Arguments?.Any() ?? false))
+            if (operationResult.Request?.Operation != null && (operationResult.Request?.Arguments?.Any() ?? false))
             {
                 OnOperationResultReceived(new OperationResultEventArgs(operationResult.Request.Operation.Value, operationResult.Success, operationResult.Error, operationResult.Status, operationResult.Request.Arguments));
                 return;
@@ -102,7 +110,7 @@ namespace Bitmex.NET
             var data = JsonConvert.DeserializeObject<BitmexSocketDataDto>(e.Message);
             if (!string.IsNullOrWhiteSpace(data.TableName) && (data.AdditionalData?.ContainsKey("data") ?? false))
             {
-                OnDataReceived(new DataEventArgs(data.TableName, data.AdditionalData["data"]));
+                OnDataReceived(new DataEventArgs(data.TableName, data.AdditionalData["data"], data.Action));
                 return;
             }
         }
@@ -121,7 +129,9 @@ namespace Bitmex.NET
         public void Send<TMessage>(TMessage message)
             where TMessage : SocketMessage
         {
-            _socketConnection.Send(JsonConvert.SerializeObject(message));
+            var json = JsonConvert.SerializeObject(message);
+            Log.Debug($"Sending message {json}");
+            _socketConnection.Send(json);
         }
 
         protected virtual void OnDataReceived(DataEventArgs args)
@@ -136,11 +146,13 @@ namespace Bitmex.NET
 
         protected virtual void OnErrorReceived(ErrorEventArgs args)
         {
+            Log.Error(args.Exception, "Socket connection");
             ErrorReceived?.Invoke(new BitmextErrorEventArgs(args.Exception));
         }
 
         protected virtual void OnClosed()
         {
+            Log.Debug("Connection closed");
             Closed?.Invoke(new BitmexCloseEventArgs());
         }
 
@@ -149,6 +161,7 @@ namespace Bitmex.NET
             CloseConnectionIfItsNotNull();
             _welcomeReceived?.Dispose();
             _socketConnection?.Dispose();
+            Log.Info("Disposed...");
         }
     }
 }

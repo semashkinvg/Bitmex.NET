@@ -28,7 +28,7 @@ namespace Bitmex.NET.UnitTests
             var result = sut.ToQueryString();
 
             // assert
-            result.Should().Be("val=123&symbol=XBTUSD&cnt=1");
+            result.Should().Be("val=123&filter=%7b%22symbol%22%3a%22XBTUSD%22%2c%22cnt%22%3a%221%22%7d");
         }
 
         private class SomeQueryStringParamsWithFilter : QueryStringParamsWithFilter

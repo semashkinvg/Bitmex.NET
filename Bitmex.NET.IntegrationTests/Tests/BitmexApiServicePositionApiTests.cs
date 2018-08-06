@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bitmex.NET.IntegrationTests.Tests
 {
@@ -30,7 +31,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
             // arrange
             var @params = new PositionGETRequestParams
             {
-                // Filter doesn't work for this api method on Bitmex side, but it's implemented here as per API Reference
                 Filter = new Dictionary<string, string> { { "symbol", "XBTUSD" } }
             };
 
@@ -40,6 +40,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             // assert
             result.Should().NotBeNull();
             result.Count.Should().BeGreaterThan(0);
+            result.All(a => a.Symbol == "XBTUSD").Should().BeTrue();
         }
 
         [TestMethod]

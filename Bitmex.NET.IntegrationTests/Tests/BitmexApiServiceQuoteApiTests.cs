@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bitmex.NET.IntegrationTests.Tests
 {
-    [TestClass]
+    [TestClass, Ignore("this API doesn't work from ~2018-08-03")]
     [TestCategory("REST")]
     public class BitmexApiServiceQuoteApiTests : IntegrationTestsClass<IBitmexApiService>
     {
@@ -17,6 +17,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 Symbol = "XBTUSD"
             };
+
 
             // act
             var result = Sut.Execute(BitmexApiUrls.Quote.GetQuote, @params).Result;
@@ -51,7 +52,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
             var @params = new QuoteBucketedGETRequestParams
             {
                 BinSize = "1m",
-                Symbol = "XBTUSD"
+                Symbol = "XBTUSD",
+                Count = 500
             };
 
             // act

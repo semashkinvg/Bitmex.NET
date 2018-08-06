@@ -1,5 +1,6 @@
 ﻿
 using Bitmex.NET.Dtos;
+using Bitmex.NET.Dtos.Socket;
 using Bitmex.NET.Models;
 using Bitmex.NET.Models.Socket;
 using FluentAssertions;
@@ -15,7 +16,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
     // This test can be fail sometime, it's because info through the socket comes a bit later or connection limit has been eached
     [TestClass]
     [TestCategory("WebSocket")]
-    public class BitmexApiSocketServiceOrdersTests : BaseBitmexIntegrationTests<IBitmexApiSocketService>
+    public class BitmexApiSocketServiceOrdersTests : BaseBitmexSocketIntegrationTests
     {
         private decimal _xbtAvgPrice;
         private IBitmexApiService _bitmexApiService;
@@ -48,11 +49,18 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IList<OrderDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<OrderDto>>.Create(SubscriptionType.order, a =>
+                var subscription = BitmexApiSubscriptionInfo<IEnumerable<OrderDto>>.Create(SubscriptionType.order, a =>
                 {
-                    dtos = a.ToList();
-                    dataReceived.Set();
-                }));
+                    if (a.Data.Any(b => b.Symbol == "XBTUSD") && a.Action == BitmexActions.Insert)
+                    {
+                        dtos = a.Data.ToList();
+                        dataReceived.Set();
+                    }
+                });
+
+                Subscription = subscription;
+
+                Sut.Subscribe(subscription);
                 var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
                 result.Should().NotBeNull();
                 //result.OrdType.Should().Be("Limit");
@@ -90,11 +98,18 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IList<OrderDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<OrderDto>>.Create(SubscriptionType.order, a =>
+                var subscription = BitmexApiSubscriptionInfo<IEnumerable<OrderDto>>.Create(SubscriptionType.order, a =>
                 {
-                    dtos = a.ToList();
-                    dataReceived.Set();
-                }));
+                    if (a.Data.Any(b => b.Symbol == "XBTUSD") && a.Action == BitmexActions.Insert)
+                    {
+                        dtos = a.Data.ToList();
+                        dataReceived.Set();
+                    }
+                });
+
+                Subscription = subscription;
+
+                Sut.Subscribe(subscription);
                 var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
                 result.Should().NotBeNull();
                 result.OrdType.Should().Be("Market");
@@ -129,11 +144,18 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
                 IList<OrderDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<OrderDto>>.Create(SubscriptionType.order, a =>
+                var subscription = BitmexApiSubscriptionInfo<IEnumerable<OrderDto>>.Create(SubscriptionType.order, a =>
                 {
-                    dtos = a.ToList();
-                    dataReceived.Set();
-                }));
+                    if (a.Data.Any(b => b.Symbol == "XBTUSD") && a.Action == BitmexActions.Insert)
+                    {
+                        dtos = a.Data.ToList();
+                        dataReceived.Set();
+                    }
+                });
+
+                Subscription = subscription;
+
+                Sut.Subscribe(subscription);
                 var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
                 result.Should().NotBeNull();
                 result.OrdType.Should().Be("Market");

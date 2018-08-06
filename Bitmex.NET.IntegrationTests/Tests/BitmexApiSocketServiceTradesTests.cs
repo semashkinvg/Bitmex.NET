@@ -1,5 +1,4 @@
 ﻿using Bitmex.NET.Dtos;
-using Bitmex.NET.Models.Socket;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -11,7 +10,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 {
     [TestClass]
     [TestCategory("WebSocket")]
-    public class BitmexApiSocketServiceTradesTests : BaseBitmexIntegrationTests<IBitmexApiSocketService>
+    public class BitmexApiSocketServiceTradesTests : BaseBitmexSocketIntegrationTests
     {
         [TestMethod]
         public void should_subscribe_on_trades()
@@ -20,15 +19,18 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 // arrange
                 var connected = Sut.Connect();
-
-                // act
                 IEnumerable<TradeDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<TradeDto>>.Create(SubscriptionType.trade, a =>
+                var subscription = BitmetSocketSubscriptions.CreateTradeSubsription(a =>
                 {
-                    dtos = a;
+                    dtos = a.Data;
                     dataReceived.Set();
-                }));
+                });
+
+                Subscription = subscription;
+                // act
+
+                Sut.Subscribe(subscription);
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(20));
 
                 // assert
@@ -51,15 +53,18 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 // arrange
                 var connected = Sut.Connect();
-
-                // act
                 IEnumerable<TradeDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<TradeDto>>.Create(SubscriptionType.trade, a =>
+                var subscription = BitmetSocketSubscriptions.CreateTradeSubsription(a =>
                 {
-                    dtos = a;
+                    dtos = a.Data;
                     dataReceived.Set();
-                }).WithArgs("XBTUSD"));
+                }).WithArgs("XBTUSD");
+
+                Subscription = subscription;
+
+                // act
+                Sut.Subscribe(subscription);
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(20));
 
                 // assert
@@ -83,15 +88,18 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 // arrange
                 var connected = Sut.Connect();
-
-                // act
                 IEnumerable<TradeBucketedDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                Sut.Subscribe(BitmexApiSubscriptionInfo<IEnumerable<TradeBucketedDto>>.Create(SubscriptionType.tradeBin1m, a =>
+                var subscription = BitmetSocketSubscriptions.CreateTradeBucket1MSubsription(a =>
                 {
-                    dtos = a;
+                    dtos = a.Data;
                     dataReceived.Set();
-                }).WithArgs("XBTUSD"));
+                }).WithArgs("XBTUSD");
+
+                Subscription = subscription;
+
+                // act
+                Sut.Subscribe(subscription);
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(60));
 
                 // assert

@@ -1,7 +1,5 @@
-﻿using Bitmex.NET.Dtos;
-using Bitmex.NET.Models;
+﻿using Bitmex.NET.Models;
 using Bitmex.NET.Models.Socket;
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
@@ -77,28 +75,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
             }
 
             Assert.Fail("BitmexSocketAuthorizationException should be thrown");
-        }
-
-        [TestMethod]
-        public void should_raise_an_exception_if_subscription_is_incorrect()
-        {
-            try
-            {
-                // act
-                Sut.Connect();
-                Sut.Subscribe(new BitmexApiSubscriptionInfo<InstrumentDto>("somethingThatDoesNotExist", dto => { }));
-            }
-            catch (BitmexWebSocketLimitReachedException)
-            {
-                Assert.Inconclusive("connection limit reached");
-            }
-            catch (BitmexSocketSubscriptionException exc)
-            {
-                exc.Message.Should().Contain("somethingThatDoesNotExist");
-                return;
-
-            }
-            Assert.Fail("should throw exception BitmexSocketSubscriptionException");
         }
     }
 }

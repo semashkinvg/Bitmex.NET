@@ -4,10 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bitmex.NET.Example"
+        xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:models="clr-namespace:Bitmex.NET.Example.Models"
         mc:Ignorable="d"
-        Title="Bitmex.NET Example" Height="600" Width="525">
+        Title="Bitmex.NET Example" Height="600" Width="1024">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
+        <CollectionViewSource x:Key="SortedOrderBookL2Sourse" Source="{Binding OrderBookL2}">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Price" Direction="Descending"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+
+        <Style x:Key="OrderBookItemContainerStyle" TargetType="{x:Type ListViewItem}"  >
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Direction}" Value="Buy">
+                    <Setter Property="Foreground" Value="Green"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Direction}" Value="Sell">
+                    <Setter Property="Foreground" Value="Red"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
@@ -60,7 +78,9 @@
 			<Grid>
 			    <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-			        <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <ListView ItemsSource="{Binding Instruments}">
 					<ListView.View>
@@ -79,18 +99,40 @@
 			    <ListView Grid.Row="0" Grid.Column="1" ItemsSource="{Binding OrderUpdates}">
 			        <ListView.View>
 			            <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding OrderId}" Header="OrderId"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Account}" Header="Account"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Symbol}" Header="Symbol"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Side}" Header="Side"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding SimpleOrderQty}" Header="SimpleOrderQty"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding OrderQty}" Header="OrderQty"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Price}" Header="Price"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding LeavesQty}" Header="LeavesQty"/>
+			                <GridViewColumn DisplayMemberBinding="{Binding OrderId}" Header="OrderId"/>
+			                <GridViewColumn DisplayMemberBinding="{Binding Account}" Header="Account"/>
+			                <GridViewColumn DisplayMemberBinding="{Binding Symbol}" Header="Symbol"/>
+			                <GridViewColumn DisplayMemberBinding="{Binding Side}" Header="Side"/>
+			                <GridViewColumn DisplayMemberBinding="{Binding SimpleOrderQty}" Header="SimpleOrderQty"/>
+			                <GridViewColumn DisplayMemberBinding="{Binding OrderQty}" Header="OrderQty"/>
+			                <GridViewColumn DisplayMemberBinding="{Binding Price}" Header="Price"/>
+			                <GridViewColumn DisplayMemberBinding="{Binding LeavesQty}" Header="LeavesQty"/>
 			            </GridView>
 			        </ListView.View>
-			    </ListView>
-			</Grid>
+                </ListView>
+                <GroupBox Header="OrderBookL10" Grid.Row="0" Grid.Column="2" >
+                    <ListView ItemsSource="{Binding OrderBook10}" ItemContainerStyle="{StaticResource OrderBookItemContainerStyle}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Direction}" Header="Direction"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Size}" Header="Size"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Price}" Header="Price"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+			    <GroupBox Header="OrderBookL2" Grid.Row="0" Grid.Column="3" >
+                    <ListView ItemsSource="{Binding Source={StaticResource SortedOrderBookL2Sourse}}" ItemContainerStyle="{StaticResource OrderBookItemContainerStyle}">
+			            <ListView.View>
+			                <GridView>
+			                    <GridViewColumn DisplayMemberBinding="{Binding Direction}" Header="Direction"/>
+			                    <GridViewColumn DisplayMemberBinding="{Binding Size}" Header="Size"/>
+			                    <GridViewColumn DisplayMemberBinding="{Binding Price}" Header="Price"/>
+			                </GridView>
+			            </ListView.View>
+			        </ListView>
+			    </GroupBox>
+            </Grid>
 		</GroupBox>
 	</Grid>
 </Window>
