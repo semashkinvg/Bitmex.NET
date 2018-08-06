@@ -75,7 +75,7 @@ namespace Bitmex.NET
             var response = await _httpClient.SendAsync(request);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            Log.Debug($"{request.Method} {request.RequestUri} {(response.IsSuccessStatusCode ? "resp" : "errorResp")}:{responseString}");
+            Log.Debug($"{request.Method} {request.RequestUri.PathAndQuery} {(response.IsSuccessStatusCode ? "resp" : "errorResp")}:{responseString}");
 
             if (!response.IsSuccessStatusCode)
             {
