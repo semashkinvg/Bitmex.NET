@@ -20,8 +20,8 @@ namespace Bitmex.NET.IntegrationTests
                 Symbol = "XBTUSD"
             };
             Container.Resolve<IBitmexApiService>().Execute(BitmexApiUrls.Order.DeleteOrderAll, @params).Wait();
-            Container.Resolve<IBitmexApiService>().Execute(BitmexApiUrls.Order.PostOrderClosePosition,
-                new OrderClosePositionPOSTRequestParams{Symbol = "XBTUSD" }).Wait();
+            Container.Resolve<IBitmexApiService>().Execute(BitmexApiUrls.Order.PostOrder,
+                OrderPOSTRequestParams.ClosePositionByMarket("XBTUSD")).Wait();
         }
     }
 }

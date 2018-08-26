@@ -17,6 +17,8 @@ namespace Bitmex.NET
     {
         event SocketDataEventHandler DataReceived;
         event OperationResultEventHandler OperationResultReceived;
+        event BitmextErrorEventHandler ErrorReceived;
+        event BitmexCloseEventHandler Closed;
         bool Connect();
         void Send<TMessage>(TMessage message)
             where TMessage : SocketMessage;
@@ -45,7 +47,7 @@ namespace Bitmex.NET
         public bool Connect()
         {
             CloseConnectionIfItsNotNull();
-            _socketConnection = new WebSocket($"wss://{Environments.Values[_bitmexAuthorization.BitmexEnvironment]}/realtime");
+            _socketConnection = new WebSocket($"wss://{Environments.Values[_bitmexAuthorization.BitmexEnvironment]}/realtime") { EnableAutoSendPing = true, AutoSendPingInterval = 2 };
             BitmexWelcomeMessage welcomeData = null;
             EventHandler<MessageReceivedEventArgs> welcomeMessageReceived = (sender, e) =>
             {

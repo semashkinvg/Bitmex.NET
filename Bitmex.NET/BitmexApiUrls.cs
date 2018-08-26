@@ -276,7 +276,7 @@ namespace Bitmex.NET
             /// <summary>
             /// Get a summary of exchange statistics in USD
             /// </summary>
-            public static ApiActionAttributes<EmptyParameters, List<StatsHistoryDto>> GetStatsHistoryUsd = new ApiActionAttributes<EmptyParameters, List<StatsHistoryDto>>("stats/historyUSD", HttpMethods.GET);            
+            public static ApiActionAttributes<EmptyParameters, List<StatsHistoryDto>> GetStatsHistoryUsd = new ApiActionAttributes<EmptyParameters, List<StatsHistoryDto>>("stats/historyUSD", HttpMethods.GET);
         }
         /// <summary>
         /// Individual & Bucketed Trades

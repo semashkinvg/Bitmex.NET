@@ -476,12 +476,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
             result.OrderId.Should().NotBeNull();
 
             // act
-            var @paramsClosePosition = new OrderClosePositionPOSTRequestParams
-            {
-                Symbol = "XBTUSD"
-            };
+            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrder, OrderPOSTRequestParams.ClosePositionByMarket("XBTUSD")).Result;
 
-            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrderClosePosition, @paramsClosePosition).Result;
             // assert
             resultClosePostion.Should().NotBeNull();
             resultClosePostion.OrderId.Should().NotBeNull();
@@ -498,12 +494,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             result.OrderId.Should().NotBeNull();
 
             // act
-            var @paramsClosePosition = new OrderClosePositionPOSTRequestParams
-            {
-                Symbol = "XBTUSD"
-            };
-
-            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrderClosePosition, @paramsClosePosition).Result;
+            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrder, OrderPOSTRequestParams.ClosePositionByMarket("XBTUSD")).Result;
 
             // assert
             resultClosePostion.Should().NotBeNull();
@@ -521,13 +512,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
             result.OrderId.Should().NotBeNull();
 
             // act
-            var @paramsClosePosition = new OrderClosePositionPOSTRequestParams
-            {
-                Symbol = "XBTUSD",
-                Price = _xbtAvgPrice + 500
-            };
+            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrder, OrderPOSTRequestParams.ClosePositionByLimit("XBTUSD", _xbtAvgPrice + 500)).Result;
 
-            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrderClosePosition, @paramsClosePosition).Result;
             // assert
             resultClosePostion.Should().NotBeNull();
             resultClosePostion.OrderId.Should().NotBeNull();
@@ -544,13 +530,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             result.OrderId.Should().NotBeNull();
 
             // act
-            var @paramsClosePosition = new OrderClosePositionPOSTRequestParams
-            {
-                Symbol = "XBTUSD",
-                Price = _xbtAvgPrice - 500
-            };
-
-            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrderClosePosition, @paramsClosePosition).Result;
+            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrder, OrderPOSTRequestParams.ClosePositionByLimit("XBTUSD", _xbtAvgPrice - 500)).Result;
             Thread.Sleep(1000);
 
             // assert
