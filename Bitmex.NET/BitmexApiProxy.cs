@@ -1,5 +1,6 @@
 ﻿using Bitmex.NET.Authorization;
 using Bitmex.NET.Dtos;
+using Bitmex.NET.Logging;
 using Bitmex.NET.Models;
 using Newtonsoft.Json;
 using System;
@@ -7,7 +8,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Bitmex.NET.Logging;
 
 namespace Bitmex.NET
 {
@@ -49,16 +49,25 @@ namespace Bitmex.NET
             return SendAndGetResponseAsync(request);
         }
 
+        public Task<string> Delete(string action, IQueryStringParams parameters)
+        {
+            var query = parameters?.ToQueryString() ?? string.Empty;
+            var request = new HttpRequestMessage(HttpMethod.Delete, GetUrl(action) + (string.IsNullOrWhiteSpace(query) ? string.Empty : "?" + query));
+
+            return SendAndGetResponseAsync(request);
+        }
+
         public Task<string> Post(string action, IJsonQueryParams parameters) => SendAndGetResponseAsync(HttpMethod.Post, action, parameters);
 
         public Task<string> Put(string action, IJsonQueryParams parameters) => SendAndGetResponseAsync(HttpMethod.Put, action, parameters);
 
-        public Task<string> Delete(string action, IJsonQueryParams parameters) => SendAndGetResponseAsync(HttpMethod.Delete, action, parameters);
 
         private Task<string> SendAndGetResponseAsync(HttpMethod method, string action, IJsonQueryParams parameters)
         {
             var content = parameters?.ToJson() ?? string.Empty;
-            var request = new HttpRequestMessage(method, GetUrl(action))
+            var url = GetUrl(action);
+            Log.Debug($"{action} sending content:{content}");
+            var request = new HttpRequestMessage(method, url)
             {
                 Content = new StringContent(content, Encoding.UTF8, "application/json")
             };

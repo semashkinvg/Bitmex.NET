@@ -44,7 +44,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 // arrange
                 var connected = Sut.Connect();
-                var @params = OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice - 500, OrderSide.Buy);
+                var @params = OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice - 500, OrderSide.Buy);
 
                 // act
                 IList<OrderDto> dtos = null;

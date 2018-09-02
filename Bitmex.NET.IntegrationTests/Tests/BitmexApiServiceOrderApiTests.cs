@@ -11,6 +11,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
     [TestCategory("REST")]
     public class BitmexApiServiceOrderApiTests : IntegrationTestsClass<IBitmexApiService>
     {
+        private const int LimitPriceSubtractor = 90;
         private decimal _xbtAvgPrice;
 
         [TestInitialize]
@@ -90,7 +91,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_place_buy_limit_order()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice - 500, OrderSide.Buy);
+            var @params = OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Buy);
 
             // act
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
@@ -106,7 +107,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_place_sell_limit_order()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice + 500, OrderSide.Sell);
+            var @params = OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice + LimitPriceSubtractor, OrderSide.Sell);
 
             // act
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
@@ -123,7 +124,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_place_buy_market_stop_order()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice + 500, OrderSide.Buy);
+            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice + LimitPriceSubtractor, OrderSide.Buy);
 
             // act
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
@@ -139,7 +140,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_place_sell_market_stop_order()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice - 500, OrderSide.Sell);
+            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Sell);
 
             // act
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
@@ -156,7 +157,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_change_buy_limit_order()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice + 500, OrderSide.Buy);
+            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice + LimitPriceSubtractor, OrderSide.Buy);
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
             result.Should().NotBeNull();
             result.OrdType.Should().Be("Stop");
@@ -184,7 +185,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_change_sell_limit_order()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice - 500, OrderSide.Sell);
+            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Sell);
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
             result.Should().NotBeNull();
             result.OrdType.Should().Be("Stop");
@@ -229,7 +230,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_delete_buy_limit_order()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice + 500, OrderSide.Buy);
+            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice + LimitPriceSubtractor, OrderSide.Buy);
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
             result.Should().NotBeNull();
             result.OrdType.Should().Be("Stop");
@@ -256,7 +257,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_delete_sell_limit_order()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice - 500, OrderSide.Sell);
+            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Sell);
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
             result.Should().NotBeNull();
             result.OrdType.Should().Be("Stop");
@@ -294,6 +295,33 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
             // assert
             action.Should().Throw<BitmexApiException>().Which.Error?.Error.Should().NotBeNull();
+        }
+
+        [TestMethod]
+        public void should_delete_many_buy_orders()
+        {
+            // arrange
+            var @params = new OrderBulkPOSTRequestParams
+            {
+                Orders = new[]
+                {
+                    OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Buy),
+                    OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Buy)
+                }
+            };
+            var resultInsert = Sut.Execute(BitmexApiUrls.Order.PostOrderBulk, @params).Result;
+
+            // act
+            var @paramsToDelete = new OrderDELETERequestParams
+            {
+                OrderID = string.Join(",", resultInsert.Select(a => a.OrderId))
+            };
+            var result = Sut.Execute(BitmexApiUrls.Order.DeleteOrder, @paramsToDelete).Result;
+
+            // assert
+            result.Should().NotBeNull();
+            result.All(a => a.OrdStatus == "Canceled").Should().BeTrue();
+            result.All(a => !string.IsNullOrWhiteSpace(a.OrderId)).Should().BeTrue();
         }
 
         [TestMethod]
@@ -348,8 +376,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 Orders = new[]
                 {
-                    OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice - 500, OrderSide.Buy),
-                    OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice - 500, OrderSide.Buy)
+                    OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Buy),
+                    OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Buy)
                 }
             };
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrderBulk, @params).Result;
@@ -384,8 +412,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 Orders = new[]
                 {
-                    OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice + 500, OrderSide.Sell),
-                    OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice + 500, OrderSide.Sell)
+                    OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice + LimitPriceSubtractor, OrderSide.Sell),
+                    OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice + LimitPriceSubtractor, OrderSide.Sell)
                 }
             };
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrderBulk, @params).Result;
@@ -416,7 +444,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_cancel_all_buy_limit_orders_after()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice - 500, OrderSide.Buy);
+            var @params = OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Buy);
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
             result.Should().NotBeNull();
             result.OrdType.Should().Be("Limit");
@@ -443,7 +471,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_cancel_all_sell_limit_orders_after()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice + 500, OrderSide.Sell);
+            var @params = OrderPOSTRequestParams.CreateSimpleHidenLimit("XBTUSD", 3, _xbtAvgPrice + LimitPriceSubtractor, OrderSide.Sell);
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
             result.Should().NotBeNull();
             result.OrdType.Should().Be("Limit");
@@ -512,7 +540,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             result.OrderId.Should().NotBeNull();
 
             // act
-            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrder, OrderPOSTRequestParams.ClosePositionByLimit("XBTUSD", _xbtAvgPrice + 500)).Result;
+            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrder, OrderPOSTRequestParams.ClosePositionByLimit("XBTUSD", _xbtAvgPrice + LimitPriceSubtractor)).Result;
 
             // assert
             resultClosePostion.Should().NotBeNull();
@@ -530,7 +558,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             result.OrderId.Should().NotBeNull();
 
             // act
-            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrder, OrderPOSTRequestParams.ClosePositionByLimit("XBTUSD", _xbtAvgPrice - 500)).Result;
+            var resultClosePostion = Sut.Execute(BitmexApiUrls.Order.PostOrder, OrderPOSTRequestParams.ClosePositionByLimit("XBTUSD", _xbtAvgPrice - LimitPriceSubtractor)).Result;
             Thread.Sleep(1000);
 
             // assert

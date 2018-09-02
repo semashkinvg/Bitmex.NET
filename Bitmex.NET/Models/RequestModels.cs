@@ -60,12 +60,12 @@ namespace Bitmex.NET.Models
     /// <summary>
     /// Delete an API key
     /// </summary>
-    public partial class ApiKeyDELETERequestParams : QueryJsonParams
+    public partial class ApiKeyDELETERequestParams : QueryStringParamsWithFilter
     {
         /// <summary>
         /// API Key ID (public component).
         /// </summary>
-        [JsonProperty("apiKeyID")]
+        [DisplayName("apiKeyID")]
         public string ApiKeyID { get; set; }
     }
     /// <summary>
@@ -422,7 +422,7 @@ namespace Bitmex.NET.Models
         /// Ending date filter for results.
         /// </summary>
         [DisplayName("endTime")]
-        public DateTime? EndTime { get; set; } 
+        public DateTime? EndTime { get; set; }
     }
     /// <summary>
     /// To get open orders only, send {"open": true} in the filter param. e.g. new Dictionary _string,string_(){{"open","true"}}
@@ -627,43 +627,43 @@ namespace Bitmex.NET.Models
         [JsonProperty("text")]
         public string Text { get; set; }
     }
-    public partial class OrderDELETERequestParams : QueryJsonParams
+    public partial class OrderDELETERequestParams : QueryStringParamsWithFilter
     {
         /// <summary>
         /// Order ID(s).
         /// </summary>
-        [JsonProperty("orderID")]
+        [DisplayName("orderID")]
         public string OrderID { get; set; }
         /// <summary>
         /// Client Order ID(s). See POST /order.
         /// </summary>
-        [JsonProperty("clOrdID")]
+        [DisplayName("clOrdID")]
         public string ClOrdID { get; set; }
         /// <summary>
         /// Optional cancellation annotation. e.g. 'Spread Exceeded'.
         /// </summary>
-        [JsonProperty("text")]
+        [DisplayName("text")]
         public string Text { get; set; }
     }
     /// <summary>
     /// Delete all orders
     /// </summary>
-    public partial class OrderAllDELETERequestParams : QueryJsonParams
+    public partial class OrderAllDELETERequestParams : QueryStringParamsWithFilter
     {
         /// <summary>
         ///  Optional symbol.If provided, only cancels orders for that symbol.
         /// </summary>
-        [JsonProperty("symbol")]
+        [DisplayName("symbol")]
         public string Symbol { get; set; }
         /// <summary>
         /// Optional filter for cancellation. Use to only cancel some orders, e.g. {"side": "Buy"}.
         /// </summary>
-        [JsonProperty("filter")]
+        [DisplayName("filter")]
         public string Filter { get; set; }
         /// <summary>        
         /// Optional cancellation annotation.e.g. 'Spread Exceeded'
         /// </summary>
-        [JsonProperty("text")]
+        [DisplayName("text")]
         public string Text { get; set; }
     }
     /// <summary>
