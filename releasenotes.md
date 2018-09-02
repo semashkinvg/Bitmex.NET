@@ -1,4 +1,7 @@
 # Release Notes
+## 2.0.64.0
+added events on close and error
+got rid of usage of obsolete method in tests
 
 ## 2.0.58.0
 ignored quote test (Because /Quote endpoint doesn't work know issue #16)
