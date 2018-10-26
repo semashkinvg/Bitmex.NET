@@ -493,20 +493,13 @@ namespace Bitmex.NET.Models
         [JsonProperty("clOrdID")]
         public string ClOrdID { get; set; }
         /// <summary>
-        /// Optional order quantity in units of the underlying instrument (i.e. Bitcoin).
-        /// </summary>
-        [JsonProperty("simpleOrderQty")]
-        public decimal? SimpleOrderQty { get; set; }
-        /// <summary>
         /// Optional order quantity in units of the instrument (i.e. contracts).
         /// </summary>
         [JsonProperty("orderQty")]
         public decimal? OrderQty { get; set; }
-        /// <summary>
-        /// Optional leaves quantity in units of the underlying instrument (i.e. Bitcoin). Useful for amending partially filled orders.
-        /// </summary>
-        [JsonProperty("simpleLeavesQty")]
-        public decimal? SimpleLeavesQty { get; set; }
+
+        [JsonProperty("displayQty")]
+        public decimal? DisplayQty { get; set; }
         /// <summary>
         /// Optional leaves quantity in units of the instrument (i.e. contracts). Useful for amending partially filled orders.
         /// </summary>
@@ -550,15 +543,10 @@ namespace Bitmex.NET.Models
         [JsonProperty("side")]
         public string Side { get; set; }
         /// <summary>
-        /// Order quantity in units of the underlying instrument (i.e. Bitcoin).
-        /// </summary>
-        [JsonProperty("simpleOrderQty")]
-        public decimal? SimpleOrderQty { get; set; }
-        /// <summary>
         /// Order quantity in units of the instrument (i.e. contracts).
         /// </summary>
         [JsonProperty("orderQty")]
-        public int? OrderQty { get; set; }
+        public decimal? OrderQty { get; set; }
         /// <summary>
         /// Optional limit price for 'Limit', 'StopLimit', and 'LimitIfTouched' orders.
         /// </summary>

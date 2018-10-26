@@ -154,20 +154,20 @@ namespace Bitmex.NET.IntegrationTests.Tests
         }
 
         [TestMethod]
-        public void should_change_buy_limit_order()
+        public void should_cancel_order_by_setting_qty_to_0()
         {
             // arrange
-            var @params = OrderPOSTRequestParams.CreateMarketStopOrder("XBTUSD", 3, _xbtAvgPrice + LimitPriceSubtractor, OrderSide.Buy);
+            var @params = OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Buy);
             var result = Sut.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
             result.Should().NotBeNull();
-            result.OrdType.Should().Be("Stop");
+            result.OrdType.Should().Be("Limit");
             result.OrdStatus.Should().Be("New");
             result.OrderId.Should().NotBeNull();
 
             var @paramsPut = new OrderPUTRequestParams()
             {
                 OrderID = result.OrderId,
-                OrderQty = 2
+                OrderQty = 0
             };
 
             // act
@@ -175,9 +175,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
             // assert
             resultPut.Should().NotBeNull();
-            resultPut.OrdType.Should().Be("Stop");
-            resultPut.OrdStatus.Should().Be("New");
-            resultPut.OrderQty.Should().Be(2);
+            resultPut.OrdType.Should().Be("Limit");
+            resultPut.OrdStatus.Should().Be("Canceled");
             resultPut.OrderId.Should().NotBeNull();
         }
 

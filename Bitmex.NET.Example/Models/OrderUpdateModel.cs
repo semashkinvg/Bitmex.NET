@@ -16,8 +16,6 @@ namespace Bitmex.NET.Example.Models
 
         public string Side { get; set; }
 
-        public decimal? SimpleOrderQty { get; set; }
-
         public decimal? OrderQty { get; set; }
 
         public decimal? Price { get; set; }

@@ -17,16 +17,16 @@ namespace Bitmex.NET.IntegrationTests.Tests
             var @params = new InsuranceGETRequestParams()
             {
                 Filter = null,
-                Count = 42,
+                Count = 41,
                 Reverse = true,
-                StartTime = DateTime.UtcNow.AddDays(-42)                
+                StartTime = DateTime.UtcNow.AddDays(-42)
             };
             // act
             var result = Sut.Execute(BitmexApiUrls.Insurance.GetInsurance, @params).Result;
 
             // assert
             result.Should().NotBeNull();
-            result.Count.Should().Be(42);
+            result.Count.Should().Be(41);
 
         }
 

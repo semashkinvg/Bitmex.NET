@@ -27,7 +27,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
                     dataReceived.Set();
                 });
                 Sut.Subscribe(subscription);
-                var received = dataReceived.WaitOne(TimeSpan.FromSeconds(2));
+                var received = dataReceived.WaitOne(TimeSpan.FromSeconds(5));
 
                 // intermediate assert
                 // no exception raised

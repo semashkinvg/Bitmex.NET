@@ -24,9 +24,6 @@ namespace Bitmex.NET.Dtos
 		[JsonProperty("side")]
 		public string Side { get; set; }
 
-		[JsonProperty("simpleOrderQty")]
-		public decimal? SimpleOrderQty { get; set; }
-
 		[JsonProperty("orderQty")]
 		public decimal? OrderQty { get; set; }
 
@@ -78,14 +75,8 @@ namespace Bitmex.NET.Dtos
 		[JsonProperty("ordRejReason")]
 		public string OrdRejReason { get; set; }
 
-		[JsonProperty("simpleLeavesQty")]
-		public decimal SimpleLeavesQty { get; set; }
-
 		[JsonProperty("leavesQty")]
 		public decimal? LeavesQty { get; set; }
-
-		[JsonProperty("simpleCumQty")]
-		public decimal SimpleCumQty { get; set; }
 
 		[JsonProperty("cumQty")]
 		public decimal CumQty { get; set; }

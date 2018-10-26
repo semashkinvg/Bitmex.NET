@@ -67,7 +67,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 Subscription = subscription;
 
                 Sut.Subscribe(subscription);
-                var received = dataReceived.WaitOne(TimeSpan.FromSeconds(2));
+                var received = dataReceived.WaitOne(TimeSpan.FromSeconds(5));
 
                 // assert
                 // no exception raised

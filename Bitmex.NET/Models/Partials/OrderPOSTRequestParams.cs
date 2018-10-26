@@ -22,7 +22,7 @@ namespace Bitmex.NET.Models
             };
         }
 
-        public static OrderPOSTRequestParams CreateSimpleMarket(string symbol, int quantity, OrderSide side)
+        public static OrderPOSTRequestParams CreateSimpleMarket(string symbol, decimal quantity, OrderSide side)
         {
             return new OrderPOSTRequestParams
             {
@@ -33,7 +33,7 @@ namespace Bitmex.NET.Models
             };
         }
 
-        public static OrderPOSTRequestParams CreateSimpleLimit(string symbol, int quantity, decimal price, OrderSide side)
+        public static OrderPOSTRequestParams CreateSimpleLimit(string symbol, decimal quantity, decimal price, OrderSide side)
         {
             return new OrderPOSTRequestParams
             {
@@ -50,7 +50,7 @@ namespace Bitmex.NET.Models
         /// <summary>
         /// Be aware that bitmex takes fee for hiden limit orders
         /// </summary>
-        public static OrderPOSTRequestParams CreateSimpleHidenLimit(string symbol, int quantity, decimal price, OrderSide side)
+        public static OrderPOSTRequestParams CreateSimpleHidenLimit(string symbol, decimal quantity, decimal price, OrderSide side)
         {
             return new OrderPOSTRequestParams
             {
@@ -64,7 +64,7 @@ namespace Bitmex.NET.Models
             };
         }
 
-        public static OrderPOSTRequestParams CreateMarketStopOrder(string symbol, int quantity, decimal stopPrice, OrderSide side)
+        public static OrderPOSTRequestParams CreateMarketStopOrder(string symbol, decimal quantity, decimal stopPrice, OrderSide side)
         {
             return new OrderPOSTRequestParams
             {
@@ -77,7 +77,7 @@ namespace Bitmex.NET.Models
             };
         }
 
-        public static OrderPOSTRequestParams CreateLimitStopOrder(string symbol, int quantity, decimal stopPrice, decimal price, OrderSide side)
+        public static OrderPOSTRequestParams CreateLimitStopOrder(string symbol, decimal quantity, decimal stopPrice, decimal price, OrderSide side)
         {
             return new OrderPOSTRequestParams
             {
