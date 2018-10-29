@@ -1,4 +1,7 @@
 # Release Notes
+## 2.0.67.0
+decomissioning contigency type https://blog.bitmex.com/api_announcement/deprecation-of-contingent-orders/
+
 ## 2.0.66.0
 got rig of simple* in orders, executions and positions due to https://blog.bitmex.com/api_announcement/deprecation-of-simpleorderqty-functionality/
 made order Qty decimal in request model to place orders on the all symbols and indexes when quantity step less than 0
