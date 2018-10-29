@@ -77,9 +77,6 @@ namespace Bitmex.NET.Dtos
         [JsonProperty("execInst")]
         public string ExecInst { get; set; }
 
-        [JsonProperty("contingencyType")]
-        public string ContingencyType { get; set; }
-
         [JsonProperty("exDestination")]
         public string ExDestination { get; set; }
 

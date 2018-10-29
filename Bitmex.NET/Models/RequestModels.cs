@@ -604,11 +604,6 @@ namespace Bitmex.NET.Models
         /// </summary>
         [JsonProperty("execInst")]
         public string ExecInst { get; set; }
-        /// <summary>  
-        /// Optional contingency type for use with clOrdLinkID.Valid options: OneCancelsTheOther, OneTriggersTheOther, OneUpdatesTheOtherAbsolute, OneUpdatesTheOtherProportional.
-        /// </summary>
-        [JsonProperty("contingencyType")]
-        public string ContingencyType { get; set; }
         /// <summary>
         /// Optional order annotation. e.g. 'Take profit on MOON!'.
         /// </summary>
