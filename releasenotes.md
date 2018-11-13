@@ -1,4 +1,8 @@
 # Release Notes
+## 2.0.70.0
+fixed #24
+changed TradeBucketedDto due to chance having nulls in OHLC
+
 ## 2.0.67.0
 decomissioning contigency type https://blog.bitmex.com/api_announcement/deprecation-of-contingent-orders/
 
