@@ -49,30 +49,30 @@ namespace Bitmex.NET.IntegrationTests.Tests
             result.First().Name.Should().Be("English");
         }
 
-        //[TestMethod]
-        //public void should_return_posted_chat_message()
-        //{
-        //    // arrange
-        //    var @params = new ChatPOSTRequestParams()
-        //    {
-        //        Message = "Long Live Bitmex.NET",
-        //        //English channel
-        //        ChannelID = 1,
+        [TestMethod]
+        public void should_return_posted_chat_message()
+        {
+            // arrange
+            var @params = new ChatPOSTRequestParams()
+            {
+                Message = "Long Live Bitmex.NET",
+                //English channel
+                ChannelID = 1,
 
-        //    };
-        //    // act
-        //    var result = Sut.Execute(BitmexApiUrls.Chat.PostChat, @params).Result;
+            };
+            // act
+            var result = Sut.Execute(BitmexApiUrls.Chat.PostChat, @params).Result;
 
-        //    // assert
-        //    result.Should().NotBeNull();
-        //    result.Id.Should().BeGreaterThan(0);
-        //    result.Date.Should().NotBeNull();
-        //    result.Html.Should().NotBeNullOrEmpty();
-        //    result.User.Should().NotBeNullOrEmpty();
-        //    result.ChannelId.Should().Be(1);
-        //    result.Message.Should().Be("Long Live Bitmex.NET");
-        //    result.FromBot.Should().BeTrue();
-        //}
+            // assert
+            result.Should().NotBeNull();
+            result.Id.Should().BeGreaterThan(0);
+            result.Date.Should().NotBeNull();
+            result.Html.Should().NotBeNullOrEmpty();
+            result.User.Should().NotBeNullOrEmpty();
+            result.ChannelId.Should().Be(1);
+            result.Message.Should().Be("Long Live Bitmex.NET");
+            result.FromBot.Should().NotBeNull();
+        }
 
         [TestMethod]
         public void should_return_the_chat_message()
