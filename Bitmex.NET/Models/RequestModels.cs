@@ -99,12 +99,12 @@ namespace Bitmex.NET.Models
         /// Number of results to fetch.
         /// </summary>
         [DisplayName("count")]
-        public decimal Count { get; set; }
+        public int Count { get; set; }
         /// <summary>
         /// Starting ID for results.
         /// </summary>
         [DisplayName("start")]
-        public decimal Start { get; set; }
+        public long Start { get; set; }
         /// <summary>
         /// If true, will sort results newest first.
         /// </summary>
@@ -114,7 +114,7 @@ namespace Bitmex.NET.Models
         /// Channel id. GET /chat/channels for ids. Leave blank for all.
         /// </summary>
         [DisplayName("channelID")]
-        public decimal ChannelID { get; set; }
+        public long ChannelID { get; set; }
     }
     /// <summary>
     /// Send message to Chat
@@ -130,8 +130,9 @@ namespace Bitmex.NET.Models
         /// Channel to post to. Default 1 (English).
         /// </summary>
         [JsonProperty("channelID")]
-        public decimal ChannelID { get; set; }
+        public long ChannelID { get; set; }
     }
+
     /// <summary>
     /// Get all raw executions for your account
     /// </summary>
