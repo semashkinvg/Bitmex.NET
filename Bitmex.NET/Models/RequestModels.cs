@@ -134,22 +134,6 @@ namespace Bitmex.NET.Models
     }
 
     /// <summary>
-    /// Get All Chat Channels
-    /// </summary>
-    public partial class ChatChannelsGETRequestParams : QueryJsonParams
-    {
-        
-    }
-
-    /// <summary>
-    /// Get Connected Users and Bots count to chat
-    /// </summary>
-    public partial class ChatConnectedGETRequestParams : QueryJsonParams
-    {
-        
-    }
-
-    /// <summary>
     /// Get all raw executions for your account
     /// </summary>
     public partial class ExecutionGETRequestParams : QueryStringParamsWithFilter

@@ -18,7 +18,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_return_count_connected_users_and_bots()
         {
             // arrange
-            var @params = new ChatConnectedGETRequestParams()
+            var @params = new EmptyParameters();
             {
               
             };
@@ -35,7 +35,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_return_all_chat_channels()
         {
             // arrange
-            var @params = new ChatChannelsGETRequestParams()
+            var @params = new EmptyParameters()
             {
 
             };

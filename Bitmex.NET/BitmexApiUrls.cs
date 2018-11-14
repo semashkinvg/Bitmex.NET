@@ -54,8 +54,8 @@ namespace Bitmex.NET
         {
             public static ApiActionAttributes<ChatGETRequestParams, List<ChatDto>> GetChat = new ApiActionAttributes<ChatGETRequestParams, List<ChatDto>>("chat", HttpMethods.GET);
             public static ApiActionAttributes<ChatPOSTRequestParams, ChatDto> PostChat = new ApiActionAttributes<ChatPOSTRequestParams, ChatDto>("chat", HttpMethods.POST);
-            public static ApiActionAttributes<ChatChannelsGETRequestParams, List<ChatChannelDto>> GetChatChannels = new ApiActionAttributes<ChatChannelsGETRequestParams, List<ChatChannelDto>>("chat/channels", HttpMethods.GET);
-            public static ApiActionAttributes<ChatConnectedGETRequestParams, ChatConnectedDto> GetChatConnected = new ApiActionAttributes<ChatConnectedGETRequestParams, ChatConnectedDto>("chat/connected", HttpMethods.GET);
+            public static ApiActionAttributes<EmptyParameters, List<ChatChannelDto>> GetChatChannels = new ApiActionAttributes<EmptyParameters, List<ChatChannelDto>>("chat/channels", HttpMethods.GET);
+            public static ApiActionAttributes<EmptyParameters, ChatConnectedDto> GetChatConnected = new ApiActionAttributes<EmptyParameters, ChatConnectedDto>("chat/connected", HttpMethods.GET);
         }
         /// <summary>
         /// Raw Order and Balance Data
