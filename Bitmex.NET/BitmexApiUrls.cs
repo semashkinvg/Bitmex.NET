@@ -250,8 +250,8 @@ namespace Bitmex.NET
         /// </summary>
         public static partial class Schema
         {
-            //public static ApiActionAttributes<SchemaGETRequestParams, SchemaDto> GetSchema = new ApiActionAttributes<SchemaGETRequestParams, SchemaDto>("schema", HttpMethods.GET);
-            //public static ApiActionAttributes<SchemaWebsocketHelpGETRequestParams, SchemaDto> GetSchemaWebsocketHelp = new ApiActionAttributes<SchemaWebsocketHelpGETRequestParams, SchemaDto>("schema/websocketHelp", HttpMethods.GET);
+            public static ApiActionAttributes<SchemaGETRequestParams, Dictionary<string, SchemaDto>> GetSchema = new ApiActionAttributes<SchemaGETRequestParams, Dictionary<string, SchemaDto>>("schema", HttpMethods.GET);
+            public static ApiActionAttributes<EmptyParameters, SchemaWebSocketHelpDto> GetSchemaWebsocketHelp = new ApiActionAttributes<EmptyParameters, SchemaWebSocketHelpDto>("schema/websocketHelp", HttpMethods.GET);
         }
         /// <summary>
         /// Historical Settlement Data
