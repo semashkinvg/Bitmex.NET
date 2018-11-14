@@ -258,7 +258,7 @@ namespace Bitmex.NET
         /// </summary>
         public static partial class Settlement
         {
-            //public static ApiActionAttributes<SettlementGETRequestParams, SettlementDto> GetSettlement = new ApiActionAttributes<SettlementGETRequestParams, SettlementDto>("settlement", HttpMethods.GET);
+            public static ApiActionAttributes<SettlementGETRequestParams, List<SettlementDto>> GetSettlement = new ApiActionAttributes<SettlementGETRequestParams, List<SettlementDto>>("settlement", HttpMethods.GET);
         }
         /// <summary>
         /// Exchange Statistics
