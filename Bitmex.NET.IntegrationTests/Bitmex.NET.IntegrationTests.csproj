@@ -171,6 +171,7 @@
   <ItemGroup>
     <Compile Include="BaseBitmexIntegrationTests.cs" />
     <Compile Include="BaseBitmexSocketIntegrationTests.cs" />
+    <Compile Include="Tests\BitmexApiServiceChatApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceLiquidationApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceInsuranceApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceFundingApiTests.cs" />
