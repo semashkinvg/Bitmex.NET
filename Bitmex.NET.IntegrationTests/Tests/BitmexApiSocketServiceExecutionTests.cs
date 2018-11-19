@@ -14,7 +14,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
     [TestCategory("WebSocket")]
     public class BitmexApiSocketServiceExecutionsTests : BaseBitmexSocketIntegrationTests
     {
-        private decimal _xbtAvgPrice;
         private IBitmexApiService _bitmexApiService;
 
         [TestInitialize]
@@ -22,14 +21,6 @@ namespace Bitmex.NET.IntegrationTests.Tests
         {
             base.TestInitialize();
             _bitmexApiService = Container.Resolve<IBitmexApiService>();
-            var paramCloseAfter = new OrderCancelAllAfterPOSTRequestParams
-            {
-                Timeout = int.MaxValue
-            };
-
-            _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrderCancelAllAfter, paramCloseAfter).Wait();
-            _xbtAvgPrice = _bitmexApiService.Execute(BitmexApiUrls.OrderBook.GetOrderBookL2, new OrderBookL2GETRequestParams() { Symbol = "XBTUSD", Depth = 1 }).Result.First()
-                .Price;
 
         }
         [TestMethod]
@@ -53,7 +44,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 Sut.Subscribe(subscription);
                 _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder,
                     OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 10, OrderSide.Buy));
-                var received = dataReceived.WaitOne(TimeSpan.FromSeconds(20));
+                var received = dataReceived.WaitOne(TimeSpan.FromSeconds(30));
 
                 // assert
                 // no exception raised
