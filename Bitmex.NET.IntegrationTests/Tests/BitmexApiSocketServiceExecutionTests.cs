@@ -34,8 +34,12 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 var dataReceived = new ManualResetEvent(false);
                 var subscription = BitmetSocketSubscriptions.CreateExecutionSubsription(a =>
                 {
-                    dtos = a.Data;
-                    dataReceived.Set();
+                    if (a.Data.Any())
+                    {
+                        dtos = a.Data;
+                        dataReceived.Set();
+                    }
+
                 });
 
                 Subscription = subscription;
@@ -43,7 +47,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
                 Sut.Subscribe(subscription);
                 _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder,
-                    OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 10, OrderSide.Buy));
+                    OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 10, OrderSide.Buy)).Wait();
                 var received = dataReceived.WaitOne(TimeSpan.FromSeconds(30));
 
                 // assert
