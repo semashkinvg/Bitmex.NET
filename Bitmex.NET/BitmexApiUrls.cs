@@ -52,10 +52,10 @@ namespace Bitmex.NET
         /// </summary>
         public static partial class Chat
         {
-            //public static ApiActionAttributes<ChatGETRequestParams, ChatDto> GetChat = new ApiActionAttributes<ChatGETRequestParams, ChatDto>("chat", HttpMethods.GET);
-            //public static ApiActionAttributes<ChatPOSTRequestParams, ChatDto> PostChat = new ApiActionAttributes<ChatPOSTRequestParams, ChatDto>("chat", HttpMethods.POST);
-            //public static ApiActionAttributes<ChatChannelsGETRequestParams, ChatDto> GetChatChannels = new ApiActionAttributes<ChatChannelsGETRequestParams, ChatDto>("chat/channels", HttpMethods.GET);
-            //public static ApiActionAttributes<ChatConnectedGETRequestParams, ChatDto> GetChatConnected = new ApiActionAttributes<ChatConnectedGETRequestParams, ChatDto>("chat/connected", HttpMethods.GET);
+            public static ApiActionAttributes<ChatGETRequestParams, List<ChatDto>> GetChat = new ApiActionAttributes<ChatGETRequestParams, List<ChatDto>>("chat", HttpMethods.GET);
+            public static ApiActionAttributes<ChatPOSTRequestParams, ChatDto> PostChat = new ApiActionAttributes<ChatPOSTRequestParams, ChatDto>("chat", HttpMethods.POST);
+            public static ApiActionAttributes<EmptyParameters, List<ChatChannelDto>> GetChatChannels = new ApiActionAttributes<EmptyParameters, List<ChatChannelDto>>("chat/channels", HttpMethods.GET);
+            public static ApiActionAttributes<EmptyParameters, ChatConnectedDto> GetChatConnected = new ApiActionAttributes<EmptyParameters, ChatConnectedDto>("chat/connected", HttpMethods.GET);
         }
         /// <summary>
         /// Raw Order and Balance Data
@@ -250,15 +250,15 @@ namespace Bitmex.NET
         /// </summary>
         public static partial class Schema
         {
-            //public static ApiActionAttributes<SchemaGETRequestParams, SchemaDto> GetSchema = new ApiActionAttributes<SchemaGETRequestParams, SchemaDto>("schema", HttpMethods.GET);
-            //public static ApiActionAttributes<SchemaWebsocketHelpGETRequestParams, SchemaDto> GetSchemaWebsocketHelp = new ApiActionAttributes<SchemaWebsocketHelpGETRequestParams, SchemaDto>("schema/websocketHelp", HttpMethods.GET);
+            public static ApiActionAttributes<SchemaGETRequestParams, Dictionary<string, SchemaDto>> GetSchema = new ApiActionAttributes<SchemaGETRequestParams, Dictionary<string, SchemaDto>>("schema", HttpMethods.GET);
+            public static ApiActionAttributes<EmptyParameters, SchemaWebSocketHelpDto> GetSchemaWebsocketHelp = new ApiActionAttributes<EmptyParameters, SchemaWebSocketHelpDto>("schema/websocketHelp", HttpMethods.GET);
         }
         /// <summary>
         /// Historical Settlement Data
         /// </summary>
         public static partial class Settlement
         {
-            //public static ApiActionAttributes<SettlementGETRequestParams, SettlementDto> GetSettlement = new ApiActionAttributes<SettlementGETRequestParams, SettlementDto>("settlement", HttpMethods.GET);
+            public static ApiActionAttributes<SettlementGETRequestParams, List<SettlementDto>> GetSettlement = new ApiActionAttributes<SettlementGETRequestParams, List<SettlementDto>>("settlement", HttpMethods.GET);
         }
         /// <summary>
         /// Exchange Statistics

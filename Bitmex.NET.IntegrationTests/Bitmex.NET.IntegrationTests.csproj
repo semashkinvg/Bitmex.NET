@@ -171,12 +171,14 @@
   <ItemGroup>
     <Compile Include="BaseBitmexIntegrationTests.cs" />
     <Compile Include="BaseBitmexSocketIntegrationTests.cs" />
+    <Compile Include="Tests\BitmexApiServiceChatApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceLiquidationApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceInsuranceApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceFundingApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceLeaderBoardApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceAnnouncementApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceAPIKeysApiTests.cs" />
+    <Compile Include="Tests\BitmexApiServiceSettlementApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceStatsApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceUserApiTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceExecutionTests.cs" />
@@ -198,6 +200,7 @@
     <Compile Include="Tests\BitmexApiSocketServiceTradesTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceNegativeCasesTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceInstrumentsTests.cs" />
+    <Compile Include="Tests\BitmexApiServiceSchemaApiTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
