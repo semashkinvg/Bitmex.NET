@@ -57,5 +57,28 @@ namespace Bitmex.NET
         {
             return BitmexApiSubscriptionInfo<IEnumerable<TradeBucketedDto>>.Create(SubscriptionType.tradeBin1d, act);
         }
+
+        /// <summary>
+        /// Updates on your current account balance and margin requirements
+        /// </summary>
+        /// <param name="act">Your Action when socket get data</param>
+        /// <returns>Margin Subscription info</returns>
+        public static BitmexApiSubscriptionInfo<IEnumerable<MarginDto>> CreateMarginSubscription(Action<BitmexSocketDataMessage<IEnumerable<MarginDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<MarginDto>>.Create(SubscriptionType.margin, act);
+        }
+
+
+        /// <summary>
+        /// Bitcoin address balance data, including total deposits & withdrawals
+        /// </summary>
+        /// <param name="act">Your Action when socket get data</param>
+        /// <returns>Wallet Subscription info</returns>
+        public static BitmexApiSubscriptionInfo<IEnumerable<WalletDto>> CreateWalletSubscription(Action<BitmexSocketDataMessage<IEnumerable<WalletDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<WalletDto>>.Create(SubscriptionType.wallet, act);
+        }
+
+
     }
 }

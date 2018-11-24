@@ -199,6 +199,8 @@
     <Compile Include="Tests\BitmexApiSocketServiceNegativeCasesTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceInstrumentsTests.cs" />
     <Compile Include="Tests\BitmexApiServiceSchemaApiTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceMarginTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceWalletTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
