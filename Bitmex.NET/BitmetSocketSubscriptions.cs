@@ -98,5 +98,15 @@ namespace Bitmex.NET
         {
             return BitmexApiSubscriptionInfo<IEnumerable<AnnouncementDto>>.Create(SubscriptionType.announcement, act);
         }
+
+        /// <summary>
+        /// Trollbox chat
+        /// </summary>
+        /// <param name="act">Your Action when socket get data</param>
+        /// <returns>Chat Subscription info</returns>
+        public static BitmexApiSubscriptionInfo<IEnumerable<ChatDto>> CreateChatSubscription(Action<BitmexSocketDataMessage<IEnumerable<ChatDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<ChatDto>>.Create(SubscriptionType.chat, act);
+        }
     }
 }

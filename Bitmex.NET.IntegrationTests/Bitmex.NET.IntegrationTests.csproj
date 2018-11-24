@@ -203,6 +203,7 @@
     <Compile Include="Tests\BitmexApiSocketServiceMarginTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceWalletTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceAnnouncementTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceChatTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
