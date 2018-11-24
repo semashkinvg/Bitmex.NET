@@ -1,4 +1,7 @@
 # Release Notes
+## 2.0.79.0
+added subscriptions on liquidations and executions
+
 ## 2.0.70.0
 fixed #24
 changed TradeBucketedDto due to chance having nulls in OHLC

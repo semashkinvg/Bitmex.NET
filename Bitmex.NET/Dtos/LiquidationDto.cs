@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bitmex.NET.Dtos
 {
@@ -17,7 +14,7 @@ namespace Bitmex.NET.Dtos
         public string Side { get; set; }
 
         [JsonProperty("price")]
-        public double? Price { get; set; }
+        public decimal? Price { get; set; }
 
         [JsonProperty("leavesQty")]
         public decimal? LeavesQty { get; set; }
