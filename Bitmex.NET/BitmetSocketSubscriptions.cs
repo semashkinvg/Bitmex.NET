@@ -58,6 +58,16 @@ namespace Bitmex.NET
             return BitmexApiSubscriptionInfo<IEnumerable<TradeBucketedDto>>.Create(SubscriptionType.tradeBin1d, act);
         }
 
+        public static BitmexApiSubscriptionInfo<IEnumerable<LiquidationDto>> CreateLiquidationSubsription(Action<BitmexSocketDataMessage<IEnumerable<LiquidationDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<LiquidationDto>>.Create(SubscriptionType.liquidation, act);
+        }
+
+        public static BitmexApiSubscriptionInfo<IEnumerable<ExecutionDto>> CreateExecutionSubsription(Action<BitmexSocketDataMessage<IEnumerable<ExecutionDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<ExecutionDto>>.Create(SubscriptionType.execution, act);
+        }
+
         /// <summary>
         /// Updates on your current account balance and margin requirements
         /// </summary>

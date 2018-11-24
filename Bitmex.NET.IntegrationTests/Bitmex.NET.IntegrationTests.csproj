@@ -181,7 +181,9 @@
     <Compile Include="Tests\BitmexApiServiceSettlementApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceStatsApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceUserApiTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceExecutionTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceFundingTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceLiquidationTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceUnsubscribeTests.cs" />
     <Compile Include="BitmexNetUnityExtension.cs" />
     <Compile Include="IntegrationTestsClass.cs" />
