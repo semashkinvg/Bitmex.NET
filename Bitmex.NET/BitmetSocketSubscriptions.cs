@@ -79,6 +79,16 @@ namespace Bitmex.NET
             return BitmexApiSubscriptionInfo<IEnumerable<WalletDto>>.Create(SubscriptionType.wallet, act);
         }
 
+        /// <summary>
+        /// Bitcoin address balance data, including total deposits & withdrawals
+        /// </summary>
+        /// <param name="act">Your Action when socket get data</param>
+        /// <returns>Wallet Subscription info</returns>
+        public static BitmexApiSubscriptionInfo<IEnumerable<FundingDto>> CreateFundingSubscription(Action<BitmexSocketDataMessage<IEnumerable<FundingDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<FundingDto>>.Create(SubscriptionType.funding, act);
+        }
+
 
     }
 }
