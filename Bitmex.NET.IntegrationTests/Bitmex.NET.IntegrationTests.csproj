@@ -182,6 +182,7 @@
     <Compile Include="Tests\BitmexApiServiceStatsApiTests.cs" />
     <Compile Include="Tests\BitmexApiServiceUserApiTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceExecutionTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceFundingTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceLiquidationTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceUnsubscribeTests.cs" />
     <Compile Include="BitmexNetUnityExtension.cs" />
@@ -201,6 +202,10 @@
     <Compile Include="Tests\BitmexApiSocketServiceNegativeCasesTests.cs" />
     <Compile Include="Tests\BitmexApiSocketServiceInstrumentsTests.cs" />
     <Compile Include="Tests\BitmexApiServiceSchemaApiTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceMarginTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceWalletTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceAnnouncementTests.cs" />
+    <Compile Include="Tests\BitmexApiSocketServiceChatTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

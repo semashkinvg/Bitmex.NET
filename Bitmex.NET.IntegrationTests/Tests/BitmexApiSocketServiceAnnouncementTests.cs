@@ -10,18 +10,18 @@ namespace Bitmex.NET.IntegrationTests.Tests
 {
     [TestClass]
     [TestCategory("WebSocket")]
-    public class BitmexApiSocketServiceLiquidationTests : BaseBitmexSocketIntegrationTests
+    public class BitmexApiSocketServiceAnnouncementTests : BaseBitmexSocketIntegrationTests
     {
-        [TestMethod, Ignore("no liquidations on test environment")]
-        public void should_subscribe_on_liquidation()
+        [TestMethod]
+        public void should_subscribe_on_funding()
         {
             try
             {
                 // arrange
                 var connected = Sut.Connect();
-                IEnumerable<LiquidationDto> dtos = null;
+                IEnumerable<AnnouncementDto> dtos = null;
                 var dataReceived = new ManualResetEvent(false);
-                var subscription = BitmetSocketSubscriptions.CreateLiquidationSubsription(a =>
+                var subscription = BitmetSocketSubscriptions.CreateAnnouncementSubscription(a =>
                 {
                     dtos = a.Data;
                     dataReceived.Set();
@@ -31,19 +31,16 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 // act
 
                 Sut.Subscribe(subscription);
-                var received = dataReceived.WaitOne(TimeSpan.FromSeconds(20));
-
                 // assert
                 // no exception raised
                 connected.Should().BeTrue();
-                received.Should().BeTrue();
-                dtos.Should().NotBeNull();
-                dtos.Count().Should().BeGreaterThan(0);
+          
             }
             catch (BitmexWebSocketLimitReachedException)
             {
                 Assert.Inconclusive("connection limit reached");
             }
         }
+
     }
 }

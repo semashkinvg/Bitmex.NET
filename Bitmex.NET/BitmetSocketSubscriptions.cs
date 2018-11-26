@@ -67,5 +67,56 @@ namespace Bitmex.NET
         {
             return BitmexApiSubscriptionInfo<IEnumerable<ExecutionDto>>.Create(SubscriptionType.execution, act);
         }
+
+        /// <summary>
+        /// Updates on your current account balance and margin requirements
+        /// </summary>
+        /// <param name="act">Your Action when socket get data</param>
+        /// <returns>Margin Subscription info</returns>
+        public static BitmexApiSubscriptionInfo<IEnumerable<MarginDto>> CreateMarginSubscription(Action<BitmexSocketDataMessage<IEnumerable<MarginDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<MarginDto>>.Create(SubscriptionType.margin, act);
+        }
+
+
+        /// <summary>
+        /// Bitcoin address balance data, including total deposits & withdrawals
+        /// </summary>
+        /// <param name="act">Your Action when socket get data</param>
+        /// <returns>Wallet Subscription info</returns>
+        public static BitmexApiSubscriptionInfo<IEnumerable<WalletDto>> CreateWalletSubscription(Action<BitmexSocketDataMessage<IEnumerable<WalletDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<WalletDto>>.Create(SubscriptionType.wallet, act);
+        }
+
+        /// <summary>
+        /// Bitcoin address balance data, including total deposits & withdrawals
+        /// </summary>
+        /// <param name="act">Your Action when socket get data</param>
+        /// <returns>Funding Subscription info</returns>
+        public static BitmexApiSubscriptionInfo<IEnumerable<FundingDto>> CreateFundingSubscription(Action<BitmexSocketDataMessage<IEnumerable<FundingDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<FundingDto>>.Create(SubscriptionType.funding, act);
+        }
+
+        /// <summary>
+        /// Site announcements
+        /// </summary>
+        /// <param name="act">Your Action when socket get data</param>
+        /// <returns>Announcement Subscription info</returns>
+        public static BitmexApiSubscriptionInfo<IEnumerable<AnnouncementDto>> CreateAnnouncementSubscription(Action<BitmexSocketDataMessage<IEnumerable<AnnouncementDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<AnnouncementDto>>.Create(SubscriptionType.announcement, act);
+        }
+
+        /// <summary>
+        /// Trollbox chat
+        /// </summary>
+        /// <param name="act">Your Action when socket get data</param>
+        /// <returns>Chat Subscription info</returns>
+        public static BitmexApiSubscriptionInfo<IEnumerable<ChatDto>> CreateChatSubscription(Action<BitmexSocketDataMessage<IEnumerable<ChatDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<ChatDto>>.Create(SubscriptionType.chat, act);
+        }
     }
 }
