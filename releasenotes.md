@@ -1,4 +1,7 @@
 # Release Notes
+## 2.0.82.0
+added subscriptions on margin, chat, notification, wallet, funding
+
 ## 2.0.79.0
 added subscriptions on liquidations and executions
 
