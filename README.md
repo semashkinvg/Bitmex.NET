@@ -95,41 +95,6 @@ var result = await bitmexApiService.Execute(new ApiActionAttributes<SomeJsonPara
 ```
 
 
-## Progress
-The following methods were implemented and covered with the ![integration tests](/Bitmex.NET.IntegrationTests)
-
-
-Method|REST API Method
-------------|------------
-GET|execution
-GET|execution/tradeHistory
-GET|instrument
-GET|instrument/active
-GET|instrument/activeAndIndices
-GET|instrument/activeIntervals
-GET|instrument/compositeIndex
-GET|instrument/indices
-GET |order
-PUT |order
-POST |order
-DELETE |order
-DELETE |order/all
-PUT |order/bulk
-POST |order/bulk
-POST |order/cancelAllAfter
-POST |order/closePosition
-GET |orderBook/L2|yes
-GET |position|yes
-POST |position/isolate
-POST |position/leverage
-POST |position/riskLimit
-POST |position/transferMargin
-GET |quote
-GET |quote/bucketed
-GET |trade
-GET |trade/bucketed
-
-
 ## Docs
 Please checkout ![the following documents](/docs). During the time I will be adding solutions, best practices, life examples and some other information with peculiarities about Bitmex
 
