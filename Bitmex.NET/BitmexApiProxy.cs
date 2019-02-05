@@ -46,6 +46,8 @@ namespace Bitmex.NET
             var query = parameters?.ToQueryString() ?? string.Empty;
             var request = new HttpRequestMessage(HttpMethod.Get, GetUrl(action) + (string.IsNullOrWhiteSpace(query) ? string.Empty : "?" + query));
 
+            CorrectUri(request);
+            
             return SendAndGetResponseAsync(request);
         }
 
@@ -54,6 +56,8 @@ namespace Bitmex.NET
             var query = parameters?.ToQueryString() ?? string.Empty;
             var request = new HttpRequestMessage(HttpMethod.Delete, GetUrl(action) + (string.IsNullOrWhiteSpace(query) ? string.Empty : "?" + query));
 
+            CorrectUri(request);
+            
             return SendAndGetResponseAsync(request);
         }
 
@@ -71,6 +75,8 @@ namespace Bitmex.NET
             {
                 Content = new StringContent(content, Encoding.UTF8, "application/json")
             };
+            
+            CorrectUri(request);
 
             return SendAndGetResponseAsync(request, content);
         }
@@ -109,5 +115,10 @@ namespace Bitmex.NET
         }
 
         private static string GetUrl(string action) => "/api/v1/" + action;
+        
+        private static void CorrectUri(HttpRequestMessage request)
+        {
+            request.RequestUri = new Uri(request.RequestUri.OriginalString, UriKind.Relative);
+        }
     }
 }
