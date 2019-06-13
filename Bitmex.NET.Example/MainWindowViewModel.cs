@@ -21,7 +21,6 @@ namespace Bitmex.NET.Example
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private readonly IBitmexAuthorization _bitmexAuthorization;
-        private readonly IBitmexApiService _bitmexApiService;
         private readonly IBitmexApiSocketService _bitmexApiSocketService;
         private readonly object _syncObj = new object();
         private readonly object _syncObjOrders = new object();
@@ -93,7 +92,6 @@ namespace Bitmex.NET.Example
         public MainWindowViewModel()
         {
             _bitmexAuthorization = new BitmexAuthorization { BitmexEnvironment = BitmexEnvironment.Test };
-            _bitmexApiService = BitmexApiService.CreateDefaultApi(_bitmexAuthorization);
             _bitmexApiSocketService = BitmexApiSocketService.CreateDefaultApi(_bitmexAuthorization);
             BuyCmd = new DelegateCommand(Buy);
             SellCmd = new DelegateCommand(Sell);
@@ -246,13 +244,15 @@ namespace Bitmex.NET.Example
         private async void Sell()
         {
             var posOrderParams = OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", Size, OrderSide.Sell);
-            await _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, posOrderParams).ContinueWith(ProcessPostOrderResult);
+            var bitmexApiService = BitmexApiService.CreateDefaultApi(_bitmexAuthorization);
+            await bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, posOrderParams).ContinueWith(ProcessPostOrderResult);
         }
 
         private async void Buy()
         {
             var posOrderParams = OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", Size, OrderSide.Buy);
-            await _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, posOrderParams).ContinueWith(ProcessPostOrderResult);
+            var bitmexApiService = BitmexApiService.CreateDefaultApi(_bitmexAuthorization);
+            await bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, posOrderParams).ContinueWith(ProcessPostOrderResult);
         }
 
         private void ProcessPostOrderResult(Task<OrderDto> task)
