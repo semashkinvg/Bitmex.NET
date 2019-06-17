@@ -96,11 +96,11 @@ namespace Bitmex.NET
             {
                 try
                 {
-                    throw new BitmexApiException(JsonConvert.DeserializeObject<BitmexApiError>(responseString));
+                    throw new BitmexApiException(JsonConvert.DeserializeObject<BitmexApiError>(responseString), response.StatusCode);
                 }
                 catch (JsonReaderException)
                 {
-                    throw new BitmexApiException(responseString);
+                    throw new BitmexApiException(responseString, response.StatusCode);
                 }
             }
 
