@@ -331,8 +331,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 Orders = new[]
                 {
-                    OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 3, OrderSide.Buy),
-                    OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 3, OrderSide.Buy)
+                    OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Buy),
+                    OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice - LimitPriceSubtractor, OrderSide.Buy)
                 }
             };
 
@@ -353,8 +353,8 @@ namespace Bitmex.NET.IntegrationTests.Tests
             {
                 Orders = new[]
                 {
-                    OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 3, OrderSide.Sell),
-                    OrderPOSTRequestParams.CreateSimpleMarket("XBTUSD", 3, OrderSide.Sell)
+                    OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice + LimitPriceSubtractor, OrderSide.Sell),
+                    OrderPOSTRequestParams.CreateSimpleLimit("XBTUSD", 3, _xbtAvgPrice + LimitPriceSubtractor, OrderSide.Sell)
                 }
             };
 
