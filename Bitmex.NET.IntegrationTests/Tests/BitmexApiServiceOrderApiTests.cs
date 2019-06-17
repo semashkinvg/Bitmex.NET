@@ -324,7 +324,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
         }
 
         [TestMethod]
-        public void should_place_buy_market_orders_bulk()
+        public void should_place_buy_limit_orders_bulk()
         {
             // arrange
             var @params = new OrderBulkPOSTRequestParams
@@ -341,12 +341,12 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
             // assert
             result.Should().NotBeNull();
-            result.All(a => a.OrdStatus == "Filled").Should().BeTrue();
+            result.All(a => a.OrdStatus == "New").Should().BeTrue();
             result.All(a => !string.IsNullOrWhiteSpace(a.OrderId)).Should().BeTrue();
         }
 
         [TestMethod]
-        public void should_place_sell_market_orders_bulk()
+        public void should_place_sell_limit_orders_bulk()
         {
             // arrange
             var @params = new OrderBulkPOSTRequestParams
@@ -363,7 +363,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
             // assert
             result.Should().NotBeNull();
-            result.All(a => a.OrdStatus == "Filled").Should().BeTrue();
+            result.All(a => a.OrdStatus == "New").Should().BeTrue();
             result.All(a => !string.IsNullOrWhiteSpace(a.OrderId)).Should().BeTrue();
         }
 
