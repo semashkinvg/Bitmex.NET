@@ -32,7 +32,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrderCancelAllAfter, paramCloseAfter).Wait();
-            _xbtAvgPrice = _bitmexApiService.Execute(BitmexApiUrls.OrderBook.GetOrderBookL2, new OrderBookL2GETRequestParams() { Symbol = "XBTUSD", Depth = 1 }).Result.First()
+            _xbtAvgPrice = _bitmexApiService.Execute(BitmexApiUrls.OrderBook.GetOrderBookL2, new OrderBookL2GETRequestParams() { Symbol = "XBTUSD", Depth = 1 }).Result.Result.First()
                 .Price;
 
         }
@@ -61,7 +61,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 Subscription = subscription;
 
                 Sut.Subscribe(subscription);
-                var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
+                var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result.Result;
                 result.Should().NotBeNull();
                 //result.OrdType.Should().Be("Limit");
                 result.OrdStatus.Should().Be("New");
@@ -110,7 +110,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 Subscription = subscription;
 
                 Sut.Subscribe(subscription);
-                var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
+                var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result.Result;
                 result.Should().NotBeNull();
                 result.OrdType.Should().Be("Market");
                 result.OrdStatus.Should().Be("Filled");
@@ -156,7 +156,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 Subscription = subscription;
 
                 Sut.Subscribe(subscription);
-                var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
+                var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result.Result;
                 result.Should().NotBeNull();
                 result.OrdType.Should().Be("Market");
                 result.OrdStatus.Should().Be("Filled");

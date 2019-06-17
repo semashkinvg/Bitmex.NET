@@ -22,7 +22,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 StartTime = DateTime.UtcNow.AddDays(-42)                
             };
             // act
-            var result = Sut.Execute(BitmexApiUrls.Funding.GetFunding, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Funding.GetFunding, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();

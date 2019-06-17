@@ -19,7 +19,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Leaderboard.GetLeaderboard, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Leaderboard.GetLeaderboard, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -36,7 +36,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Leaderboard.GetLeaderboardName, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Leaderboard.GetLeaderboardName, @params).Result.Result;
             // assert
             result.Should().NotBeNull();            
         }

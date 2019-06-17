@@ -28,7 +28,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 
             };
             // act
-            var result = Sut.Execute(BitmexApiUrls.Settlement.GetSettlement, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Settlement.GetSettlement, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();

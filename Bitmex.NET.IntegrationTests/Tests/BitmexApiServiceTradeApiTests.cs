@@ -19,7 +19,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Trade.GetTrade, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Trade.GetTrade, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -37,7 +37,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Trade.GetTrade, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Trade.GetTrade, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -55,7 +55,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Trade.GetTradeBucketed, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Trade.GetTradeBucketed, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();

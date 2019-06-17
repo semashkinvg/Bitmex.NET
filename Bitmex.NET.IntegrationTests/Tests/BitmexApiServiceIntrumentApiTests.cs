@@ -18,7 +18,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrument, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrument, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -35,7 +35,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrument, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrument, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -53,7 +53,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrumentActive, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrumentActive, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -70,7 +70,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrumentActiveAndIndices, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrumentActiveAndIndices, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -87,7 +87,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrumentActiveIntervals, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrumentActiveIntervals, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -105,7 +105,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrumentCompositeIndex, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrumentCompositeIndex, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -120,7 +120,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrumentIndices, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Instrument.GetInstrumentIndices, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();

@@ -60,7 +60,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 ChannelID = 1,
 
             };
-            var result = bitmexRestApi.Execute(BitmexApiUrls.Chat.PostChat, @params).Result;
+            var result = bitmexRestApi.Execute(BitmexApiUrls.Chat.PostChat, @params).Result.Result;
         }
     }
 }

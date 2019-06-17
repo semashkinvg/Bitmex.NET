@@ -20,7 +20,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.OrderBook.GetOrderBookL2, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.OrderBook.GetOrderBookL2, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();

@@ -1,5 +1,4 @@
-﻿using Bitmex.NET.Dtos;
-using System;
+﻿using System;
 
 namespace Bitmex.NET
 {

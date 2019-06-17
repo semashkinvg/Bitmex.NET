@@ -255,7 +255,7 @@ namespace Bitmex.NET.Example
             await bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, posOrderParams).ContinueWith(ProcessPostOrderResult);
         }
 
-        private void ProcessPostOrderResult(Task<OrderDto> task)
+        private void ProcessPostOrderResult(Task<BitmexApiResult<OrderDto>> task)
         {
             if (task.Exception != null)
             {
@@ -263,7 +263,7 @@ namespace Bitmex.NET.Example
             }
             else
             {
-                MessageBox.Show($"order has been placed with Id {task.Result.OrderId}");
+                MessageBox.Show($"order has been placed with Id {task.Result.Result.OrderId}");
             }
         }
     }
