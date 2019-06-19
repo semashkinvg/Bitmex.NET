@@ -94,17 +94,15 @@ namespace Bitmex.NET
 
             Log.Debug($"{request.Method} {request.RequestUri.PathAndQuery} {(response.IsSuccessStatusCode ? "resp" : "errorResp")}:{responseString}");
 
-            BitmexApiResult<string> result = new BitmexApiResult<string>()
-            {
-                Result = responseString,
-            };
+            int rateLimitLimit = default, rateLimitRemaining = default;
+            DateTime rateLimitReset = default;
 
             if (response.Headers.TryGetValues("x-ratelimit-limit", out var ratelimitlimit) && ratelimitlimit.Any())
-                result.RateLimitLimit = int.Parse(ratelimitlimit.First());
+                rateLimitLimit = int.Parse(ratelimitlimit.First());
             if (response.Headers.TryGetValues("x-ratelimit-remaining", out var ratelimitremaining) && ratelimitremaining.Any())
-                result.RateLimitRemaining = int.Parse(ratelimitremaining.First());
+                rateLimitRemaining = int.Parse(ratelimitremaining.First());
             if (response.Headers.TryGetValues("x-ratelimit-reset", out var ratelimitreset) && ratelimitreset.Any())
-                result.RateLimitReset = _epochTime.AddSeconds(long.Parse(ratelimitreset.First()));
+                rateLimitReset = _epochTime.AddSeconds(long.Parse(ratelimitreset.First()));
 
             if (!response.IsSuccessStatusCode)
             {
@@ -130,7 +128,7 @@ namespace Bitmex.NET
                 }
             }
 
-            return result;
+            return new BitmexApiResult<string>(responseString, rateLimitLimit, rateLimitRemaining, rateLimitReset);
         }
 
         private void Sign(HttpRequestMessage request, string @params)

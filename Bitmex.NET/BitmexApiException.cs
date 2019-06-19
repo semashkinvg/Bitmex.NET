@@ -8,7 +8,7 @@ namespace Bitmex.NET
 
         public int StatusCode { get; }
         public BitmexApiError Error { get; }
-        public int? RetryAfterSeconds { get; set; }
+        public int? RetryAfterSeconds { get; internal set; }
 
         public BitmexApiException(int statusCode, BitmexApiError error) 
             : base($"{statusCode}: {error.Error.Message}, Code:{error.Error.Name}")
