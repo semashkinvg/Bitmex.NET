@@ -14,13 +14,13 @@ namespace Bitmex.NET.IntegrationTests.Tests
         public void should_return_ratelimit_headers()
         {
             // arrange
-            var @params = new QuoteGETRequestParams
+            var @params = new EmptyParameters();
             {
-                Symbol = "XBTUSD"
+
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Quote.GetQuote, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Stats.GetStats, @params).Result;
 
             // assert
             result.RateLimitLimit.Should().BeGreaterThan(0);
