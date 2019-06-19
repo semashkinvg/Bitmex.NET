@@ -104,6 +104,8 @@ namespace Bitmex.NET
             if (response.Headers.TryGetValues("x-ratelimit-reset", out var ratelimitreset) && ratelimitreset.Any())
                 rateLimitReset = _epochTime.AddSeconds(long.Parse(ratelimitreset.First()));
 
+            Log.Debug($"{request.Method} {request.RequestUri.PathAndQuery} x-ratelimit-limit:{rateLimitLimit} x-ratelimit-remaining:{rateLimitRemaining} x-ratelimit-reset:{rateLimitReset}");
+
             if (!response.IsSuccessStatusCode)
             {
                 int? retryAfterSeconds = null;
