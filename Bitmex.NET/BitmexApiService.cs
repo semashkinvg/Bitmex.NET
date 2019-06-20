@@ -19,26 +19,38 @@ namespace Bitmex.NET
             _bitmexApiProxy = new BitmexApiProxy(bitmexAuthorization);
         }
 
-        public async Task<TResult> Execute<TParams, TResult>(ApiActionAttributes<TParams, TResult> apiAction, TParams @params)
+        public async Task<BitmexApiResult<TResult>> Execute<TParams, TResult>(ApiActionAttributes<TParams, TResult> apiAction, TParams @params)
         {
             switch (apiAction.Method)
             {
                 case HttpMethods.GET:
-                    var getQueryParams = @params as IQueryStringParams;
-                    return JsonConvert.DeserializeObject<TResult>(
-                        await _bitmexApiProxy.Get(apiAction.Action, getQueryParams));
+                    {
+                        var getQueryParams = @params as IQueryStringParams;
+                        var serializedResult = await _bitmexApiProxy.Get(apiAction.Action, getQueryParams);
+                        var deserializedResult = JsonConvert.DeserializeObject<TResult>(serializedResult.Result);
+                        return serializedResult.ToResultType<TResult>(deserializedResult);
+                    }
                 case HttpMethods.POST:
-                    var postQueryParams = @params as IJsonQueryParams;
-                    return JsonConvert.DeserializeObject<TResult>(
-                        await _bitmexApiProxy.Post(apiAction.Action, postQueryParams));
+                    {
+                        var postQueryParams = @params as IJsonQueryParams;
+                        var serializedResult = await _bitmexApiProxy.Post(apiAction.Action, postQueryParams);
+                        var deserializedResult = JsonConvert.DeserializeObject<TResult>(serializedResult.Result);
+                        return serializedResult.ToResultType<TResult>(deserializedResult);
+                    }
                 case HttpMethods.PUT:
-                    var putQueryParams = @params as IJsonQueryParams;
-                    return JsonConvert.DeserializeObject<TResult>(
-                        await _bitmexApiProxy.Put(apiAction.Action, putQueryParams));
+                    {
+                        var putQueryParams = @params as IJsonQueryParams;
+                        var serializedResult = await _bitmexApiProxy.Put(apiAction.Action, putQueryParams);
+                        var deserializedResult = JsonConvert.DeserializeObject<TResult>(serializedResult.Result);
+                        return serializedResult.ToResultType<TResult>(deserializedResult);
+                    }
                 case HttpMethods.DELETE:
-                    var deleteQueryParams = @params as IQueryStringParams;
-                    return JsonConvert.DeserializeObject<TResult>(
-                        await _bitmexApiProxy.Delete(apiAction.Action, deleteQueryParams));
+                    {
+                        var deleteQueryParams = @params as IQueryStringParams;
+                        var serializedResult = await _bitmexApiProxy.Delete(apiAction.Action, deleteQueryParams);
+                        var deserializedResult = JsonConvert.DeserializeObject<TResult>(serializedResult.Result);
+                        return serializedResult.ToResultType<TResult>(deserializedResult);
+                    }
                 default:
                     throw new ArgumentOutOfRangeException();
             }

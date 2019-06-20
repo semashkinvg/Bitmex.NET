@@ -20,7 +20,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.GetUser, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.GetUser, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -37,7 +37,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.GetUserAffiliateStatus, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.GetUserAffiliateStatus, @params).Result.Result;
 
             // assert
             // returns nothing for test account
@@ -54,7 +54,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.GetUserCommission, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.GetUserCommission, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -71,7 +71,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.GetUserMargin, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.GetUserMargin, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -89,7 +89,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.GetUserCheckReferralCode, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.GetUserCheckReferralCode, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -105,7 +105,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.GetUserDepositAddress, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.GetUserDepositAddress, @params).Result.Result;
 
             // assert
             result.Should().NotBeNullOrWhiteSpace();
@@ -121,7 +121,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.GetUserWallet, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.GetUserWallet, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -139,7 +139,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.GetUserWalletHistory, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.GetUserWalletHistory, @params).Result.Result;
 
             // assert
             result.Should().NotBeNullOrEmpty();
@@ -156,7 +156,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.GetUserWalletSummary, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.GetUserWalletSummary, @params).Result.Result;
 
             // assert
             result.Should().NotBeNullOrEmpty();
@@ -173,7 +173,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.GetUserMinWithdrawalFee, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.GetUserMinWithdrawalFee, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -190,7 +190,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.User.PutUser, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.User.PutUser, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();

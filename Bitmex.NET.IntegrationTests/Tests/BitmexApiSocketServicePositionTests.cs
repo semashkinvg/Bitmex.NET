@@ -54,7 +54,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
                 Sut.Subscribe(subscription);
 
-                var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result;
+                var result = _bitmexApiService.Execute(BitmexApiUrls.Order.PostOrder, @params).Result.Result;
                 result.Should().NotBeNull();
                 result.OrdType.Should().Be("Market");
                 result.OrdStatus.Should().Be("Filled");

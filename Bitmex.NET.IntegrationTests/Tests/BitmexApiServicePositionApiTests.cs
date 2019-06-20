@@ -18,7 +18,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             var @params = new PositionGETRequestParams();
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Position.GetPosition, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Position.GetPosition, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -35,7 +35,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Position.GetPosition, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Position.GetPosition, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -54,7 +54,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Position.PostPositionIsolate, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Position.PostPositionIsolate, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -72,7 +72,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Position.PostPositionLeverage, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Position.PostPositionLeverage, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -90,7 +90,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Position.PostPositionRiskLimit, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Position.PostPositionRiskLimit, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -109,7 +109,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
             };
 
             // act
-            var result = Sut.Execute(BitmexApiUrls.Position.PostPositionTransferMargin, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Position.PostPositionTransferMargin, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();

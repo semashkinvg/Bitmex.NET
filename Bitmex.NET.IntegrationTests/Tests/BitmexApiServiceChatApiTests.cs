@@ -23,7 +23,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
               
             };
             // act
-            var result = Sut.Execute(BitmexApiUrls.Chat.GetChatConnected, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Chat.GetChatConnected, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -40,7 +40,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
             };
             // act
-            var result = Sut.Execute(BitmexApiUrls.Chat.GetChatChannels, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Chat.GetChatChannels, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -61,7 +61,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
 
             };
             // act
-            var result = Sut.Execute(BitmexApiUrls.Chat.PostChat, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Chat.PostChat, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();
@@ -87,7 +87,7 @@ namespace Bitmex.NET.IntegrationTests.Tests
                 ChannelID = 2
             };
             // act
-            var result = Sut.Execute(BitmexApiUrls.Chat.GetChat, @params).Result;
+            var result = Sut.Execute(BitmexApiUrls.Chat.GetChat, @params).Result.Result;
 
             // assert
             result.Should().NotBeNull();

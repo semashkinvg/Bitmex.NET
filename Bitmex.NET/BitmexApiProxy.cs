@@ -4,6 +4,7 @@ using Bitmex.NET.Logging;
 using Bitmex.NET.Models;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Bitmex.NET
         private readonly ISignatureProvider _signatureProvider;
 
         private readonly HttpClient _httpClient;
+        private readonly DateTime _epochTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
 
         public BitmexApiProxy(IBitmexAuthorization bitmexAuthorization, IExpiresTimeProvider expiresTimeProvider, ISignatureProvider signatureProvider)
         {
@@ -41,7 +43,7 @@ namespace Bitmex.NET
         {
         }
 
-        public Task<string> Get(string action, IQueryStringParams parameters)
+        public Task<BitmexApiResult<string>> Get(string action, IQueryStringParams parameters)
         {
             var query = parameters?.ToQueryString() ?? string.Empty;
             var request = new HttpRequestMessage(HttpMethod.Get, GetUrl(action) + (string.IsNullOrWhiteSpace(query) ? string.Empty : "?" + query));
@@ -51,7 +53,7 @@ namespace Bitmex.NET
             return SendAndGetResponseAsync(request);
         }
 
-        public Task<string> Delete(string action, IQueryStringParams parameters)
+        public Task<BitmexApiResult<string>> Delete(string action, IQueryStringParams parameters)
         {
             var query = parameters?.ToQueryString() ?? string.Empty;
             var request = new HttpRequestMessage(HttpMethod.Delete, GetUrl(action) + (string.IsNullOrWhiteSpace(query) ? string.Empty : "?" + query));
@@ -61,12 +63,12 @@ namespace Bitmex.NET
             return SendAndGetResponseAsync(request);
         }
 
-        public Task<string> Post(string action, IJsonQueryParams parameters) => SendAndGetResponseAsync(HttpMethod.Post, action, parameters);
+        public Task<BitmexApiResult<string>> Post(string action, IJsonQueryParams parameters) => SendAndGetResponseAsync(HttpMethod.Post, action, parameters);
 
-        public Task<string> Put(string action, IJsonQueryParams parameters) => SendAndGetResponseAsync(HttpMethod.Put, action, parameters);
+        public Task<BitmexApiResult<string>> Put(string action, IJsonQueryParams parameters) => SendAndGetResponseAsync(HttpMethod.Put, action, parameters);
 
 
-        private Task<string> SendAndGetResponseAsync(HttpMethod method, string action, IJsonQueryParams parameters)
+        private Task<BitmexApiResult<string>> SendAndGetResponseAsync(HttpMethod method, string action, IJsonQueryParams parameters)
         {
             var content = parameters?.ToJson() ?? string.Empty;
             var url = GetUrl(action);
@@ -81,7 +83,7 @@ namespace Bitmex.NET
             return SendAndGetResponseAsync(request, content);
         }
 
-        private async Task<string> SendAndGetResponseAsync(HttpRequestMessage request, string @params = null)
+        private async Task<BitmexApiResult<string>> SendAndGetResponseAsync(HttpRequestMessage request, string @params = null)
         {
             Sign(request, @params);
 
@@ -92,19 +94,43 @@ namespace Bitmex.NET
 
             Log.Debug($"{request.Method} {request.RequestUri.PathAndQuery} {(response.IsSuccessStatusCode ? "resp" : "errorResp")}:{responseString}");
 
+            int rateLimitLimit = default, rateLimitRemaining = default;
+            DateTime rateLimitReset = default;
+
+            if (response.Headers.TryGetValues("x-ratelimit-limit", out var ratelimitlimit) && ratelimitlimit.Any())
+                rateLimitLimit = int.Parse(ratelimitlimit.First());
+            if (response.Headers.TryGetValues("x-ratelimit-remaining", out var ratelimitremaining) && ratelimitremaining.Any())
+                rateLimitRemaining = int.Parse(ratelimitremaining.First());
+            if (response.Headers.TryGetValues("x-ratelimit-reset", out var ratelimitreset) && ratelimitreset.Any())
+                rateLimitReset = _epochTime.AddSeconds(long.Parse(ratelimitreset.First()));
+
+            Log.Debug($"{request.Method} {request.RequestUri.PathAndQuery} x-ratelimit-limit:{rateLimitLimit} x-ratelimit-remaining:{rateLimitRemaining} x-ratelimit-reset:{rateLimitReset}");
+
             if (!response.IsSuccessStatusCode)
             {
+                int? retryAfterSeconds = null;
+                if ((int) response.StatusCode == 429 && response.Headers.RetryAfter?.Delta != null)
+                {
+                    retryAfterSeconds = (int)response.Headers.RetryAfter.Delta.Value.TotalSeconds;
+                }
+
                 try
                 {
-                    throw new BitmexApiException(JsonConvert.DeserializeObject<BitmexApiError>(responseString));
+                    throw new BitmexApiException((int)response.StatusCode, JsonConvert.DeserializeObject<BitmexApiError>(responseString))
+                    {
+                        RetryAfterSeconds = retryAfterSeconds,
+                    };
                 }
                 catch (JsonReaderException)
                 {
-                    throw new BitmexApiException(responseString);
+                    throw new BitmexApiException((int)response.StatusCode, responseString)
+                    {
+                        RetryAfterSeconds = retryAfterSeconds,
+                    };
                 }
             }
 
-            return responseString;
+            return new BitmexApiResult<string>(responseString, rateLimitLimit, rateLimitRemaining, rateLimitReset);
         }
 
         private void Sign(HttpRequestMessage request, string @params)

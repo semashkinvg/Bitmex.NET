@@ -5,9 +5,9 @@ namespace Bitmex.NET
 {
     public interface IBitmexApiProxy
     {
-        Task<string> Get(string action, IQueryStringParams parameters);
-        Task<string> Post(string action, IJsonQueryParams parameters);
-        Task<string> Put(string action, IJsonQueryParams parameters);
-        Task<string> Delete(string action, IQueryStringParams parameters);
+        Task<BitmexApiResult<string>> Get(string action, IQueryStringParams parameters);
+        Task<BitmexApiResult<string>> Post(string action, IJsonQueryParams parameters);
+        Task<BitmexApiResult<string>> Put(string action, IJsonQueryParams parameters);
+        Task<BitmexApiResult<string>> Delete(string action, IQueryStringParams parameters);
     }
 }
