@@ -1,4 +1,8 @@
 # Release Notes
+## 2.0.99.0
+fixed issues #32 and #35
+changed response from bitmex proxy and services (added wrapper around the response)
+
 ## 2.0.82.0
 added subscriptions on margin, chat, notification, wallet, funding
 
