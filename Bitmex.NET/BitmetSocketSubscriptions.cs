@@ -13,6 +13,11 @@ namespace Bitmex.NET
             return BitmexApiSubscriptionInfo<IEnumerable<InstrumentDto>>.Create(SubscriptionType.instrument, act);
         }
 
+        public static BitmexApiSubscriptionInfo<IEnumerable<OrderBookDto>> CreateOrderBookL225Subsription(Action<BitmexSocketDataMessage<IEnumerable<OrderBookDto>>> act)
+        {
+            return BitmexApiSubscriptionInfo<IEnumerable<OrderBookDto>>.Create(SubscriptionType.orderBookL2_25, act);
+        }
+
         public static BitmexApiSubscriptionInfo<IEnumerable<OrderBook10Dto>> CreateOrderBook10Subsription(Action<BitmexSocketDataMessage<IEnumerable<OrderBook10Dto>>> act)
         {
             return BitmexApiSubscriptionInfo<IEnumerable<OrderBook10Dto>>.Create(SubscriptionType.orderBook10, act);

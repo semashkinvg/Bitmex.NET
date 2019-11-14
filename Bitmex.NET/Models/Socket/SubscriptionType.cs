@@ -11,6 +11,7 @@
 		liquidation, // Liquidation orders as they're entered into the book
 		orderBookL2, // Full level 2 orderBook
 		orderBook10, // Top 10 levels using traditional full book push
+		orderBookL2_25, // throttled subset of the L2 order book
 		publicNotifications, // System-wide notifications (used for short-lived messages)
 		quote, // Top level of the book
 		quoteBin1m, // 1-minute quote bins
