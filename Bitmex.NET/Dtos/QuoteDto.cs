@@ -13,13 +13,13 @@ namespace Bitmex.NET.Dtos
 		public string Symbol { get; set; }
 
 		[JsonProperty("bidSize")]
-		public decimal? BidSize { get; set; }
+		public long? BidSize { get; set; }
 
 		[JsonProperty("bidPrice")]
 		public decimal? BidPrice { get; set; }
 
 		[JsonProperty("askPrice")]
-		public long? AskPrice { get; set; }
+		public decimal? AskPrice { get; set; }
 
 		[JsonProperty("askSize")]
 		public long? AskSize { get; set; }
