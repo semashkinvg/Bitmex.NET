@@ -41,8 +41,24 @@ namespace Bitmex.NET.Models
                 Side = Enum.GetName(typeof(OrderSide), side),
                 OrderQty = quantity,
                 OrdType = Enum.GetName(typeof(OrderType), OrderType.Limit),
-                DisplayQty = quantity,
                 Price = price,
+                // only iceberg order must have the displayQty declared
+                // DisplayQty = displayQty,
+                ExecInst = "ParticipateDoNotInitiate",
+            };
+        }
+
+        public static OrderPOSTRequestParams CreateSimpleLimitIceberg(string symbol, decimal quantity, decimal displayQty, decimal price, OrderSide side)
+        {
+            return new OrderPOSTRequestParams
+            {
+                Symbol = symbol,
+                Side = Enum.GetName(typeof(OrderSide), side),
+                OrderQty = quantity,
+                OrdType = Enum.GetName(typeof(OrderType), OrderType.Limit),
+                Price = price,
+                // only iceberg order must have the displayQty declared
+                DisplayQty = displayQty,
                 ExecInst = "ParticipateDoNotInitiate",
             };
         }
